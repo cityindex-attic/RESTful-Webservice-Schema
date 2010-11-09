@@ -1,0 +1,457 @@
+﻿{
+  "properties": {
+    "OrderDTO": {
+      "id": "OrderDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "OrderId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "CurrencyId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "DirectionId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "MarketId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "Quantity": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.0
+        },
+        "StatusId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        }
+      }
+    },
+    "AccountDetailsDTO": {
+      "id": "AccountDetailsDTO",
+      "type": "object",
+      "description": "AccountDetailsDTO Description",
+      "properties": {
+        "AccountId": {
+          "type": "integer",
+          "description": "AccountId Description",
+          "demoValue": 1
+        },
+        "AccountName": {
+          "type": "string",
+          "description": "AccountName Description",
+          "demoValue": "sample value"
+        }
+      }
+    },
+    "PriceBarDTO": {
+      "id": "PriceBarDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "BarDate": {
+          "type": "string",
+          "description": "",
+          "demoValue": "/Date(1287136540715)/",
+          "format": "wcf-date"
+        },
+        "Open": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        },
+        "High": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        },
+        "Low": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        },
+        "Close": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        }
+      }
+    },
+    "MarketDTO": {
+      "id": "MarketDTO",
+      "type": "object",
+      "description": "MarketDTO Description",
+      "properties": {
+        "MarketId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "Name": {
+          "type": "string",
+          "description": "MarketId property desctiption",
+          "demoValue": "sample value"
+        }
+      }
+    },
+    "NewsDTO": {
+      "id": "NewsDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "StoryId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "Headline": {
+          "type": "string",
+          "description": "",
+          "demoValue": "1"
+        },
+        "PublishDate": {
+          "type": "string",
+          "description": "",
+          "demoValue": "sample value"
+        }
+      }
+    },
+    "NewsDetailDTO": {
+      "id": "NewsDetailDTO",
+      "type": "object",
+      "description": "",
+      "extends": {
+        "$ref": "#.properties.NewsDTO"
+      },
+      "properties": {
+        "Story": {
+          "type": "string",
+          "description": "",
+          "demoValue": "sample value"
+        }
+      }
+    },
+    "PriceTickDTO": {
+      "id": "PriceTickDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "TickDate": {
+          "type": "string",
+          "description": "",
+          "demoValue": "/Date(1287136540715)/",
+          "format": "wcf-date"
+        },
+        "Price": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        }
+      }
+    },
+    "StopLimitOrderDTO": {
+      "id": "StopLimitOrderDTO",
+      "type": "object",
+      "description": "",
+      "extends": {
+        "$ref": "#.properties.OrderDTO"
+      },
+      "properties": {
+        "TriggerPrice": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        },
+        "StopPrice": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        },
+        "LimitPrice": {
+          "type": "number",
+          "description": "",
+          "demoValue": 1.5
+        }
+      }
+    },
+    "LogOnRequestDTO": {
+      "id": "LogOnRequestDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "UserName": {
+          "type": "string",
+          "description": "Username is case sensitive",
+          "demoValue": "CC735158",
+          "minLength": 6,
+          "maxLength": 20
+        },
+        "Password": {
+          "type": "string",
+          "description": "Password is case sensitive",
+          "demoValue": "password",
+          "minLength": 6,
+          "maxLength": 20
+        }
+      }
+    },
+    "GetPriceTickResponseDTO": {
+      "id": "GetPriceTickResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "PriceTicks": {
+          "type": "array",
+          "items": {
+            "$ref": "#.properties.PriceTickDTO"
+          },
+          "description": ""
+        }
+      }
+    },
+    "GetNewsDetailResponseDTO": {
+      "id": "GetNewsDetailResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "NewsDetail": {
+          "$ref": "#.properties.NewsDetailDTO"
+        }
+      }
+    },
+    "SystemStatusDTO": {
+      "id": "SystemStatusDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "StatusMessage": {
+          "type": "string",
+          "description": "",
+          "demoValue": "sample value"
+        }
+      }
+    },
+    "ListCfdMarketsResponseDTO": {
+      "id": "ListCfdMarketsResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "Markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#.properties.MarketDTO"
+          },
+          "description": ""
+        }
+      }
+    },
+    "ListSpreadMarketsResponseDTO": {
+      "id": "ListSpreadMarketsResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "Markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#.properties.MarketDTO"
+          },
+          "description": ""
+        }
+      }
+    },
+    "CreateSessionResponseDTO": {
+      "id": "CreateSessionResponseDTO",
+      "type": "object",
+      "description": "Response to a CreateSessionRequest",
+      "properties": {
+        "Session": {
+          "type": "string",
+          "description": "Your session token (treat as a random string)",
+          "demoValue": "D2FF3E4D-01EA-4741-86F0-437C919B5559",
+          "format": "guid",
+          "minLength": 36,
+          "maxLength": 36
+        }
+      }
+    },
+    "ErrorResponseDTO": {
+      "id": "ErrorResponseDTO",
+      "type": "object",
+      "description": "This is a description of ErrorResponseDTO",
+      "properties": {
+        "ErrorMessage": {
+          "type": "string",
+          "description": "This is a description of the ErrorMessage property",
+          "demoValue": "sample value"
+        },
+        "ErrorCode": {
+          "$ref": "#.properties.ErrorCode"
+        }
+      }
+    },
+    "NewTradeOrderResponseDTO": {
+      "id": "NewTradeOrderResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "StatusReason": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        },
+        "OrderId": {
+          "type": "integer",
+          "description": "",
+          "demoValue": 1
+        }
+      }
+    },
+    "ErrorCode": {
+      "type": "integer",
+      "demoValue": 403,
+      "description": "This is a description of the ErrorCode enum",
+      "enum": [
+        403,
+        500,
+        4000,
+        4001,
+        4002,
+        4003,
+        4004
+      ],
+      "options": [
+        {
+          "value": 403,
+          "label": "Forbidden",
+          "description": "This is a description of Forbidden"
+        },
+        {
+          "value": 500,
+          "label": "InternalServerError",
+          "description": "This is a description of InternalServerError"
+        },
+        {
+          "value": 4000,
+          "label": "InvalidParameterType",
+          "description": "This is a description of InvalidParameterType"
+        },
+        {
+          "value": 4001,
+          "label": "ParameterMissing",
+          "description": "This is a description of ParameterMissing"
+        },
+        {
+          "value": 4002,
+          "label": "InvalidParameterValue",
+          "description": "This is a description of InvalidParameterValue"
+        },
+        {
+          "value": 4003,
+          "label": "InvalidJsonRequest",
+          "description": "This is a description of InvalidJsonRequest"
+        },
+        {
+          "value": 4004,
+          "label": "InvalidJsonRequestCaseFormat",
+          "description": "This is a description of InvalidJsonRequestCaseFormat"
+        }
+      ]
+    },
+    "SessionDeletionResponseDTO": {
+      "id": "SessionDeletionResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "LoggedOut": {
+          "type": "boolean",
+          "description": "LogOut status",
+          "demoValue": true
+        }
+      }
+    },
+    "GetPriceBarResponseDTO": {
+      "id": "GetPriceBarResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "PriceBars": {
+          "type": "array",
+          "items": {
+            "$ref": "#.properties.PriceBarDTO"
+          },
+          "description": ""
+        },
+        "PartialPriceBar": {
+          "$ref": "#.properties.PriceBarDTO"
+        }
+      }
+    },
+    "ListNewsHeadlinesResponseDTO": {
+      "id": "ListNewsHeadlinesResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "Headlines": {
+          "type": "array",
+          "items": {
+            "$ref": "#.properties.NewsDTO"
+          },
+          "description": ""
+        }
+      }
+    },
+    "G2SessionValidationResponseDTO": {
+      "id": "G2SessionValidationResponseDTO",
+      "type": "object",
+      "description": "",
+      "properties": {
+        "ClientAccountIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "ClientAccountIds that this session is authorized to work with",
+          "demoValue": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "TradingAccountIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "TradingAccountIds that this session is authorized to work with",
+          "demoValue": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "IsValid": {
+          "type": "boolean",
+          "description": "Whether this session token is still valid",
+          "demoValue": true
+        }
+      }
+    }
+  }
+}

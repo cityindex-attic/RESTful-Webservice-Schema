@@ -1,0 +1,67 @@
+﻿{
+  "SMDVersion": "2.0",
+  "version": "1.1",
+  "id": "http://tempuri.com/",
+  "target": "http://tempuri.com/",
+  "schema": "http://tempuri.com/schema",
+  "description": "City Index RESTful API 1.1",
+  "additionalParameters": true,
+  "useUriTemplates": true,
+  "contentType": "application/json",
+  "responseContentType": "application/json",
+  "services": {
+    "CreateSession": {
+      "description": "CreateSession Method Description",
+      "target": "/session",
+      "transport": "POST",
+      "envelope": "JSON",
+      "returns": {
+        "$ref": "#.properties.CreateSessionResponseDTO"
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "UserName",
+          "demoValue": "CC735158",
+          "minLength": 6,
+          "maxLength": 20
+        },
+        {
+          "type": "string",
+          "name": "Password",
+          "demoValue": "password",
+          "minLength": 6,
+          "maxLength": 20
+        }
+      ]
+    },
+    "DeleteSession": {
+      "description": "",
+      "target": "/session/deleteSession?userName={userName}&session={session}",
+      "transport": "POST",
+      "envelope": "JSON",
+      "returns": {
+        "$ref": "#.properties.SessionDeletionResponseDTO"
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "userName",
+          "description": "Username is case sensitive. May be set as a service parameter or as a request header.",
+          "demoValue": "CC735158",
+          "minLength": 6,
+          "maxLength": 20
+        },
+        {
+          "type": "string",
+          "name": "session",
+          "description": "The session token. May be set as a service parameter or as a request header.",
+          "demoValue": "5998CBE8-3594-4232-A57E-09EC3A4E7AA8",
+          "format": "guid",
+          "minLength": 36,
+          "maxLength": 36
+        }
+      ]
+    }
+  }
+}

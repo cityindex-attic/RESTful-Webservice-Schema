@@ -1,0 +1,153 @@
+﻿{
+  "id": "JSchemaDTO",
+  "type": "object",
+  "description": "this is a description of JSchemaDTO\n             see http://tools.ietf.org/html/draft-zyp-json-schema-02",
+  "properties": {
+    "TestEnumProperty": {
+      "$ref": "#.properties.TestEnum"
+    },
+    "TestEnumAsIntProperty": {
+      "$ref": "#.properties.TestEnum"
+    },
+    "IntProperty": {
+      "type": "integer",
+      "description": "this is a description of JSchemaDTO.IntProperty",
+      "demoValue": 100,
+      "optional": false,
+      "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
+      "maximumCanEqual": false,
+      "minimumCanEqual": true,
+      "minimum": 0,
+      "maximum": 36
+    },
+    "UintProperty": {
+      "type": "integer",
+      "description": "this is a description of JSchemaDTO.UintProperty",
+      "demoValue": 100,
+      "minimum": 0,
+      "maximum": 36
+    },
+    "LongProperty": {
+      "type": "integer",
+      "description": "this is a description of JSchemaDTO.LongProperty",
+      "demoValue": 100,
+      "minimum": 0,
+      "maximum": 36
+    },
+    "UlongProperty": {
+      "type": "integer",
+      "description": "this is a description of JSchemaDTO.UlongProperty",
+      "demoValue": 100,
+      "minimum": 0,
+      "maximum": 36
+    },
+    "FloatProperty": {
+      "type": "number",
+      "description": "this is a description of JSchemaDTO.FloatProperty",
+      "demoValue": 100.0,
+      "minimum": 0.0,
+      "maximum": 36.0
+    },
+    "DoubleProperty": {
+      "type": "number",
+      "description": "this is a description of JSchemaDTO.DoubleProperty",
+      "demoValue": 100.0,
+      "minimum": 0.0,
+      "maximum": 36.0
+    },
+    "DecimalProperty": {
+      "type": "number",
+      "description": "this is a description of JSchemaDTO.DecimalProperty",
+      "demoValue": 100.0,
+      "minimum": 0.0,
+      "maximum": 36.0
+    },
+    "CharProperty": {
+      "type": "string",
+      "description": "this is a description of JSchemaDTO.CharProperty"
+    },
+    "StringArrayProperty": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "default": "default-foo"
+      },
+      "description": "this is a description of JSchemaDTO.StringArrayProperty",
+      "demoValue": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "IntArrayProperty": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 36
+      },
+      "description": "this is a description of JSchemaDTO.IntArrayProperty",
+      "demoValue": [
+        1,
+        2,
+        3
+      ]
+    },
+    "StringProperty": {
+      "type": "string",
+      "description": "this is a description of JSchemaDTO.StringProperty",
+      "demoValue": "D2FF3E4D-01EA-4741-86F0-437C919B5559",
+      "optional": false,
+      "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
+      "format": "guid",
+      "contentEncoding": "text/plain",
+      "minLength": 36,
+      "maxLength": 36,
+      "pattern": "^(([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12})$"
+    },
+    "BoolProperty": {
+      "type": "boolean",
+      "description": "this is a description of JSchemaDTO.BoolProperty",
+      "optional": true
+    },
+    "JSchemaDTOProperty": {
+      "$ref": "#.properties.JSchemaDTO"
+    },
+    "SchemaDTOArrayProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.properties.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.SchemaDTOArrayProperty"
+    },
+    "IListJSchemaDTOProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.properties.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.IListJSchemaDTOProperty"
+    },
+    "ListJSchemaDTOProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.properties.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.ListJSchemaDTOProperty"
+    },
+    "ICollectionJSchemaDTOProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.properties.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.ICollectionJSchemaDTOProperty"
+    },
+    "IEnumerableJSchemaDTOProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.properties.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.IEnumerableJSchemaDTOProperty"
+    }
+  }
+}

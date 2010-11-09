@@ -1,0 +1,10 @@
+﻿{
+  "type": "string",
+  "optional": false,
+  "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
+  "format": "guid",
+  "contentEncoding": "text/plain",
+  "minLength": 36,
+  "maxLength": 36,
+  "pattern": "^(([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12})$"
+}

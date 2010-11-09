@@ -1,0 +1,14 @@
+﻿{
+  "id": "JSchemaDTOImpl",
+  "type": "object",
+  "description": "This is a derived class",
+  "extends": {
+    "$ref": "#.properties.JSchemaDTO"
+  },
+  "properties": {
+    "PropertyOnDerivedClass": {
+      "type": "string",
+      "description": "This is a property on a derived class"
+    }
+  }
+}

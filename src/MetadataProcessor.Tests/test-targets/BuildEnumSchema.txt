@@ -1,0 +1,26 @@
+﻿{
+  "type": "integer",
+  "demoValue": 2,
+  "description": "this is a description of TestEnum",
+  "enum": [
+    0,
+    1,
+    2
+  ],
+  "options": [
+    {
+      "value": 0,
+      "label": "None",
+      "description": "this is a description of TestEnum.None"
+    },
+    {
+      "value": 1,
+      "label": "One"
+    },
+    {
+      "value": 2,
+      "label": "Two",
+      "description": "this is a description of TestEnum.Two"
+    }
+  ]
+}

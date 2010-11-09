@@ -1,0 +1,11 @@
+﻿{
+  "type": "array",
+  "items": {
+    "type": "integer"
+  },
+  "demoValue": [
+    1,
+    2,
+    3
+  ]
+}

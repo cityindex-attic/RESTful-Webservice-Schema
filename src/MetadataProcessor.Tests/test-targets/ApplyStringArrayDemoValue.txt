@@ -1,0 +1,11 @@
+﻿{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "demoValue": [
+    "a",
+    "b",
+    "c"
+  ]
+}
