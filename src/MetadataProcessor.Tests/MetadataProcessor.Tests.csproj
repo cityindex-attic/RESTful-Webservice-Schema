@@ -32,9 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Library\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\packages\NUnit.2.5.7.10213\lib\pnunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="RESTWebServicesDTO">
+      <HintPath>..\..\packages\Dependancies-to-be-removed\RESTWebServicesDTO\RESTWebServicesDTO.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -47,41 +57,31 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingApi.CoreDTO">
+      <HintPath>..\..\packages\Dependancies-to-be-removed\RESTWebServicesDTO\TradingApi.CoreDTO.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingApi.ServerCommon">
+      <HintPath>..\..\packages\Dependancies-to-be-removed\TradingApi.ServerCommon\TradingApi.ServerCommon.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSchemaFixture.cs" />
     <Compile Include="SerializationFixture.cs" />
     <Compile Include="SmdFixture.cs" />
+    <Compile Include="TestDTO\CreateSessionResponseDTO.cs" />
     <Compile Include="TestDTO\ErrorCode.cs" />
     <Compile Include="TestDTO\ErrorResponseDTO.cs" />
     <Compile Include="TestDTO\JSchemaDTO.cs" />
+    <Compile Include="TestDTO\LogonRequestDTO.cs" />
+    <Compile Include="TestDTO\SessionDeletionRequestDTO.cs" />
+    <Compile Include="TestDTO\SessionDeletionResponseDTO.cs" />
     <Compile Include="TestEndpoint\ITestService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Library\newtonsoft.json\trunk\Src\Newtonsoft.Json\Newtonsoft.Json.Net35.csproj">
-      <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
-      <Name>Newtonsoft.Json.Net35</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\RESTWebServicesDTO\RESTWebServicesDTO.csproj">
-      <Project>{0F33CB4C-1E18-4FDD-8FF1-CA42B08C15C0}</Project>
-      <Name>RESTWebServicesDTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\TradingApi.CoreDTO\TradingApi.CoreDTO.csproj">
-      <Project>{5F840500-0253-47EB-85E4-51A18E3E8ED8}</Project>
-      <Name>TradingApi.CoreDTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Common\TradingApi.ServerCommon\TradingApi.ServerCommon.csproj">
-      <Project>{114D3225-E2F5-4247-BDC8-05EFE1661F48}</Project>
-      <Name>TradingApi.ServerCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MetadataProcessor\MetadataProcessor.csproj">
       <Project>{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}</Project>
       <Name>MetadataProcessor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RESTWebServices\RESTWebServices.csproj">
-      <Project>{F56D0758-8F06-483C-BB41-862B3D645804}</Project>
-      <Name>RESTWebServices</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +101,9 @@
     <Content Include="app.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,7 +16,6 @@ namespace MetadataProcessor
     {
         public void ProcessRequest(HttpContext context)
         {
-
             JObject properties = new JObject();
             JObject schema = new JObject();
             schema.Add("properties", properties);

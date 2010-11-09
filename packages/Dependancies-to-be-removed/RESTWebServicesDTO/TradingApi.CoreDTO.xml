@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TradingApi.CoreDTO</name>
+    </assembly>
+    <members>
+        <member name="T:TradingApi.CoreDTO.MarketDTO">
+            <summary>
+             Information about a Market
+            </summary>
+             <jschema
+             
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.MarketDTO.MarketId">
+            <summary>
+             A market&apos;s unique identifier
+            </summary>
+             <jschema
+             minimum="1000000" 
+             maximum="9999999" 
+             demoValue="254527845"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.MarketDTO.Name">
+            <summary>
+             The market name
+            </summary>
+             <jschema
+             minLength="1"
+             maxLength="120"
+             demoValue="Vodaphone CFD"
+             />
+        </member>
+        <member name="T:TradingApi.CoreDTO.NewsDetailDTO">
+            <summary>
+             Contains details of a specific news story
+            </summary>
+             <jschema />
+        </member>
+        <member name="T:TradingApi.CoreDTO.NewsDTO">
+            <summary>
+             A news headline
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.NewsDTO.StoryId">
+            <summary>
+             The unique identifier for a news story
+            </summary>
+             <jschema
+               minimum = "1"
+               maximum = "2147483647"
+               demoValue="12654"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.NewsDTO.Headline">
+            <summary>
+             The News story headline
+            </summary>
+             <jschema
+             demoValue="Barron&apos;s(8/29) Speaking Of Dividends: The Big Cheese: Kraft Foods Slices Costs And Serves A Payout Hike"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.NewsDTO.PublishDate">
+            <summary>
+             The date on which the news story was published.  Always in UTC
+            </summary>
+             <jschema
+             demoValue="/Date(1289231327280)/"
+             />
+        </member>
+        <member name="M:TradingApi.CoreDTO.NewsDetailDTO.#ctor(System.Int32,System.String,System.DateTime,System.String)">
+            <summary>
+            </summary>
+            <param name="storyId"></param>
+            <param name="headline"></param>
+            <param name="publishDate"></param>
+            <param name="story"></param>
+        </member>
+        <member name="P:TradingApi.CoreDTO.NewsDetailDTO.Story">
+            <summary>
+             The detail of the story.  This can contain HTML characters.
+            </summary>
+             <jschema
+               minLength = "0"
+               maxLength = "2147483647"
+               demoValue="&lt;pre&gt;    (From BARRON'S)     By Shirley A. Lazo &lt;/pre&gt;&lt;p&gt;   Well into a three-year restructuring effort begun in early 2004 to cut costs and boost investment in its brands, Kraft Foods sweetened its quarterly common dividend Tuesday, for the fourth year in a row. &lt;/p&gt;&lt;p&gt;   The new disbursement on Class A and Class B stock will be 23 cents a share, up 12% from 20.5 cents. Investors of record Sept. 7 will receive the enhanced quarterly Oct. 5. &quot;This dividend increase reflects confidence in our ability to grow cash flow and our commitment to returning value to shareholders,&quot; said chief executive Roger K. Deromedi. &lt;/p&gt;&lt;p&gt;   Kraft (ticker: KFT) initiated payouts at the rate of 13 cents a share in 2001, when it was partially spun off by Altria Group (MO) in the nation's second-largest initial public offering ever (behind AT&amp;amp;T Wireless, now Cingular Wireless). Altria, which used to be known as Philip Morris, holds approximately 85% of the Northfield, Ill.-based Kraft. Altria's directors meet Aug. 31; Citigroup thinks the dividend could be upped 10% at that time, resulting in a 4.6% yield. &lt;/p&gt;&lt;p&gt;   At Kraft's recent Big Board price of 31, the new dividend gives the shares a 2.96% yield. The stock set a 52-week high of 36.06 Dec. 15 but then dropped to a 52-week low of 30.11 on April 22. &lt;/p&gt;&lt;p&gt;   Kraft is the biggest North American food company and the world's second-largest after Nestle. It turns out the globe's biggest cheese brand (Kraft) and boasts the No. 1 cookie and cracker business (Nabisco). Some of its other brands are Oscar Mayer meats, Post cereals and Maxwell House coffee. &lt;/p&gt;&lt;p&gt;   Hurt by a loss of 17 cents a share on the sale of its Altoid and Life Saver candies to Wrigley, Kraft posted a 32% drop in second-quarter profits from a year earlier, to $472 million, or 28 cents a share, although earnings from continuing operations rose 12%, to $758 million, or 45 cents. Revenues gained 3%, to $8.33 billion. &lt;/p&gt;&lt;p&gt;   Deromedi said that Kraft's restructuring, dubbed the Sustainable Growth Plan, is working, despite unexpected challenges such as rising tabs for coffee, nuts, energy and packaging. The latter will cost the company $600 million this year and has forced Kraft to raise product prices. First-half discretionary cash flow (net cash provided by operating activities less capital expenditures) was $851 million. Kraft expects to earn $1.73 to $1.78 a share in 2005, including 22 cents in restructuring costs and four cents from asset sales. It pegs annual pretax costs savings from its restructuring at $400 million by 2006. &lt;/p&gt;&lt;pre&gt;&lt;/pre&gt;&lt;p&gt;   In Barron's Midyear Roundtable June 20, veteran investor and participant Archie MacAllaster chose State Auto Financial (STFC) as one of his picks. He liked it for its &quot;excellent long-term record and its bright future.&quot; The Nasdaq stock was at 28.76 when Archie singled it out, but then climbed to a new 52-week high of 32.63 Aug. 9. It's now back just below 30. A week ago, State Auto doubled its quarterly common dividend to nine cents a share, payable Sept. 30 to holders of record Sept. 15. Yield: 1.20%. Since going public in June 1991, the Columbus, Ohio, property and casualty insurer has hiked its dividend every year. &lt;/p&gt;&lt;p&gt;   &quot;State Auto Financial has successfully executed a disciplined corporate strategy for more than 14 years, allowing us to produce outstanding results through various market cycles,&quot; said CEO Robert H. Moone. &quot;Shareholder val- ue has increased robustly during that timeframe.&quot; Moone added that the payout boost &quot;conveys our continued confidence in going forward.&quot; First-half net surged 19% from the year-earlier level, to a record $79.6 million, or $1.94 a diluted share, on a 4% rise in revenues, to a peak $570.1 million. &lt;/p&gt;&lt;pre&gt;&lt;/pre&gt;&lt;p&gt;   A Nasdaq-traded limited partnership, Pope Resources (POPEZ) and its subsidiaries, Olympic Resource Management and Olympic Property Group, own or manage more than 640,000 acres of timberland and development property in Washington and Oregon. The company last Wednesday increased its quarterly distribution 67%, to 25 cents per unit from 15 cents. The respective payment and record dates are Sept. 23 and Sept. 9. CEO David L. Nunes said Pope is &quot;continuing to enjoy strong bottom-line performance . . . . The strategic initiatives put in place over the past few years are generating significant earnings and cash flow.&quot; &lt;/p&gt;&lt;p&gt;   Taking into account predecessor companies, Pope, which makes its home in Poulsbo, Wash., has been in the timberland business for more than 150 years. In January-June this year, Pope earned $8.7 million, or $1.83 a diluted ownership unit, on revenues of $32.8 million. That compares with profits of $8 million, or $1.75, on revenues of $23.6 million a year ago. &lt;/p&gt;&lt;pre&gt;&lt;/pre&gt;&lt;p&gt;   Canada's oldest and fourth-largest bank, Bank of Montreal (BMO) also owns Chicago's Harris Bank. Tuesday, the company reported its first profit drop in three years. Reason: costs for bad loans and a slump in investment-banking revenues, although retail banking and wealth-management results were strong. Nevertheless, it raised its quarterly common dividend for the second time this year (as it did in 2003 and 2004), to 49 Canadian cents a share (about 41 cents, U.S.), up 6.5% from 46 cents. &lt;/p&gt;&lt;p&gt;   That gives the stock a 3.39% yield. Holders of record Nov. 4 will receive the new dividend Nov. 29. Payouts have been ongoing since 1829. The shares set a 52-week high of 51.62 on the Big Board Aug. 16. &lt;/p&gt;&lt;p&gt;   --- &lt;/p&gt;&lt;p&gt;   For Barron's subscription information call 1-888-BARRONS ext. 685 or inquire online at http://www.barronsmag.com/subscription/subscription.html. &lt;/p&gt;&lt;pre&gt;&lt;/pre&gt;&lt;p&gt;   (END) Dow Jones Newswires&lt;/p&gt;&lt;p&gt;   August 27, 2005 00:01 ET (04:01 GMT)&lt;/p&gt;"
+             />
+        </member>
+        <member name="T:TradingApi.CoreDTO.PriceTickDTO">
+            <summary>
+             The mid price at a particular point in time.
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceTickDTO.TickDate">
+            <summary>
+             The datetime at which a price tick occured.  Accurate to the millisecond
+            </summary>
+             <jschema
+                format="wcf-date"
+                demoValue="/Date(1287136540715)/"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceTickDTO.Price">
+            <summary>
+             The mid price
+            </summary>
+             <jschema
+                minimum="0"
+                demoValue="1.5457"
+             />
+        </member>
+        <member name="T:TradingApi.CoreDTO.PriceBarDTO">
+            <summary>
+             The details of a specific price bar, useful for plotting candlestick charts
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceBarDTO.BarDate">
+            <summary>
+             The date of the start of the price bar interval
+            </summary>
+             <jschema
+             format="wcf-date"
+             demoValue="/Date(1287136540715)/"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceBarDTO.Open">
+            <summary>
+             The price at the open of the price bar interval
+            </summary>
+             <jschema
+             demoValue="1.5"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceBarDTO.High">
+            <summary>
+             The highest price occuring during the interval of the price bar
+            </summary>
+             <jschema
+             demoValue="2.343"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceBarDTO.Low">
+            <summary>
+             The lowest price occuring during the interval of the price bar
+            </summary>
+             <jschema
+             demoValue="1.3423"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.PriceBarDTO.Close">
+            <summary>
+             The price at the end of the price bar interval
+            </summary>
+             <jschema
+             demoValue="2.42"
+             />
+        </member>
+        <member name="T:TradingApi.CoreDTO.AccountDetailsDTO">
+            <summary>
+             AccountDetailsDTO Description
+            </summary>
+             <jschema
+             
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.AccountDetailsDTO.AccountId">
+            <summary>
+             AccountId Description
+            </summary>
+             <jschema
+             demoValue="1"
+             />
+        </member>
+        <member name="P:TradingApi.CoreDTO.AccountDetailsDTO.AccountName">
+            <summary>
+             AccountName Description
+            </summary>
+             <jschema
+             demoValue="sample value"
+             />
+        </member>
+    </members>
+</doc>
