@@ -5,6 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor", "src\Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor.Tests", "src\MetadataProcessor.Tests\MetadataProcessor.Tests.csproj", "{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06418E1C-F1F2-4787-AB4A-7C6D5191E12E}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.markdown = README.markdown
+		src\RESTful-Webservice-Schema.nuspec.xml = src\RESTful-Webservice-Schema.nuspec.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
