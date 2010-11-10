@@ -17,33 +17,6 @@ namespace MetadataProcessor.Tests
             return File.ReadAllText(@"..\..\test-targets\" + name + ".txt");
         }
 
-        [Test]
-        public void BuildTestService()
-        {
-            var profile = TradingApiConfigurationSection.Instance.Profiles[""];
-            const string smdUrl = "http://tempuri.com/";
-
-            string smdTargetUrl = smdUrl.Substring(0, smdUrl.LastIndexOf('/') + 1);
-
-            string smdSchemaUrl = smdTargetUrl + "schema";
-            string apiVersion = profile.Version;
-            string smdDescription = "City Index RESTful API " + apiVersion;
-            const string smdVersion = "2.0";
-
-            var smdBase = JsonSchemaUtilities.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion);
-
-            var dtoAssemblies = profile.DtoAssemblies.Cast<AssemblyReferenceElement>().ToList();
-
-            var mappedTypes = new List<Type>(); // just to keep track of types so we don't map twice
-            foreach (UrlMapElement route in profile.Routes)
-            {
-                JsonSchemaUtilities.BuildServiceMapping(route, mappedTypes, smdBase, dtoAssemblies, true);
-            }
-
-            // TODO: set caching headers and use asp.net cache
-
-            var smdJson = smdBase.ToString();
-            Assert.AreEqual(GetTestTarget("BuildTestService"), smdJson);
-        }
+       
     }
 }
