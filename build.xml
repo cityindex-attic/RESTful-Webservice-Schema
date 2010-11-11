@@ -34,7 +34,7 @@
    </Target>
    
    <Target Name="UpdateVersion" Condition="'$(BUILD_NUMBER)' != ''">
-       <RegexTransform Items="@(RegexTransform)" />
+<!--       <RegexTransform Items="@(RegexTransform)" />-->
    </Target>
 
    <Target Name="Build">
