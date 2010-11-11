@@ -22,13 +22,13 @@
   </PropertyGroup>
 
   <Target Name="Go" DependsOnTargets="UpdateVersion; 
-                                       VersionAssemblies; Build; RunTests; 
+                                       Build; RunTests; 
                                        CreateDropDirectories; CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; 
                                        Package">
   </Target>
 
   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" />
-  <Target Name="VersionAssemblies" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
+  <Target Name="UpdateVersion" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)" />
 
     <CreateItem Include="$(RootDirectory)\**\AssemblyInfo.cs">
