@@ -1,1 +1,1 @@
-Contains a C# implementation of a SMD and Jschema generator
+Contains a C# implementation of a SMD and Jschema generator.
