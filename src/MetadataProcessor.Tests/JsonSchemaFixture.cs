@@ -204,34 +204,6 @@ namespace MetadataProcessor.Tests
         }
 
 
-        [Test]
-        public void GenerateRWSDTO()
-        {
-            JObject properties = new JObject();
-            JObject schema = new JObject();
-            schema.Add("properties", properties);
-
-
-            var assemblyNames = new[] { "TradingApi.CoreDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "RESTWebServicesDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" };
-            foreach (var assemblyName in assemblyNames)
-            {
-                var assembly = Assembly.Load(assemblyName);
-
-                foreach (var type in assembly.GetTypes())
-                {
-                    var doc = JsonSchemaUtilities.GetXmlDocs(type);
-                    var typeSchema = JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
-                    if (typeSchema != null)
-                    {
-                        properties.Add(type.Name, typeSchema);
-                    }
-                }
-                
-            }
-
-
-            var schemaJSON = schema.ToString();
-            Assert.AreEqual(GetTestTarget("GenerateRWSDTO"), schemaJSON);
-        }
+       
     }
 }
