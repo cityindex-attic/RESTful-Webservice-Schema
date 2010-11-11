@@ -8,9 +8,7 @@
     <DropContentDirectory>$(DropDirectory)\content</DropContentDirectory>
     <DropToolsDirectory>$(DropDirectory)\tools</DropToolsDirectory>
 
-    <ProgramFiles32bit>C:\Program Files</ProgramFiles32bit>
-    <ProgramFiles32bit Condition="Exists('C:\Program Files (x86)')">C:\Program Files (x86)</ProgramFiles32bit>
-    <NunitEXE>$(ProgramFiles32bit)\NUnit 2.5.7\bin\net-2.0\nunit-console.exe</NunitEXE>
+    <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console.exe</NunitEXE>
     <NUnitArgs>/process=Single /domain=Single /nothread /framework=4.0.30319</NUnitArgs>
 
     <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
