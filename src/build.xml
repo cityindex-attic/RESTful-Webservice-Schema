@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Go" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
-    <RootDirectory>$(MSBuildProjectDirectory)</RootDirectory>
+    <RootDirectory>$(MSBuildProjectDirectory)\..</RootDirectory>
     <DropDirectory>$(RootDirectory)\dist</DropDirectory>
     <DropLibDirectory>$(DropDirectory)\lib</DropLibDirectory>
     <DropContentDirectory>$(DropDirectory)\content</DropContentDirectory>

@@ -1,1 +1,1 @@
-msbuild build.xml
+msbuild src\build.xml
