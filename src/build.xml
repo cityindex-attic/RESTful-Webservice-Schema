@@ -12,6 +12,13 @@
     <NUnitArgs>/process=Single /domain=Single /nothread /framework=4.0.30319</NUnitArgs>
 
     <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
+
+    <Major>1</Major>
+    <Minor>0</Minor>
+    <Build>0</Build>
+    <Revision>0</Revision>
+    <!--Hudson sets BUILD_NUMBER -->
+    <Build Condition="'$(BUILD_NUMBER)'!=''">$(BUILD_NUMBER)</Build>
   </PropertyGroup>
   
 <!--   <ItemGroup>-->
@@ -26,12 +33,33 @@
 <!--   </ItemGroup>-->
 
    <Target Name="Go" DependsOnTargets="UpdateVersion; 
-                                       Build; RunTests; 
+                                       VersionAssemblies; Build; RunTests; 
                                        CreateDropDirectories; CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; 
                                        Package">
    </Target>
-   
-   <Target Name="UpdateVersion" Condition="'$(BUILD_NUMBER)' != ''">
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" />
+  <Target Name="VersionAssemblies" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
+    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)" />
+
+    <CreateItem Include="$(RootDirectory)\**\AssemblyInfo.cs">
+      <Output TaskParameter="Include" ItemName="AssemblyInfos"/>
+    </CreateItem>
+
+    <Message Text="AssemblyInfos.FullPath='%(AssemblyInfos.FullPath)'" Importance="Low"/>
+
+    <FileUpdate Files="%(AssemblyInfos.FullPath)"
+                Regex="AssemblyVersion\s*\(\s*\&quot;(\d+\.\d+\.(\d+|\*)\.(\d+|\*))\&quot;\s*\)"
+                ReplacementText="AssemblyVersion(&quot;$(Major).$(Minor).$(Build).$(Revision)&quot;)" />
+    <FileUpdate Files="%(AssemblyInfos.FullPath)"
+                Regex="AssemblyFileVersion\s*\(\s*\&quot;(\d+\.\d+\.(\d+|\*)\.(\d+|\*))\&quot;\s*\)" 
+                ReplacementText="AssemblyFileVersion(&quot;$(Major).$(Minor).$(Build).$(Revision)&quot;)"/>
+    <FileUpdate Files="$(RootDirectory)\src\RESTful-Webservice-Schema.nuspec.xml"
+                Regex="&lt;version&gt;(.*?)&lt;/version&gt;"
+                ReplacementText="&lt;version&gt;$(Major).$(Minor).$(Build).$(Revision)&lt;/version&gt;" />
+  </Target>
+
+  <Target Name="UpdateVersion" Condition="'$(BUILD_NUMBER)' != ''">
 <!--       <RegexTransform Items="@(RegexTransform)" />-->
    </Target>
 
