@@ -30,7 +30,7 @@
 
   <Target Name="Go" DependsOnTargets="CreateCleanDirectories; UpdateVersion; 
                                       Build; RunTests; 
-                                      CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; 
+                                      CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; CopyReportsToDropFolder;
                                       Package">
   </Target>
 
@@ -71,32 +71,6 @@
     <MakeDir Directories="$(DropToolsDirectory)" Condition="!Exists('$(DropToolsDirectory)')" />
   </Target>
 
-  <Target Name="CopyMSBuildOutputToDropDirectory">
-    <ItemGroup>
-      <MSBuildOutputItems Exclude="$(RootDirectory)\**\*.pdb" Include="$(RootDirectory)\src\MetadataProcessor\bin\$(Configuration)\*.*" />
-    </ItemGroup>
-    <Message Text="Copying dll output to $(DropLibDirectory)" />
-    <Copy ContinueOnError="false" SourceFiles="@(MSBuildOutputItems)" DestinationFiles="@(MSBuildOutputItems ->'$(DropLibDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
-
-  <Target Name="CopyLicenseToAllDirectories">
-    <ItemGroup>
-      <LicenseFileItems Include="$(RootDirectory)\LICENSE.txt" />
-    </ItemGroup>
-    <Message Text="Copying the License to all drop directories" />
-    <Copy ContinueOnError="false" SourceFiles="@(LicenseFileItems)" DestinationFiles="@(LicenseFileItems -&gt;'$(DropDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
-
-  <Target Name="Package">
-    <ItemGroup>
-      <LicenseFileItems Include="$(RootDirectory)\LICENSE.txt" />
-    </ItemGroup>
-    <Message Text="Packaging with NuGet" />
-    <Copy SourceFiles="$(RootDirectory)\src\RESTful-Webservice-Schema.nuspec.xml" DestinationFolder="$(DropDirectory)"/>
-    <Exec Command='"$(NuGetEXE)" pack $(DropDirectory)\RESTful-Webservice-Schema.nuspec.xml' ContinueOnError='false'
-          WorkingDirectory='$(DropDirectory)'/>
-  </Target>
-
   <!-- Runs unit tests through PartCover to calculate unit test covereage-->
   <!-- Use %2a instead of * and %3f instead of ? to prevent expansion -->
   <!-- %40 = @  %25 = % %24 = $ -->
@@ -126,4 +100,40 @@
 
     <Error Text="Test error occurred" Condition="'%(ExitCodes.Identity)'>0"/>
   </Target>
+  
+  <Target Name="CopyMSBuildOutputToDropDirectory">
+    <ItemGroup>
+      <MSBuildOutputItems Exclude="$(RootDirectory)\**\*.pdb" Include="$(RootDirectory)\src\MetadataProcessor\bin\$(Configuration)\*.*" />
+    </ItemGroup>
+    <Message Text="Copying dll output to $(DropLibDirectory)" />
+    <Copy ContinueOnError="false" SourceFiles="@(MSBuildOutputItems)" DestinationFiles="@(MSBuildOutputItems ->'$(DropLibDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="CopyLicenseToAllDirectories">
+    <ItemGroup>
+      <LicenseFileItems Include="$(RootDirectory)\LICENSE.txt" />
+    </ItemGroup>
+    <Message Text="Copying the License to all drop directories" />
+    <Copy ContinueOnError="false" SourceFiles="@(LicenseFileItems)" DestinationFiles="@(LicenseFileItems -&gt;'$(DropDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="CopyReportsToDropFolder">
+    <ItemGroup>
+      <Reports Include="$(BuildDirectory)\PartCover*.html" />
+    </ItemGroup>
+    <Message Text="Copying the Reports to drop directories" />
+    <Copy ContinueOnError="false" SourceFiles="@(Reports)" DestinationFiles="@(Reports -&gt;'$(DropDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="Package">
+    <ItemGroup>
+      <LicenseFileItems Include="$(RootDirectory)\LICENSE.txt" />
+    </ItemGroup>
+    <Message Text="Packaging with NuGet" />
+    <Copy SourceFiles="$(RootDirectory)\src\RESTful-Webservice-Schema.nuspec.xml" DestinationFolder="$(DropDirectory)"/>
+    <Exec Command='"$(NuGetEXE)" pack $(DropDirectory)\RESTful-Webservice-Schema.nuspec.xml' ContinueOnError='false'
+          WorkingDirectory='$(DropDirectory)'/>
+  </Target>
+
+  
 </Project>
