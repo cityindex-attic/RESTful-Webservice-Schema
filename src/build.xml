@@ -114,7 +114,7 @@
       <Output TaskParameter="Include" ItemName="TestAssemblies" />
     </CreateItem>
 
-    <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; @(pc4_settings,' ') --target-args &quot;%(TestAssemblies.Identity) $(NUnitArgs) /xml:%(TestAssemblies.Identity).NUnitResults.xml&quot; --output $(BuildDirectory)\PartCover-results.xml"
+    <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; --register @(pc4_settings,' ') --target-args &quot;%(TestAssemblies.Identity) $(NUnitArgs) /xml:%(TestAssemblies.Identity).NUnitResults.xml&quot; --output $(BuildDirectory)\PartCover-results.xml"
       ContinueOnError="true"
       WorkingDirectory="$(RootDirectory)">
       <Output TaskParameter="ExitCode" ItemName="ExitCodes"/>
