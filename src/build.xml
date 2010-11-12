@@ -15,7 +15,7 @@
     <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console-x86.exe</NunitEXE>
     <NUnitArgs>/process=Single /domain=Single /nothread /framework=4.0.30319</NUnitArgs>
 
-    <PartCover4Directory>$(RootDirectory)\tools\partcover4</PartCover4Directory>
+    <PartCover4Directory>$(ProgramFiles86)\PartCover\PartCover .NET 4.0</PartCover4Directory>
     
     <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
 
@@ -116,11 +116,11 @@
 
     <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; --register @(pc4_settings,' ') --target-args &quot;%(TestAssemblies.Identity) $(NUnitArgs) /xml:%(TestAssemblies.Identity).NUnitResults.xml&quot; --output $(BuildDirectory)\PartCover-results.xml"
       ContinueOnError="true"
-      WorkingDirectory="$(RootDirectory)">
+      WorkingDirectory="$(BuildDirectory)">
       <Output TaskParameter="ExitCode" ItemName="ExitCodes"/>
     </Exec>
 
-    <XslTransformation XslInputPath="$(PartCover4Directory)\xslt\PartCoverFullReport.xslt"
+    <XslTransformation XslInputPath="$(RootDirectory)\tools\partcover4\xslt\PartCoverFullReport.xslt"
                       XmlInputPaths="$(BuildDirectory)\PartCover-results.xml"
                       OutputPaths="$(BuildDirectory)\PartCover-results-PartCoverFullReport.html" />
 
