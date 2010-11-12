@@ -3,14 +3,20 @@
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <RootDirectory>$(MSBuildProjectDirectory)\..</RootDirectory>
+    <BuildDirectory>$(RootDirectory)\build</BuildDirectory>
     <DropDirectory>$(RootDirectory)\dist</DropDirectory>
     <DropLibDirectory>$(DropDirectory)\lib</DropLibDirectory>
     <DropContentDirectory>$(DropDirectory)\content</DropContentDirectory>
     <DropToolsDirectory>$(DropDirectory)\tools</DropToolsDirectory>
 
-    <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console.exe</NunitEXE>
+    <ProgramFiles86>C:\Program Files</ProgramFiles86>
+    <ProgramFiles86 Condition="Exists('C:\Program Files (x86)')">C:\Program Files (x86)</ProgramFiles86>
+
+    <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console-x86.exe</NunitEXE>
     <NUnitArgs>/process=Single /domain=Single /nothread /framework=4.0.30319</NUnitArgs>
 
+    <PartCover4Directory>$(RootDirectory)\tools\partcover4</PartCover4Directory>
+    
     <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
 
     <Major>1</Major>
@@ -19,12 +25,13 @@
     <Revision>0</Revision>
     <!--Hudson sets BUILD_NUMBER -->
     <Build Condition="'$(BUILD_NUMBER)'!=''">$(BUILD_NUMBER)</Build>
-  </PropertyGroup>
+  
+</PropertyGroup>
 
-  <Target Name="Go" DependsOnTargets="UpdateVersion; 
-                                       Build; RunTests; 
-                                       CreateDropDirectories; CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; 
-                                       Package">
+  <Target Name="Go" DependsOnTargets="CreateCleanDirectories; UpdateVersion; 
+                                      Build; RunTests; 
+                                      CopyMSBuildOutputToDropDirectory; CopyLicenseToAllDirectories; 
+                                      Package">
   </Target>
 
   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" />
@@ -52,18 +59,11 @@
     <MSBuild Projects="$(RootDirectory)\RESTful-Webservice-Schema.sln" Targets="Rebuild" Properties="EnableCodeAnalysis=true;GenerateDocumentation=true" />
   </Target>
 
-  <Target Name="RunTests">
-    <CreateItem Include="$(RootDirectory)\src\**\bin\$(Configuration)\*.Tests.dll">
-      <Output TaskParameter="Include" ItemName="TestAssemblies" />
-    </CreateItem>
-    <Exec ContinueOnError='true' Command='"$(NUnitEXE)" %(TestAssemblies.Identity) $(NUnitArgs) /xml:%(TestAssemblies.Identity).NUnitResults.xml'  >
-      <Output TaskParameter="ExitCode" ItemName="ExitCodes"/>
-    </Exec>
-    <Error Text="Test error occurred" Condition="'%(ExitCodes.Identity)'>0"/>
-  </Target>
+  <Target Name="CreateCleanDirectories">
+    <Message Text="Making the output directories for the compiled output at '$(BuildDirectory)' and '$(DropDirectory)'." />
+    <RemoveDir Directories="$(BuildDirectory)" Condition="Exists('$(BuildDirectory)')" ContinueOnError="True" />
+    <MakeDir Directories="$(BuildDirectory)" Condition="!Exists('$(BuildDirectory)')" />
 
-  <Target Name="CreateDropDirectories">
-    <Message Text="Making the output directories for the compiled output at '$(DropDirectory)'." />
     <RemoveDir Directories="$(DropDirectory)" Condition="Exists('$(DropDirectory)')" ContinueOnError="True" />
     <MakeDir Directories="$(DropDirectory)" Condition="!Exists('$(DropDirectory)')" />
     <MakeDir Directories="$(DropLibDirectory)" Condition="!Exists('$(DropLibDirectory)')" />
@@ -95,5 +95,35 @@
     <Copy SourceFiles="$(RootDirectory)\src\RESTful-Webservice-Schema.nuspec.xml" DestinationFolder="$(DropDirectory)"/>
     <Exec Command='"$(NuGetEXE)" pack $(DropDirectory)\RESTful-Webservice-Schema.nuspec.xml' ContinueOnError='false'
           WorkingDirectory='$(DropDirectory)'/>
+  </Target>
+
+  <!-- Runs unit tests through PartCover to calculate unit test covereage-->
+  <!-- Use %2a instead of * and %3f instead of ? to prevent expansion -->
+  <!-- %40 = @  %25 = % %24 = $ -->
+  <Target Name="RunTests">
+    <ItemGroup>
+      <pc4_settings Include="--target &quot;$(NUnitEXE)&quot;"/>
+      <pc4_settings Include="--target-work-dir &quot;$(RootDirectory)\src&quot;"/>
+      <pc4_settings Include="--include [%2a]%2a"/>
+      <pc4_settings Include="--exclude [nunit%2a]%2a"/>
+      <pc4_settings Include="--exclude [log4net%2a]%2a"/>
+      <pc4_settings Include="--exclude [MetadataProcessor.Tests%2a]%2a"/>
+    </ItemGroup>
+
+    <CreateItem Include="$(RootDirectory)\src\**\bin\$(Configuration)\*.Tests.dll">
+      <Output TaskParameter="Include" ItemName="TestAssemblies" />
+    </CreateItem>
+
+    <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; @(pc4_settings,' ') --target-args &quot;%(TestAssemblies.Identity) $(NUnitArgs) /xml:%(TestAssemblies.Identity).NUnitResults.xml&quot; --output $(BuildDirectory)\PartCover-results.xml"
+      ContinueOnError="true"
+      WorkingDirectory="$(RootDirectory)">
+      <Output TaskParameter="ExitCode" ItemName="ExitCodes"/>
+    </Exec>
+
+    <XslTransformation XslInputPath="$(PartCover4Directory)\xslt\PartCoverFullReport.xslt"
+                      XmlInputPaths="$(BuildDirectory)\PartCover-results.xml"
+                      OutputPaths="$(BuildDirectory)\PartCover-results-PartCoverFullReport.html" />
+
+    <Error Text="Test error occurred" Condition="'%(ExitCodes.Identity)'>0"/>
   </Target>
 </Project>
