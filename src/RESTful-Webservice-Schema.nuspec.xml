@@ -4,7 +4,7 @@
     <id>RESTful-Webservice-Schema</id>
     <title>RESTful Webservice Schema generator</title>
     <version>1.0.0.0</version>
-    <authors>CityIndex Ltd, Sky Sanders, David Laing]</authors>
+    <authors>CityIndex Ltd, Sky Sanders, David Laing</authors>
     <description>RESTful-Webservice-Schema generates SMD and Jschema webservice definition from XML comments</description>
     <language>en-GB</language>
     <licenseUrl>https://github.com/cityindex/RESTful-Webservice-Schema/raw/master/LICENSE.txt</licenseUrl>
