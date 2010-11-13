@@ -7,8 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06418E1C-F1F2-4787-AB4A-7C6D5191E12E}"
 	ProjectSection(SolutionItems) = preProject
-		build.xml = build.xml
+		src\build.xml = src\build.xml
 		LICENSE.txt = LICENSE.txt
+		NOTICE.txt = NOTICE.txt
 		README.markdown = README.markdown
 		src\RESTful-Webservice-Schema.nuspec.xml = src\RESTful-Webservice-Schema.nuspec.xml
 	EndProjectSection
