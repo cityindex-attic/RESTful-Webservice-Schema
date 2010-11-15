@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor", "src\MetadataProcessor\MetadataProcessor.csproj", "{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor", "MetadataProcessor\MetadataProcessor.csproj", "{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor.Tests", "src\MetadataProcessor.Tests\MetadataProcessor.Tests.csproj", "{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataProcessor.Tests", "MetadataProcessor.Tests\MetadataProcessor.Tests.csproj", "{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06418E1C-F1F2-4787-AB4A-7C6D5191E12E}"
 	ProjectSection(SolutionItems) = preProject
-		src\build.xml = src\build.xml
-		LICENSE.txt = LICENSE.txt
-		NOTICE.txt = NOTICE.txt
-		README.markdown = README.markdown
-		src\RESTful-Webservice-Schema.nuspec.xml = src\RESTful-Webservice-Schema.nuspec.xml
+		build.xml = build.xml
+		..\LICENSE.txt = ..\LICENSE.txt
+		..\NOTICE.txt = ..\NOTICE.txt
+		..\README.markdown = ..\README.markdown
+		RESTful-Webservice-Schema.nuspec.xml = RESTful-Webservice-Schema.nuspec.xml
 	EndProjectSection
 EndProject
 Global
