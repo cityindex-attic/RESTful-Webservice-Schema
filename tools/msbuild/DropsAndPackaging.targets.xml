@@ -5,6 +5,7 @@
     <DropLibDirectory>$(DropDirectory)\lib</DropLibDirectory>
     <DropContentDirectory>$(DropDirectory)\content</DropContentDirectory>
     <DropToolsDirectory>$(DropDirectory)\tools</DropToolsDirectory>
+    <DropReportsDirectory>$(DropDirectory)\reports</DropReportsDirectory>
 
     <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
   </PropertyGroup>
@@ -23,6 +24,7 @@
     <MakeDir Directories="$(DropLibDirectory)" Condition="!Exists('$(DropLibDirectory)')" />
     <MakeDir Directories="$(DropContentDirectory)" Condition="!Exists('$(DropContentDirectory)')" />
     <MakeDir Directories="$(DropToolsDirectory)" Condition="!Exists('$(DropToolsDirectory)')" />
+    <MakeDir Directories="$(DropReportsDirectory)" Condition="!Exists('$(DropReportsDirectory)')" />
   </Target>
   
   <Target Name="CopyMSBuildOutputToDropDirectory">
@@ -43,10 +45,11 @@
 
   <Target Name="CopyReportsToDropFolder">
     <ItemGroup>
-      <Reports Include="$(ReportsDirectory)\PartCover*.html" />
+      <Reports Include="$(ReportsDirectory)\*.html;
+                        $(ReportsDirectory)\*.xml" />
     </ItemGroup>
     <Message Text="Copying the Reports to drop directories" />
-    <Copy ContinueOnError="false" SourceFiles="@(Reports)" DestinationFiles="@(Reports -&gt;'$(DropDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy ContinueOnError="false" SourceFiles="@(Reports)" DestinationFiles="@(Reports -&gt;'$(DropReportsDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   
