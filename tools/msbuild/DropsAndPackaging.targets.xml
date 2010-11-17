@@ -32,7 +32,7 @@
       <MSBuildOutputItems Exclude="$(SrcDirectory)\**\*.pdb" Include="$(SrcDirectory)\**\bin\$(Configuration)\*.*" />
     </ItemGroup>
     <Message Text="Copying dll output to $(DropLibDirectory)" />
-    <Copy ContinueOnError="false" SourceFiles="@(MSBuildOutputItems)" DestinationFiles="@(MSBuildOutputItems ->'$(DropLibDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy ContinueOnError="false" SourceFiles="@(MSBuildOutputItems)" DestinationFolder="$(DropLibDirectory)" />
   </Target>
 
   <Target Name="CopyLicenseToAllDirectories">
