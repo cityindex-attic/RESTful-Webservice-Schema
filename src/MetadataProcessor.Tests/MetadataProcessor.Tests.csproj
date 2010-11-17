@@ -79,6 +79,10 @@
       <Project>{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}</Project>
       <Name>MetadataProcessor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RESTWebServices.Configuration\RESTWebServices.Configuration.csproj">
+      <Project>{0D8B5AB3-D905-4303-91D7-877DE1D35065}</Project>
+      <Name>RESTWebServices.Configuration</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="test-targets\ApplyDescription.txt" />

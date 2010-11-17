@@ -45,9 +45,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingApi.ServerCommon">
-      <HintPath>..\..\packages\Dependancies-to-be-removed\TradingApi.ServerCommon\TradingApi.ServerCommon.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonSchemaUtilities.cs" />
@@ -63,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RESTWebServices.Configuration\RESTWebServices.Configuration.csproj">
+      <Project>{0D8B5AB3-D905-4303-91D7-877DE1D35065}</Project>
+      <Name>RESTWebServices.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RESTWebServices.XDRSupport\RESTWebServices.XDRSupport.csproj">
       <Project>{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}</Project>
       <Name>RESTWebServices.XDRSupport</Name>
