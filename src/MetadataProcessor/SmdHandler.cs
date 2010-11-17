@@ -11,6 +11,7 @@ using MetadataProcessor.Utilities;
 using Newtonsoft.Json.Linq;
 using TradingApi.Configuration;
 
+
 namespace MetadataProcessor
 {
     public class SmdHandler : IHttpHandler
@@ -19,38 +20,55 @@ namespace MetadataProcessor
         public void ProcessRequest(HttpContext context)
         {
 
-            bool includeDemoValue = context.Request.Params["includeDemoValue"] == null ? false : Convert.ToBoolean(context.Request.Params["includeDemoValue"]);
+            RESTWebServices.XDRSupport.CORSModule.SetCORSHeaders(context.Response, context.Request);
 
-            //// read path to get profile key
-            //string profileKey = context.Request.Params["profile"] ?? "";
-            //// get the profile from which to reflect upon and load assembly xml build output
+            bool includeDemoValue = context.Request.Params["includeDemoValue"] == null ? false : Convert.ToBoolean(context.Request.Params["includeDemoValue"]);
+            bool embedSchema = context.Request.Params["embedSchema"] == null ? false : Convert.ToBoolean(context.Request.Params["embedSchema"]);
+
+            JObject smdBase = BuildSMD(context, includeDemoValue, embedSchema);
+
+
+            string json = smdBase.ToString();
+
+            if (context.Request.FilePath.ToLower().EndsWith(".js"))
+            {
+                json = string.Format("var ciConfig=ciConfig||{{}};ciConfig.smd={0};", json);
+            }
+
+            context.Response.Write(json);
+        }
+
+        public static JObject BuildSMD(HttpContext context, bool includeDemoValue, bool embedSchema)
+        {
             var profile = TradingApiConfigurationSection.Instance.Profiles[""/* was profileKey*/];
 
             string smdUrl = context.Request.Url.AbsoluteUri;
-            //string smdTargetUrl = smdUrl.Substring(0, smdUrl.LastIndexOf('/') + 1) + (string.IsNullOrWhiteSpace(profileKey) ? "" : profileKey + "/");
-            //string smdSchemaUrl = smdTargetUrl + "schema" + (string.IsNullOrWhiteSpace(profileKey) ? "" : "?profile=" + profileKey);
 
             string smdTargetUrl = smdUrl.Substring(0, smdUrl.LastIndexOf('/') + 1);
             string smdSchemaUrl = smdTargetUrl + "schema";
             string apiVersion = profile.Version;
             string smdDescription = "City Index RESTful API " + apiVersion;
             const string smdVersion = "2.0";
-            
-            var smdBase = JsonSchemaUtilities.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion);
+
+            var smdBase = SmdGenerator.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion, includeDemoValue);
 
             var dtoAssemblies = profile.DtoAssemblies.Cast<AssemblyReferenceElement>().ToList();
 
             var mappedTypes = new List<Type>(); // just to keep track of types so we don't map twice
             foreach (UrlMapElement route in profile.Routes)
             {
-               JsonSchemaUtilities.BuildServiceMapping(route, mappedTypes, smdBase, dtoAssemblies, includeDemoValue);
+                SmdGenerator.BuildServiceMapping(route, mappedTypes, smdBase, dtoAssemblies, includeDemoValue);
             }
 
             // TODO: set caching headers and use asp.net cache
 
-            context.Response.Write(smdBase.ToString());
+            if (embedSchema)
+            {
+                JObject schema = SchemaHandler.BuildSchema(context, includeDemoValue);
+                smdBase["schema"] = schema;
+            }
+            return smdBase;
         }
-
         public bool IsReusable
         {
             get { return true; }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Web;
 using System.Xml.Linq;
-using MetadataProcessor;
 using Newtonsoft.Json.Linq;
 using TradingApi.Configuration;
+
 
 namespace MetadataProcessor
 {
@@ -16,17 +13,28 @@ namespace MetadataProcessor
     {
         public void ProcessRequest(HttpContext context)
         {
-            JObject properties = new JObject();
-            JObject schema = new JObject();
-            schema.Add("properties", properties);
+            RESTWebServices.XDRSupport.CORSModule.SetCORSHeaders(context.Response, context.Request);
             bool includeDemoValue = context.Request.Params["includeDemoValue"] == null ? false : Convert.ToBoolean(context.Request.Params["includeDemoValue"]);
-            // read path to get profile key
+            string json = BuildSchema(context, includeDemoValue).ToString();
             
-            string profileKey = context.Request.Params["profile"]??"";
-            
-            // get the profile from which to reflect upon and load assembly xml build output
-            var profile = TradingApiConfigurationSection.Instance.Profiles[profileKey];
-            
+            if (context.Request.FilePath.ToLower().EndsWith(".js"))
+            {
+                json = string.Format("var ciConfig=ciConfig||{{}};ciConfig.schema={0};", json);
+            }
+
+            // TODO: set aggressive cache headers + use asp.net cache
+
+            context.Response.Write(json);
+
+        }
+
+        public static JObject BuildSchema(HttpContext context,bool includeDemoValue)
+        {
+            var schema = new JObject();
+
+            // TODO: profile is vestigale - rip it out of configuration leaving single profile element as root
+            var profile = TradingApiConfigurationSection.Instance.Profiles[""];
+
             foreach (AssemblyReferenceElement dtoAssembly in profile.DtoAssemblies)
             {
                 var assembly = Assembly.Load(dtoAssembly.Assembly);
@@ -37,18 +45,13 @@ namespace MetadataProcessor
                     var typeSchema = JsonSchemaUtilities.BuildTypeSchema(type, doc, includeDemoValue);
                     if (typeSchema != null)
                     {
-                        properties.Add(type.Name, typeSchema);
+                        schema.Add(type.Name, typeSchema);
                     }
                 }
-
             }
 
-            // TODO: set caching headers and use asp.net cache
-            var schemaJSON = schema.ToString();
-            context.Response.Write(schemaJSON);
-
+            return schema;
         }
-
         public bool IsReusable
         {
             get { return true; }

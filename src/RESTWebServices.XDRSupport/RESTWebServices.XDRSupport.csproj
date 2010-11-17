@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}</ProjectGuid>
+    <ProjectGuid>{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetadataProcessor</RootNamespace>
-    <AssemblyName>MetadataProcessor</AssemblyName>
+    <RootNamespace>RESTWebServices.XDRSupport</RootNamespace>
+    <AssemblyName>RESTWebServices.XDRSupport</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,11 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -45,27 +42,17 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingApi.ServerCommon">
-      <HintPath>..\..\packages\Dependancies-to-be-removed\TradingApi.ServerCommon\TradingApi.ServerCommon.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonSchemaUtilities.cs" />
-    <Compile Include="SchemaHandler.cs" />
-    <Compile Include="SmdGenerator.cs" />
-    <Compile Include="SmdHandler.cs" />
-    <Compile Include="MiscellaneousUtils.cs" />
+    <Compile Include="XDomainPolicyHandler.cs" />
+    <Compile Include="CORSModule.cs" />
+    <Compile Include="JsonContentTypeMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmdUtilities.cs" />
-    <Compile Include="TypePackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RESTWebServices.XDRSupport\RESTWebServices.XDRSupport.csproj">
-      <Project>{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}</Project>
-      <Name>RESTWebServices.XDRSupport</Name>
+    <ProjectReference Include="..\RESTWebServices.Configuration\RESTWebServices.Configuration.csproj">
+      <Project>{0D8B5AB3-D905-4303-91D7-877DE1D35065}</Project>
+      <Name>RESTWebServices.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
