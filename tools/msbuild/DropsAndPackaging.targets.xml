@@ -19,7 +19,8 @@
   
   <Target Name="CreateDropDirectories">
     <Message Text="Making the drop directories at '$(DropDirectory)'." />
-    <RemoveDir Directories="$(DropDirectory)" Condition="Exists('$(DropDirectory)')" ContinueOnError="True" />
+    <RemoveDir Directories="$(DropDirectory)" Condition="Exists('$(DropDirectory)')"/>
+    <Message Text="Making the drop directories at '$(DropDirectory)'." />
     <MakeDir Directories="$(DropDirectory)" Condition="!Exists('$(DropDirectory)')" />
     <MakeDir Directories="$(DropLibDirectory)" Condition="!Exists('$(DropLibDirectory)')" />
     <MakeDir Directories="$(DropContentDirectory)" Condition="!Exists('$(DropContentDirectory)')" />
@@ -28,11 +29,8 @@
   </Target>
   
   <Target Name="CopyMSBuildOutputToDropDirectory">
-    <ItemGroup>
-      <MSBuildOutputItems Exclude="$(SrcDirectory)\**\*.pdb" Include="$(SrcDirectory)\**\bin\$(Configuration)\*.*" />
-    </ItemGroup>
     <Message Text="Copying dll output to $(DropLibDirectory)" />
-    <Copy ContinueOnError="false" SourceFiles="@(MSBuildOutputItems)" DestinationFolder="$(DropLibDirectory)" />
+    <Copy ContinueOnError="false" SourceFiles="@(Assemblies)" DestinationFolder="$(DropLibDirectory)" />
   </Target>
 
   <Target Name="CopyLicenseToAllDirectories">

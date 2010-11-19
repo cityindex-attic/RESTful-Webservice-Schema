@@ -61,6 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MetaCollector\MetaCollectorFixture.cs" />
+    <Compile Include="MetaCollector\Types\DTO.cs" />
+    <Compile Include="MetaCollector\Types\Enumeration.cs" />
+    <Compile Include="MetaCollector\Types\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSchemaFixture.cs" />
     <Compile Include="SerializationFixture.cs" />

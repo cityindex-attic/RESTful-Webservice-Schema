@@ -48,13 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonSchemaUtilities.cs" />
+    <Compile Include="MetaCollector.cs" />
+    <Compile Include="MetaDataPackage.cs" />
+    <Compile Include="MetaDataPackageType.cs" />
     <Compile Include="SchemaHandler.cs" />
     <Compile Include="SmdGenerator.cs" />
     <Compile Include="SmdHandler.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmdUtilities.cs" />
-    <Compile Include="TypePackage.cs" />
+    <Compile Include="XmlDocExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
