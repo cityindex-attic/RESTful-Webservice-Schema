@@ -14,8 +14,6 @@
   <!-- %40 = @  %25 = % %24 = $ -->
   <Target Name="RunTests" DependsOnTargets="CreateReportDirectories; UpdatePartCover4Settings">
 
-    
-
     <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; --settings $(SrcDirectory)\PartCover4.settings.xml --output $(ReportsDirectory)\PartCover-results.xml"
       ContinueOnError="true"
       WorkingDirectory="$(ReportsDirectory)">
@@ -38,8 +36,7 @@
   <Target Name="CalculateMetrics" DependsOnTargets="CalculateComplexityMetrics; CalculateCRAPMetrics"></Target>
   
   <Target Name="CalculateComplexityMetrics">
-    
-    <Exec Command="&quot;$(RootDirectory)\tools\reflector\Reflector.exe&quot; /Run:Reflector.CodeMetrics /Assembly:&quot;%(Assemblies.Identity)&quot; /OutputPath:&quot;CodeMetrics.xml&quot;"
+    <Exec Command="&quot;$(RootDirectory)\tools\reflector\Reflector.exe&quot; /Run:Reflector.CodeMetrics /Assembly:&quot;@(Assemblies, '&quot; /Assembly:&quot;')&quot; /OutputPath:&quot;CodeMetrics.xml&quot;"
       ContinueOnError="false"
       WorkingDirectory="$(ReportsDirectory)" />
   </Target>
