@@ -34,11 +34,11 @@ namespace MetadataProcessor.Tests
 
 
 
-            Assert.AreEqual("{\r\n  \"$ref\": \"#.properties.JSchemaDTO\"\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(JSchemaDTO)).ToString());
-            Assert.AreEqual("{\r\n  \"type\": \"array\",\r\n  \"items\": {\r\n    \"$ref\": \"#.properties.JSchemaDTO\"\r\n  }\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(JSchemaDTO[])).ToString());
-            Assert.AreEqual("{\r\n  \"type\": \"array\",\r\n  \"items\": {\r\n    \"$ref\": \"#.properties.JSchemaDTO\"\r\n  }\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(IList<JSchemaDTO>)).ToString());
+            Assert.AreEqual("{\r\n  \"$ref\": \"#.JSchemaDTO\"\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(JSchemaDTO)).ToString());
+            Assert.AreEqual("{\r\n  \"type\": \"array\",\r\n  \"items\": {\r\n    \"$ref\": \"#.JSchemaDTO\"\r\n  }\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(JSchemaDTO[])).ToString());
+            Assert.AreEqual("{\r\n  \"type\": \"array\",\r\n  \"items\": {\r\n    \"$ref\": \"#.JSchemaDTO\"\r\n  }\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(IList<JSchemaDTO>)).ToString());
 
-            Assert.AreEqual("{\r\n  \"$ref\": \"#.properties.TestEnum\"\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(TestEnum)).ToString());
+            Assert.AreEqual("{\r\n  \"$ref\": \"#.TestEnum\"\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(TestEnum)).ToString());
 
         }
 

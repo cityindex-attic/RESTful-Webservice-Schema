@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XDomainPolicyHandler.cs" />
     <Compile Include="CORSModule.cs" />
     <Compile Include="JsonContentTypeMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
