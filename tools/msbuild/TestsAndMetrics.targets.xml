@@ -10,8 +10,6 @@
   </PropertyGroup>
   
   <!-- Runs unit tests through PartCover to calculate unit test covereage-->
-  <!-- Use %2a instead of * and %3f instead of ? to prevent expansion -->
-  <!-- %40 = @  %25 = % %24 = $ -->
   <Target Name="RunTests" DependsOnTargets="CreateReportDirectories; UpdatePartCover4Settings">
 
     <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; --settings $(SrcDirectory)\PartCover4.settings.xml --output $(ReportsDirectory)\PartCover-results.xml"
@@ -46,7 +44,9 @@
       ContinueOnError="false"
       WorkingDirectory="$(ReportsDirectory)" />
   </Target>
-  
+
+  <!-- Use %2a instead of * and %3f instead of ? to prevent expansion -->
+  <!-- %40 = @  %25 = % %24 = $ -->
   <Target Name="UpdatePartCover4Settings">
     <ItemGroup>
       <pc4_settings Include="--target &quot;$(NUnitEXE)&quot;"/>
