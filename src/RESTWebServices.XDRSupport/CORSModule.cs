@@ -40,7 +40,7 @@ namespace RESTWebServices.XDRSupport
         {
             // this is bs - webkit is not sending an 'origin' header - it then complains when it does not get back an Access-Control-Allow-Origin
             // so we have to add these response headers to EVERY response. what a pain in the ass.
-            //if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
+            if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
             {
                 response.AddHeader("Access-Control-Allow-Origin", Access_Control_Allow_Origin);
                 response.AddHeader("Access-Control-Allow-Methods", Access_Control_Allow_Methods);
@@ -52,7 +52,7 @@ namespace RESTWebServices.XDRSupport
         {
             // this is bs - webkit is not sending an 'origin' header - it then complains when it does not get back an Access-Control-Allow-Origin
             // so we have to add these response headers to EVERY response. what a pain in the ass.
-            //if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
+            if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
             {
                 response.Headers.Add("Access-Control-Allow-Origin", Access_Control_Allow_Origin);
                 response.Headers.Add("Access-Control-Allow-Methods", Access_Control_Allow_Methods);
