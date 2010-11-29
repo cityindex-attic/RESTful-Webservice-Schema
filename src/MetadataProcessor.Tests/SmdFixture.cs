@@ -17,7 +17,7 @@ namespace MetadataProcessor.Tests
             return File.ReadAllText(@"..\..\test-targets\" + name + ".txt");
         }
 
-        [Test, Ignore]
+        [Test]
         public void BuildTestService()
         {
             var profile = TradingApiConfigurationSection.Instance.Profiles[""];

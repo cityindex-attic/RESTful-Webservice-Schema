@@ -1,39 +1,29 @@
 ﻿{
   "properties": {
-    "OrderDTO": {
-      "id": "OrderDTO",
+    "NewsDTO": {
+      "id": "NewsDTO",
       "type": "object",
-      "description": "",
+      "description": "A news headline",
       "properties": {
-        "OrderId": {
+        "StoryId": {
           "type": "integer",
-          "description": "",
-          "demoValue": 1
+          "description": "The unique identifier for a news story",
+          "demoValue": 12654,
+          "minimum": 1,
+          "maximum": 2147483647,
+          "optional": false
         },
-        "CurrencyId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
+        "Headline": {
+          "type": "string",
+          "description": "The News story headline",
+          "demoValue": "Barron's(8/29) Speaking Of Dividends: The Big Cheese: Kraft Foods Slices Costs And Serves A Payout Hike",
+          "optional": false
         },
-        "DirectionId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
-        },
-        "MarketId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
-        },
-        "Quantity": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.0
-        },
-        "StatusId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
+        "PublishDate": {
+          "type": "string",
+          "description": "The date on which the news story was published. Always in UTC",
+          "demoValue": "/Date(1289231327280)/",
+          "optional": false
         }
       }
     },
@@ -45,227 +35,151 @@
         "AccountId": {
           "type": "integer",
           "description": "AccountId Description",
-          "demoValue": 1
+          "demoValue": 1,
+          "optional": false
         },
         "AccountName": {
           "type": "string",
           "description": "AccountName Description",
-          "demoValue": "sample value"
-        }
-      }
-    },
-    "PriceBarDTO": {
-      "id": "PriceBarDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "BarDate": {
-          "type": "string",
-          "description": "",
-          "demoValue": "/Date(1287136540715)/",
-          "format": "wcf-date"
-        },
-        "Open": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        },
-        "High": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        },
-        "Low": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        },
-        "Close": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        }
-      }
-    },
-    "MarketDTO": {
-      "id": "MarketDTO",
-      "type": "object",
-      "description": "MarketDTO Description",
-      "properties": {
-        "MarketId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
-        },
-        "Name": {
-          "type": "string",
-          "description": "MarketId property desctiption",
-          "demoValue": "sample value"
-        }
-      }
-    },
-    "NewsDTO": {
-      "id": "NewsDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "StoryId": {
-          "type": "integer",
-          "description": "",
-          "demoValue": 1
-        },
-        "Headline": {
-          "type": "string",
-          "description": "",
-          "demoValue": "1"
-        },
-        "PublishDate": {
-          "type": "string",
-          "description": "",
-          "demoValue": "sample value"
-        }
-      }
-    },
-    "NewsDetailDTO": {
-      "id": "NewsDetailDTO",
-      "type": "object",
-      "description": "",
-      "extends": {
-        "$ref": "#.properties.NewsDTO"
-      },
-      "properties": {
-        "Story": {
-          "type": "string",
-          "description": "",
-          "demoValue": "sample value"
+          "demoValue": "sample value",
+          "optional": false
         }
       }
     },
     "PriceTickDTO": {
       "id": "PriceTickDTO",
       "type": "object",
-      "description": "",
+      "description": "The mid price at a particular point in time.",
       "properties": {
         "TickDate": {
           "type": "string",
-          "description": "",
+          "description": "The datetime at which a price tick occured. Accurate to the millisecond",
           "demoValue": "/Date(1287136540715)/",
-          "format": "wcf-date"
+          "format": "wcf-date",
+          "optional": false
         },
         "Price": {
           "type": "number",
-          "description": "",
-          "demoValue": 1.5
+          "description": "The mid price",
+          "demoValue": 1.5457,
+          "minimum": 0.0,
+          "optional": false
         }
       }
     },
-    "StopLimitOrderDTO": {
-      "id": "StopLimitOrderDTO",
+    "PriceBarDTO": {
+      "id": "PriceBarDTO",
       "type": "object",
-      "description": "",
+      "description": "The details of a specific price bar, useful for plotting candlestick charts",
+      "properties": {
+        "BarDate": {
+          "type": "string",
+          "description": "The date of the start of the price bar interval",
+          "demoValue": "/Date(1287136540715)/",
+          "format": "wcf-date",
+          "optional": false
+        },
+        "Open": {
+          "type": "number",
+          "description": "The price at the open of the price bar interval",
+          "demoValue": 1.5,
+          "optional": false
+        },
+        "High": {
+          "type": "number",
+          "description": "The highest price occuring during the interval of the price bar",
+          "demoValue": 2.343,
+          "optional": false
+        },
+        "Low": {
+          "type": "number",
+          "description": "The lowest price occuring during the interval of the price bar",
+          "demoValue": 1.3423,
+          "optional": false
+        },
+        "Close": {
+          "type": "number",
+          "description": "The price at the end of the price bar interval",
+          "demoValue": 2.42,
+          "optional": false
+        }
+      }
+    },
+    "MarketDTO": {
+      "id": "MarketDTO",
+      "type": "object",
+      "description": "Information about a Market",
+      "properties": {
+        "MarketId": {
+          "type": "integer",
+          "description": "A market's unique identifier",
+          "demoValue": 254527845,
+          "minimum": 1000000,
+          "maximum": 9999999,
+          "optional": false
+        },
+        "Name": {
+          "type": "string",
+          "description": "The market name",
+          "demoValue": "Vodaphone CFD",
+          "minLength": 1,
+          "maxLength": 120,
+          "optional": false
+        }
+      }
+    },
+    "NewsDetailDTO": {
+      "id": "NewsDetailDTO",
+      "type": "object",
+      "description": "Contains details of a specific news story",
       "extends": {
-        "$ref": "#.properties.OrderDTO"
+        "$ref": "#.NewsDTO"
       },
       "properties": {
-        "TriggerPrice": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        },
-        "StopPrice": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
-        },
-        "LimitPrice": {
-          "type": "number",
-          "description": "",
-          "demoValue": 1.5
+        "Story": {
+          "type": "string",
+          "description": "The detail of the story. This can contain HTML characters.",
+          "demoValue": "<pre>    (Expect lots of HTML here)     By Shirley A. Lazo </pre><p>    (END) Dow Jones Newswires</p><p>   August 27, 2005 00:01 ET (04:01 GMT)</p>",
+          "minLength": 0,
+          "maxLength": 2147483647,
+          "optional": false
         }
       }
     },
     "LogOnRequestDTO": {
       "id": "LogOnRequestDTO",
       "type": "object",
-      "description": "",
       "properties": {
         "UserName": {
           "type": "string",
-          "description": "Username is case sensitive",
+          "description": "Username is case sensitive TODO: Why isn't this appearing in the documentation?",
           "demoValue": "CC735158",
           "minLength": 6,
-          "maxLength": 20
+          "maxLength": 20,
+          "optional": false
         },
         "Password": {
           "type": "string",
           "description": "Password is case sensitive",
           "demoValue": "password",
           "minLength": 6,
-          "maxLength": 20
-        }
-      }
-    },
-    "GetPriceTickResponseDTO": {
-      "id": "GetPriceTickResponseDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "PriceTicks": {
-          "type": "array",
-          "items": {
-            "$ref": "#.properties.PriceTickDTO"
-          },
-          "description": ""
-        }
-      }
-    },
-    "GetNewsDetailResponseDTO": {
-      "id": "GetNewsDetailResponseDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "NewsDetail": {
-          "$ref": "#.properties.NewsDetailDTO"
-        }
-      }
-    },
-    "SystemStatusDTO": {
-      "id": "SystemStatusDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "StatusMessage": {
-          "type": "string",
-          "description": "",
-          "demoValue": "sample value"
-        }
-      }
-    },
-    "ListCfdMarketsResponseDTO": {
-      "id": "ListCfdMarketsResponseDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "Markets": {
-          "type": "array",
-          "items": {
-            "$ref": "#.properties.MarketDTO"
-          },
-          "description": ""
+          "maxLength": 20,
+          "optional": false
         }
       }
     },
     "ListSpreadMarketsResponseDTO": {
       "id": "ListSpreadMarketsResponseDTO",
       "type": "object",
-      "description": "",
+      "description": "Contains the result of a ListSpreadMarketsResponseDTO query",
       "properties": {
         "Markets": {
           "type": "array",
           "items": {
-            "$ref": "#.properties.MarketDTO"
+            "$ref": "#.MarketDTO"
           },
-          "description": ""
+          "description": "A list of Spread Betting markets",
+          "optional": false
         }
       }
     },
@@ -276,26 +190,11 @@
       "properties": {
         "Session": {
           "type": "string",
-          "description": "Your session token (treat as a random string)",
+          "description": "Your session token (treat as a random string) <BR /> Session tokens are valid for a set period (7 days) from the time of their creation. <BR /> The period is subject to change, and may vary depending on who you logon as.",
           "demoValue": "D2FF3E4D-01EA-4741-86F0-437C919B5559",
-          "format": "guid",
           "minLength": 36,
-          "maxLength": 36
-        }
-      }
-    },
-    "ErrorResponseDTO": {
-      "id": "ErrorResponseDTO",
-      "type": "object",
-      "description": "This is a description of ErrorResponseDTO",
-      "properties": {
-        "ErrorMessage": {
-          "type": "string",
-          "description": "This is a description of the ErrorMessage property",
-          "demoValue": "sample value"
-        },
-        "ErrorCode": {
-          "$ref": "#.properties.ErrorCode"
+          "maxLength": 100,
+          "optional": false
         }
       }
     },
@@ -307,17 +206,35 @@
         "Status": {
           "type": "integer",
           "description": "",
-          "demoValue": 1
+          "demoValue": 1,
+          "optional": false
         },
         "StatusReason": {
           "type": "integer",
           "description": "",
-          "demoValue": 1
+          "demoValue": 1,
+          "optional": false
         },
         "OrderId": {
           "type": "integer",
           "description": "",
-          "demoValue": 1
+          "demoValue": 1,
+          "optional": false
+        }
+      }
+    },
+    "GetPriceBarResponseDTO": {
+      "id": "GetPriceBarResponseDTO",
+      "type": "object",
+      "description": "The response from a GET price bar history request. Contains both an array of finalized price bars, and a partial (not finalized) bar for the current period",
+      "properties": {
+        "PriceBars": {
+          "type": "array",
+          "items": {
+            "$ref": "#.PriceBarDTO"
+          },
+          "description": "An array of finalized price bars, sorted in ascending order based on PriceBar.BarDate",
+          "optional": false
         }
       }
     },
@@ -380,38 +297,8 @@
         "LoggedOut": {
           "type": "boolean",
           "description": "LogOut status",
-          "demoValue": true
-        }
-      }
-    },
-    "GetPriceBarResponseDTO": {
-      "id": "GetPriceBarResponseDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "PriceBars": {
-          "type": "array",
-          "items": {
-            "$ref": "#.properties.PriceBarDTO"
-          },
-          "description": ""
-        },
-        "PartialPriceBar": {
-          "$ref": "#.properties.PriceBarDTO"
-        }
-      }
-    },
-    "ListNewsHeadlinesResponseDTO": {
-      "id": "ListNewsHeadlinesResponseDTO",
-      "type": "object",
-      "description": "",
-      "properties": {
-        "Headlines": {
-          "type": "array",
-          "items": {
-            "$ref": "#.properties.NewsDTO"
-          },
-          "description": ""
+          "demoValue": true,
+          "optional": false
         }
       }
     },
@@ -431,7 +318,8 @@
             2,
             3,
             4
-          ]
+          ],
+          "optional": false
         },
         "TradingAccountIds": {
           "type": "array",
@@ -444,12 +332,89 @@
             2,
             3,
             4
-          ]
+          ],
+          "optional": false
         },
         "IsValid": {
           "type": "boolean",
           "description": "Whether this session token is still valid",
-          "demoValue": true
+          "demoValue": true,
+          "optional": false
+        }
+      }
+    },
+    "ListCfdMarketsResponseDTO": {
+      "id": "ListCfdMarketsResponseDTO",
+      "type": "object",
+      "description": "Contains the result of a ListCfdMarkets query",
+      "properties": {
+        "Markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#.MarketDTO"
+          },
+          "description": "A list of CFD markets",
+          "optional": false
+        }
+      }
+    },
+    "ListNewsHeadlinesResponseDTO": {
+      "id": "ListNewsHeadlinesResponseDTO",
+      "type": "object",
+      "description": "The response from a GET request for News headlines",
+      "properties": {
+        "Headlines": {
+          "type": "array",
+          "items": {
+            "$ref": "#.NewsDTO"
+          },
+          "description": "A list of News headlines",
+          "optional": false
+        }
+      }
+    },
+    "GetPriceTickResponseDTO": {
+      "id": "GetPriceTickResponseDTO",
+      "type": "object",
+      "description": "The response from a request for Price Ticks",
+      "properties": {
+        "PriceTicks": {
+          "type": "array",
+          "items": {
+            "$ref": "#.PriceTickDTO"
+          },
+          "description": "An array of price ticks, sorted in ascending order by PriceTick.TickDate",
+          "optional": false
+        }
+      }
+    },
+    "ErrorResponseDTO": {
+      "id": "ErrorResponseDTO",
+      "type": "object",
+      "description": "This is a description of ErrorResponseDTO",
+      "properties": {
+        "ErrorMessage": {
+          "type": "string",
+          "description": "This is a description of the ErrorMessage property",
+          "demoValue": "sample value",
+          "optional": false
+        },
+        "ErrorCode": {
+          "$ref": "#.ErrorCode",
+          "description": "TODO:DAVID: can add description here now to describe the role of the property",
+          "optional": false
+        }
+      }
+    },
+    "GetNewsDetailResponseDTO": {
+      "id": "GetNewsDetailResponseDTO",
+      "type": "object",
+      "description": "JSON returned from News Detail GET request",
+      "properties": {
+        "NewsDetail": {
+          "$ref": "#.NewsDetailDTO",
+          "description": "TODO:DAVID: can add description here now to describe the role of the property",
+          "optional": false
         }
       }
     }

@@ -3,20 +3,19 @@
   "version": "1.1",
   "id": "http://tempuri.com/",
   "target": "http://tempuri.com/",
-  "schema": "http://tempuri.com/schema",
+  "schema": "http://tempuri.com/schema?includeDemoValue=true",
   "description": "City Index RESTful API 1.1",
   "additionalParameters": true,
-  "useUriTemplates": true,
   "contentType": "application/json",
-  "responseContentType": "application/json",
   "services": {
     "CreateSession": {
       "description": "CreateSession Method Description",
-      "target": "/session",
+      "target": "session",
+      "uriTemplate": "/",
       "transport": "POST",
       "envelope": "JSON",
       "returns": {
-        "$ref": "#.properties.CreateSessionResponseDTO"
+        "$ref": "#.CreateSessionResponseDTO"
       },
       "parameters": [
         {
@@ -24,24 +23,27 @@
           "name": "UserName",
           "demoValue": "CC735158",
           "minLength": 6,
-          "maxLength": 20
+          "maxLength": 20,
+          "optional": false
         },
         {
           "type": "string",
           "name": "Password",
           "demoValue": "password",
           "minLength": 6,
-          "maxLength": 20
+          "maxLength": 20,
+          "optional": false
         }
       ]
     },
     "DeleteSession": {
       "description": "",
-      "target": "/session/deleteSession?userName={userName}&session={session}",
+      "target": "session",
+      "uriTemplate": "/deleteSession?userName={userName}&session={session}",
       "transport": "POST",
       "envelope": "JSON",
       "returns": {
-        "$ref": "#.properties.SessionDeletionResponseDTO"
+        "$ref": "#.SessionDeletionResponseDTO"
       },
       "parameters": [
         {
@@ -50,7 +52,8 @@
           "description": "Username is case sensitive. May be set as a service parameter or as a request header.",
           "demoValue": "CC735158",
           "minLength": 6,
-          "maxLength": 20
+          "maxLength": 20,
+          "optional": false
         },
         {
           "type": "string",
@@ -59,7 +62,8 @@
           "demoValue": "5998CBE8-3594-4232-A57E-09EC3A4E7AA8",
           "format": "guid",
           "minLength": 36,
-          "maxLength": 36
+          "maxLength": 36,
+          "optional": false
         }
       ]
     }

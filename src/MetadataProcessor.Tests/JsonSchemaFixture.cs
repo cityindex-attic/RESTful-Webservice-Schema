@@ -20,7 +20,7 @@ namespace MetadataProcessor.Tests
             return File.ReadAllText(@"..\..\test-targets\" + name + ".txt");
         }
 
-        [Test, Ignore]
+        [Test]
         public void SimpleTypeBaseCheck()
         {
             Assert.AreEqual("{\r\n  \"type\": \"string\"\r\n}", JsonSchemaUtilities.BuildPropertyBase(typeof(string)).ToString());

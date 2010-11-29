@@ -1,6 +1,9 @@
 
 reports/
 dist/
+#ignore .svn related folders
+.svn/
+_svn/
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio

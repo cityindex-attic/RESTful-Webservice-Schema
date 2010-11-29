@@ -1,13 +1,15 @@
 ﻿{
   "id": "JSchemaDTO",
   "type": "object",
-  "description": "this is a description of JSchemaDTO\n             see http://tools.ietf.org/html/draft-zyp-json-schema-02",
+  "description": "this is a description of JSchemaDTO see http://tools.ietf.org/html/draft-zyp-json-schema-02",
   "properties": {
     "TestEnumProperty": {
-      "$ref": "#.properties.TestEnum"
+      "$ref": "#.TestEnum",
+      "optional": false
     },
     "TestEnumAsIntProperty": {
-      "$ref": "#.properties.TestEnum"
+      "$ref": "#.TestEnum",
+      "optional": false
     },
     "IntProperty": {
       "type": "integer",
@@ -25,46 +27,53 @@
       "description": "this is a description of JSchemaDTO.UintProperty",
       "demoValue": 100,
       "minimum": 0,
-      "maximum": 36
+      "maximum": 36,
+      "optional": false
     },
     "LongProperty": {
       "type": "integer",
       "description": "this is a description of JSchemaDTO.LongProperty",
       "demoValue": 100,
       "minimum": 0,
-      "maximum": 36
+      "maximum": 36,
+      "optional": false
     },
     "UlongProperty": {
       "type": "integer",
       "description": "this is a description of JSchemaDTO.UlongProperty",
       "demoValue": 100,
       "minimum": 0,
-      "maximum": 36
+      "maximum": 36,
+      "optional": false
     },
     "FloatProperty": {
       "type": "number",
       "description": "this is a description of JSchemaDTO.FloatProperty",
       "demoValue": 100.0,
       "minimum": 0.0,
-      "maximum": 36.0
+      "maximum": 36.0,
+      "optional": false
     },
     "DoubleProperty": {
       "type": "number",
       "description": "this is a description of JSchemaDTO.DoubleProperty",
       "demoValue": 100.0,
       "minimum": 0.0,
-      "maximum": 36.0
+      "maximum": 36.0,
+      "optional": false
     },
     "DecimalProperty": {
       "type": "number",
       "description": "this is a description of JSchemaDTO.DecimalProperty",
       "demoValue": 100.0,
       "minimum": 0.0,
-      "maximum": 36.0
+      "maximum": 36.0,
+      "optional": false
     },
     "CharProperty": {
       "type": "string",
-      "description": "this is a description of JSchemaDTO.CharProperty"
+      "description": "this is a description of JSchemaDTO.CharProperty",
+      "optional": false
     },
     "StringArrayProperty": {
       "type": "array",
@@ -78,7 +87,8 @@
         "a",
         "b",
         "c"
-      ]
+      ],
+      "optional": false
     },
     "IntArrayProperty": {
       "type": "array",
@@ -92,7 +102,8 @@
         1,
         2,
         3
-      ]
+      ],
+      "optional": false
     },
     "StringProperty": {
       "type": "string",
@@ -112,42 +123,48 @@
       "optional": true
     },
     "JSchemaDTOProperty": {
-      "$ref": "#.properties.JSchemaDTO"
+      "$ref": "#.JSchemaDTO",
+      "optional": false
     },
     "SchemaDTOArrayProperty": {
       "type": "array",
       "items": {
-        "$ref": "#.properties.JSchemaDTO"
+        "$ref": "#.JSchemaDTO"
       },
-      "description": "this is a description of JSchemaDTO.SchemaDTOArrayProperty"
+      "description": "this is a description of JSchemaDTO.SchemaDTOArrayProperty",
+      "optional": false
     },
     "IListJSchemaDTOProperty": {
       "type": "array",
       "items": {
-        "$ref": "#.properties.JSchemaDTO"
+        "$ref": "#.JSchemaDTO"
       },
-      "description": "this is a description of JSchemaDTO.IListJSchemaDTOProperty"
+      "description": "this is a description of JSchemaDTO.IListJSchemaDTOProperty",
+      "optional": false
     },
     "ListJSchemaDTOProperty": {
       "type": "array",
       "items": {
-        "$ref": "#.properties.JSchemaDTO"
+        "$ref": "#.JSchemaDTO"
       },
-      "description": "this is a description of JSchemaDTO.ListJSchemaDTOProperty"
+      "description": "this is a description of JSchemaDTO.ListJSchemaDTOProperty",
+      "optional": false
     },
     "ICollectionJSchemaDTOProperty": {
       "type": "array",
       "items": {
-        "$ref": "#.properties.JSchemaDTO"
+        "$ref": "#.JSchemaDTO"
       },
-      "description": "this is a description of JSchemaDTO.ICollectionJSchemaDTOProperty"
+      "description": "this is a description of JSchemaDTO.ICollectionJSchemaDTOProperty",
+      "optional": false
     },
     "IEnumerableJSchemaDTOProperty": {
       "type": "array",
       "items": {
-        "$ref": "#.properties.JSchemaDTO"
+        "$ref": "#.JSchemaDTO"
       },
-      "description": "this is a description of JSchemaDTO.IEnumerableJSchemaDTOProperty"
+      "description": "this is a description of JSchemaDTO.IEnumerableJSchemaDTOProperty",
+      "optional": false
     }
   }
 }
