@@ -76,6 +76,7 @@
     <Compile Include="TestDTO\LogonRequestDTO.cs" />
     <Compile Include="TestDTO\SessionDeletionRequestDTO.cs" />
     <Compile Include="TestDTO\SessionDeletionResponseDTO.cs" />
+    <Compile Include="TestDTO\WithInvalidDemoValue.cs" />
     <Compile Include="TestEndpoint\ITestService.cs" />
   </ItemGroup>
   <ItemGroup>

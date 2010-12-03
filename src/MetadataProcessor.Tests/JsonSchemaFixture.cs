@@ -233,5 +233,29 @@ namespace MetadataProcessor.Tests
             var schemaJSON = schema.ToString();
             Assert.AreEqual(GetTestTarget("GenerateRWSDTO"), schemaJSON);
         }
+
+        [Test]
+        public void ThrowsMeaningfulErrorWhenDemoValueIsInvalid()
+        {
+            var type = typeof(WithInvalidDemoValue);
+            var doc = JsonSchemaUtilities.GetXmlDocs(type);
+
+            try
+            {
+                JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
+                Assert.Fail("Exception should have been thrown");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.Message);
+
+                StringAssert.Contains("WithInvalidDemoValue", ex.Message, "Must mention the DTO class");
+                StringAssert.Contains("UserName", ex.Message, "Must mention the property");
+                StringAssert.Contains("demoValue=\"buy\"", ex.InnerException.Message,"Must mention the invalid attribute");
+                StringAssert.Contains("ACustomType", ex.InnerException.Message,"Must mention the type which is causing the error");
+            }
+           
+        }
     }
 }

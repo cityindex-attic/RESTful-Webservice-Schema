@@ -168,78 +168,86 @@ namespace MetadataProcessor
         /// </summary>
         public static void ApplyTypedValue(JObject propBase, XAttribute attribute)
         {
-            var propType = propBase["type"].Value<string>();
-            var propertyName = attribute.Name.ToString();
-            var propertyValue = attribute.Value;
-            if (propType.IndexOf("string") > -1)
+            try
             {
-                propBase.Add(propertyName, propertyValue);
-            }
-            if (propType.IndexOf("integer") > -1)
-            {
-                propBase.Add(propertyName, Convert.ToInt64(propertyValue));
-
-            }
-            if (propType.IndexOf("number") > -1)
-            {
-                // this seems right in the context of demoing the API 
-                propBase.Add(propertyName, Convert.ToDecimal(propertyValue));
-            }
-            if (propType.IndexOf("boolean") > -1)
-            {
-                propBase.Add(propertyName, Convert.ToBoolean(propertyValue));
-            }
-
-            if (propType.IndexOf("object") > -1)
-            {
-                propBase.Add(propertyName, propertyValue);
-            }
-
-            // handles only simple types - arrays of complex types are handled when the reference is resolved
-            if (propType.IndexOf("array") > -1)
-            {
-                var elementType = propBase["items"]["type"].Value<string>();
-                // have to deconstruct the array and build it to emit
-                // the proper JSON
-
-
-
-                var elements = propertyValue.Trim('[', ']').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                var arrayProp = new JArray();
-
-                foreach (string element in elements)
+                var propType = propBase["type"].Value<string>();
+                var propertyName = attribute.Name.ToString();
+                var propertyValue = attribute.Value;
+                if (propType.IndexOf("string") > -1)
                 {
-
-                    if (elementType.IndexOf("string") > -1)
-                    {
-                        // strip the quotes
-                        arrayProp.Add(element.Trim('"', '\''));
-                    }
-                    if (elementType.IndexOf("integer") > -1)
-                    {
-                        arrayProp.Add(Convert.ToInt64(element));
-
-                    }
-                    if (elementType.IndexOf("number") > -1)
-                    {
-                        arrayProp.Add(Convert.ToDecimal(element));
-
-                    }
-                    if (elementType.IndexOf("boolean") > -1)
-                    {
-                        arrayProp.Add(Convert.ToBoolean(element));
-                    }
+                    propBase.Add(propertyName, propertyValue);
+                }
+                if (propType.IndexOf("integer") > -1)
+                {
+                    propBase.Add(propertyName, Convert.ToInt64(propertyValue));
 
                 }
+                if (propType.IndexOf("number") > -1)
+                {
+                    // this seems right in the context of demoing the API 
+                    propBase.Add(propertyName, Convert.ToDecimal(propertyValue));
+                }
+                if (propType.IndexOf("boolean") > -1)
+                {
+                    propBase.Add(propertyName, Convert.ToBoolean(propertyValue));
+                }
 
-                propBase.Add(propertyName, arrayProp);
+                if (propType.IndexOf("object") > -1)
+                {
+                    propBase.Add(propertyName, propertyValue);
+                }
 
+                // handles only simple types - arrays of complex types are handled when the reference is resolved
+                if (propType.IndexOf("array") > -1)
+                {
+                    var elementType = propBase["items"]["type"].Value<string>();
+                    // have to deconstruct the array and build it to emit
+                    // the proper JSON
+
+
+
+                    var elements = propertyValue.Trim('[', ']').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    var arrayProp = new JArray();
+
+                    foreach (string element in elements)
+                    {
+
+                        if (elementType.IndexOf("string") > -1)
+                        {
+                            // strip the quotes
+                            arrayProp.Add(element.Trim('"', '\''));
+                        }
+                        if (elementType.IndexOf("integer") > -1)
+                        {
+                            arrayProp.Add(Convert.ToInt64(element));
+
+                        }
+                        if (elementType.IndexOf("number") > -1)
+                        {
+                            arrayProp.Add(Convert.ToDecimal(element));
+
+                        }
+                        if (elementType.IndexOf("boolean") > -1)
+                        {
+                            arrayProp.Add(Convert.ToBoolean(element));
+                        }
+
+                    }
+
+                    propBase.Add(propertyName, arrayProp);
+
+                }
+                if (propType.IndexOf("any") > -1)
+                {
+                    propBase.Add(propertyName, propertyValue);
+                }
             }
-            if (propType.IndexOf("any") > -1)
+            catch (Exception e)
             {
-                propBase.Add(propertyName, propertyValue);
+                throw new ApplicationException(
+                    string.Format("An exception occured when applying attribute\n\n{1}\n\nto\n\n{0}", propBase, attribute),
+                    e);
             }
-
         }
 
         public static void ApplyDescription(JObject propBase, XElement propElement)
@@ -408,49 +416,56 @@ namespace MetadataProcessor
 
         public static JObject BuildPropertySchema(XElement docElement, XElement metaElement, bool includeDemoValue, JObject metaContainer, string propertyName, Type propertyType,string parentName)
         {
-            // no jschema, no process
-
-            var underlyingType = metaElement.Attributes("underlyingType").FirstOrDefault();
-
-            if (underlyingType != null)
+            try
             {
-                propertyType = Type.GetType(underlyingType.Value, true, false);
-            }
+                // no jschema, no process
 
+                var underlyingType = metaElement.Attributes("underlyingType").FirstOrDefault();
 
-            var propBase = BuildPropertyBase(propertyType);
-
-
-            metaContainer.Add(propertyName, propBase);
-
-            ApplyDescription(propBase, docElement);
-
-            if (includeDemoValue)
-            {
-                var demoValueAttribute = metaElement.Attributes("demoValue").FirstOrDefault();
-
-                if (demoValueAttribute != null)
+                if (underlyingType != null)
                 {
-                    ApplyTypedValue(propBase, demoValueAttribute);
+                    propertyType = Type.GetType(underlyingType.Value, true, false);
                 }
-            }
 
 
-            JObject attributeTarget = propBase;
-            if (propBase["type"] != null && propBase["type"].Value<string>() == "array")
-            {
-                attributeTarget = propBase["items"].Value<JObject>();
-            }
+                var propBase = BuildPropertyBase(propertyType);
 
-            foreach (var attribute in metaElement.Attributes())
-            {
-                ApplyPropertyAttribute(attributeTarget, attribute, parentName,propertyName);
+
+                metaContainer.Add(propertyName, propBase);
+
+                ApplyDescription(propBase, docElement);
+
+                if (includeDemoValue)
+                {
+                    var demoValueAttribute = metaElement.Attributes("demoValue").FirstOrDefault();
+
+                    if (demoValueAttribute != null)
+                    {
+                        ApplyTypedValue(propBase, demoValueAttribute);
+                    }
+                }
+
+
+                JObject attributeTarget = propBase;
+                if (propBase["type"] != null && propBase["type"].Value<string>() == "array")
+                {
+                    attributeTarget = propBase["items"].Value<JObject>();
+                }
+
+                foreach (var attribute in metaElement.Attributes())
+                {
+                    ApplyPropertyAttribute(attributeTarget, attribute, parentName,propertyName);
+                }
+                if (propBase["optional"] == null)
+                {
+                    propBase.Add("optional", false);
+                }
+                return propBase;
             }
-            if (propBase["optional"] == null)
+            catch (Exception e)
             {
-                propBase.Add("optional", false);
+                throw new Exception(String.Format("Exception with\n\n{0}",docElement),e);
             }
-            return propBase;
         }
 
 
