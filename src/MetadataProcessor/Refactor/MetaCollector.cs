@@ -19,7 +19,7 @@ namespace MetadataProcessor
         /// Should probably resolve a convention wherein the group is defined and described by the service type/interface.
         /// </summary>
         /// <param name="type"></param>
-        /// <returns>null if not to be processed</returns>
+        /// <returns>null if not to be processed</returns>  
         public static MetaDataPackage GetMeta(this Type type)
         {
             var package = new MetaDataPackage();
@@ -69,23 +69,17 @@ namespace MetadataProcessor
             return package;
         }
 
-
-
-
         private static MetaDataPackage GetMeta(this PropertyInfo info)
         {
             MetaDataPackage package = GetMetaDataPackage(info);
             return package;
         }
 
-
         private static MetaDataPackage GetMeta(this MethodInfo info)
         {
             MetaDataPackage package = GetMetaDataPackage(info);
             return package;
         }
-
-
 
         /// <summary>
         /// This is the method that actually collects and packages the raw meta data. The process
@@ -106,10 +100,6 @@ namespace MetadataProcessor
 
             return package;
         }
-
-
-
-
 
         private static void GetXmlAttributes(MetaDataPackage package, XElement memberNode, XElement metaNode)
         {

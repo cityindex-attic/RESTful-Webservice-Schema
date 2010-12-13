@@ -276,6 +276,7 @@ namespace MetadataProcessor
 
                 // boolean
                 case "optional":
+                case "required":
                 case "additionalProperties":
                 case "uniqueItems":
                 case "minimumCanEqual":
@@ -456,10 +457,10 @@ namespace MetadataProcessor
                 {
                     ApplyPropertyAttribute(attributeTarget, attribute, parentName,propertyName);
                 }
-                if (propBase["optional"] == null)
-                {
-                    propBase.Add("optional", false);
-                }
+                //if (propBase["optional"] == null)
+                //{
+                //    propBase.Add("optional", false);
+                //}
                 return propBase;
             }
             catch (Exception e)

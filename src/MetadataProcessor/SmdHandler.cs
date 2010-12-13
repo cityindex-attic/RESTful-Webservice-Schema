@@ -48,7 +48,7 @@ namespace MetadataProcessor
             string smdSchemaUrl = smdTargetUrl + "schema";
             string apiVersion = profile.Version;
             string smdDescription = "City Index RESTful API " + apiVersion;
-            const string smdVersion = "2.0";
+            const string smdVersion = "2.6";
 
             var smdBase = SmdGenerator.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion, includeDemoValue);
 

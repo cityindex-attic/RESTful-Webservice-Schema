@@ -38,8 +38,11 @@ namespace RESTWebServices.XDRSupport
         //
         public static void SetCORSHeaders(HttpResponse response, HttpRequest request)
         {
+            // DAVID: this is a problem - for some reason webkit is still not passing this conditional - even when
+            // the api is hosted remotely. I need to dig deeper
+
             // this is bs - webkit is not sending an 'origin' header - it then complains when it does not get back an Access-Control-Allow-Origin
-            // so we have to add these response headers to EVERY response. what a pain in the ass.
+            // so we have to add these response headers to EVERY response. what a pain in the rear.
             if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
             {
                 response.AddHeader("Access-Control-Allow-Origin", Access_Control_Allow_Origin);
@@ -50,8 +53,11 @@ namespace RESTWebServices.XDRSupport
         }
         public static void SetCORSHeaders(OutgoingWebResponseContext response, IncomingWebRequestContext request)
         {
+            // DAVID: this is a problem - for some reason webkit is still not passing this conditional - even when
+            // the api is hosted remotely. I need to dig deeper
+
             // this is bs - webkit is not sending an 'origin' header - it then complains when it does not get back an Access-Control-Allow-Origin
-            // so we have to add these response headers to EVERY response. what a pain in the ass.
+            // so we have to add these response headers to EVERY response. what a pain in the rear.
             if (!string.IsNullOrWhiteSpace(request.Headers["origin"]))
             {
                 response.Headers.Add("Access-Control-Allow-Origin", Access_Control_Allow_Origin);

@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonSchemaUtilities.cs" />
-    <Compile Include="MetaCollector.cs" />
-    <Compile Include="MetaDataPackage.cs" />
-    <Compile Include="MetaDataPackageType.cs" />
+    <Compile Include="Refactor\MetaCollector.cs" />
+    <Compile Include="Refactor\MetaDataPackage.cs" />
+    <Compile Include="Refactor\MetaDataPackageType.cs" />
     <Compile Include="SchemaHandler.cs" />
     <Compile Include="SmdGenerator.cs" />
     <Compile Include="SmdHandler.cs" />

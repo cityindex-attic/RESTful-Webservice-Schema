@@ -74,7 +74,11 @@ namespace MetadataProcessor
                         service = new JObject();
                         methodUriTemplate = FixUriTemplate(webGet.UriTemplate);
                         methodTransport = "GET";
+                        // TODO: FIXME: for some reason this is returning json string instead of json object when flxhr is used
+                        // is an odd interaction between flxhr and dojox.rpc.Service
+                        // HACK: use JSON envelope for now - results in not entirely correct smd but dojox behaves as it should
                         methodEnvelope = "URL";
+                         //methodEnvelope = "JSON"; 
                     }
                     else
                     {
@@ -104,6 +108,8 @@ namespace MetadataProcessor
                             service.Add("uriTemplate", methodUriTemplate);
                         }
 
+                        service.Add("contentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
+                        service.Add("responseContentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("transport", methodTransport);
 
                         ((JObject)smdBase["services"]).Add(methodName, service);
@@ -196,7 +202,6 @@ namespace MetadataProcessor
                                   {"schema",smdSchemaUrl+ (includeDemoValue ? "?includeDemoValue=true" : "")},
                                   {"description",smdDescription},
                                   {"additionalParameters",true},
-                                  {"contentType","application/json"},
                                   {"services", new JObject()}
                               };
             return smd;
@@ -263,10 +268,10 @@ namespace MetadataProcessor
                 JsonSchemaUtilities.ApplyPropertyAttribute(attributeTarget, attribute, parentName, propertyName);
             }
 
-            if (propBase["optional"] == null)
-            {
-                propBase.Add("optional", false);
-            }
+            //if (propBase["required"] == null)
+            //{
+            //    propBase.Add("optional", false);
+            //}
             return propBase;
         }
     }
