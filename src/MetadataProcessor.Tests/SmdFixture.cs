@@ -47,7 +47,10 @@ namespace MetadataProcessor.Tests
             }
 
             var smdJson = _smdBase.ToString();
-            Assert.AreEqual(GetTestTarget("BuildTestService"), smdJson);
+            string testTarget = GetTestTarget("BuildTestService");
+            Console.WriteLine(testTarget);
+            Console.WriteLine(smdJson);
+            Assert.AreEqual(testTarget, smdJson);
         }
         
 
