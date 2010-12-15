@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace MetadataProcessor.Tests.TestDTO
+namespace MetadataProcessor.Tests.TestDTO.Response
 {
     ///<summary>
     /// This is a description of ErrorResponseDTO

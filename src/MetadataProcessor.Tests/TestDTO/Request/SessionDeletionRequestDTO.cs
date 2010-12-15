@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RESTWebServicesDTO.Request
+namespace MetadataProcessor.Tests.TestDTO.Request
 {
  
     [Serializable, DataContract]

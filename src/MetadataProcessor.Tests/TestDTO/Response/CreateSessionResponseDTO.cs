@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RESTWebServicesDTO.Response
+namespace MetadataProcessor.Tests.TestDTO.Response
 {
     ///<summary>
     /// Response to a CreateSessionRequest
