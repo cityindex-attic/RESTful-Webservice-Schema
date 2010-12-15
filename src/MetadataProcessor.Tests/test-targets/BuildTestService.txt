@@ -6,12 +6,13 @@
   "schema": "http://tempuri.com/schema?includeDemoValue=true",
   "description": "City Index RESTful API 1.1",
   "additionalParameters": true,
-  "contentType": "application/json",
   "services": {
     "CreateSession": {
       "description": "CreateSession Method Description",
       "target": "session",
       "uriTemplate": "/",
+      "contentType": "application/json",
+      "responseContentType": "application/json",
       "transport": "POST",
       "envelope": "JSON",
       "returns": {
@@ -21,18 +22,18 @@
         {
           "type": "string",
           "name": "UserName",
-          "demoValue": "CC735158",
+          "description": "Username is case sensitive",
+          "demoValue": "3T999",
           "minLength": 6,
-          "maxLength": 20,
-          "optional": false
+          "maxLength": 20
         },
         {
           "type": "string",
           "name": "Password",
+          "description": "Password is case sensitive",
           "demoValue": "password",
           "minLength": 6,
-          "maxLength": 20,
-          "optional": false
+          "maxLength": 20
         }
       ]
     },
@@ -40,6 +41,8 @@
       "description": "",
       "target": "session",
       "uriTemplate": "/deleteSession?userName={userName}&session={session}",
+      "contentType": "application/json",
+      "responseContentType": "application/json",
       "transport": "POST",
       "envelope": "JSON",
       "returns": {
@@ -52,8 +55,7 @@
           "description": "Username is case sensitive. May be set as a service parameter or as a request header.",
           "demoValue": "CC735158",
           "minLength": 6,
-          "maxLength": 20,
-          "optional": false
+          "maxLength": 20
         },
         {
           "type": "string",
@@ -62,8 +64,7 @@
           "demoValue": "5998CBE8-3594-4232-A57E-09EC3A4E7AA8",
           "format": "guid",
           "minLength": 36,
-          "maxLength": 36,
-          "optional": false
+          "maxLength": 36
         }
       ]
     }

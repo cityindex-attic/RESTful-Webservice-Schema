@@ -4,8 +4,10 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using RESTWebServicesDTO.Request;
-using RESTWebServicesDTO.Response;
+using MetadataProcessor.Tests.TestDTO;
+using MetadataProcessor.Tests.TestDTO.Request;
+using MetadataProcessor.Tests.TestDTO.Request;
+using MetadataProcessor.Tests.TestDTO.Response;
 
 namespace MetadataProcessor.Tests.TestEndpoint
 {

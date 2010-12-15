@@ -13,7 +13,7 @@ namespace MetadataProcessor
 {
     public static class SmdGenerator
     {
-        public static void BuildServiceMapping(UrlMapElement route, List<Type> mappedTypes, JObject smdBase, List<AssemblyReferenceElement> dtoAssemblies, bool includeDemoValue)
+        public static void BuildServiceMapping(UrlMapElement route, List<Type> mappedTypes, List<string> dtoAssemblyNames, JObject smdBase, bool includeDemoValue)
         {
 
             var type = Type.GetType(route.Type);
@@ -140,64 +140,67 @@ namespace MetadataProcessor
                             service.Add("cacheDuration", cacheDuration);
                         }
 
-                        var parameters = new JArray();
-                        service.Add("parameters", parameters);
-
-
-                        // flesh out the parameters
-
-                        foreach (var parameter in method.GetParameters())
-                        {
-
-                            // is this a DTO?
-                            Type parameterType = parameter.ParameterType;
-                            var parameterAssemblyFullName = parameterType.Assembly.FullName;
-                            bool isDTO = false;
-
-                            foreach (AssemblyReferenceElement assemblyName in dtoAssemblies)
-                            {
-                                if (assemblyName.Assembly.StartsWith(parameterAssemblyFullName))
-                                {
-                                    isDTO = true;
-                                    break;
-                                }
-                            }
-
-                            if (isDTO)
-                            {
-                                // break dto down into properties and include each as a parameter
-                                // use jsonschema to build parameters
-                                XDocument dtoDoc = JsonSchemaUtilities.GetXmlDocs(parameter.ParameterType);
-                                foreach (PropertyInfo parameterProperty in parameter.ParameterType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-                                {
-
-                                    XElement propElement = JsonSchemaUtilities.GetMemberNode(dtoDoc, "P:" + parameter.ParameterType.FullName + "." + parameterProperty.Name);
-
-                                    if (propElement != null)
-                                    {
-                                        XElement metaElement = propElement.Descendants("jschema").FirstOrDefault();
-                                        if (metaElement != null)
-                                        {
-                                            BuildParameterSchema(propElement, metaElement, includeDemoValue, parameters, parameterProperty.Name, parameterProperty.PropertyType, type.FullName);
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var metaElement = methodElement.Descendants("param").Where(p => p.Attribute("name").Value == parameter.Name).First();
-                                BuildParameterSchema(methodElement, metaElement, includeDemoValue, parameters, parameter.Name, parameter.ParameterType, type.FullName);
-
-                            }
-                        }
-
+                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue);
                     }
 
                 }
 
             }
+        }
 
+        /// <summary>
+        /// flesh out the parameters
+        /// </summary>
+        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, List<string> dtoAssemblyNames, bool includeDemoValue)
+        {
+            var parameters = new JArray();
+            service.Add("parameters", parameters);
 
+            foreach (var parameter in method.GetParameters())
+            {
+                if (IsParameterADto(parameter, dtoAssemblyNames))
+                {
+                    // break dto down into properties and include each as a parameter
+                    // use jsonschema to build parameters
+                    XDocument dtoDoc = JsonSchemaUtilities.GetXmlDocs(parameter.ParameterType);
+                    foreach (PropertyInfo parameterProperty in parameter.ParameterType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    {
+
+                        XElement propElement = JsonSchemaUtilities.GetMemberNode(dtoDoc, "P:" + parameter.ParameterType.FullName + "." + parameterProperty.Name);
+
+                        if (propElement != null)
+                        {
+                            XElement metaElement = propElement.Descendants("jschema").FirstOrDefault();
+                            if (metaElement != null)
+                            {
+                                BuildParameterSchema(propElement, metaElement, includeDemoValue, parameters, parameterProperty.Name, parameterProperty.PropertyType, type.FullName);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var metaElement = methodElement.Descendants("param").Where(p => p.Attribute("name").Value == parameter.Name).First();
+                    BuildParameterSchema(methodElement, metaElement, includeDemoValue, parameters, parameter.Name, parameter.ParameterType, type.FullName);
+                }
+            }
+        }
+
+        private static bool IsParameterADto(ParameterInfo parameter, List<string> dtoAssemblyNames)
+        {
+            Type parameterType = parameter.ParameterType;
+            var parameterAssemblyFullName = parameterType.Assembly.FullName;
+            bool isDTO = false;
+
+            foreach (var assemblyName in dtoAssemblyNames)
+            {
+                if (assemblyName.StartsWith(parameterAssemblyFullName))
+                {
+                    isDTO = true;
+                    break;
+                }
+            }
+            return isDTO;
         }
 
         public static JObject BuildSMDBase(string smdUrl, string smdTargetUrl, string smdSchemaUrl, string smdDescription, string apiVersion, string smdVersion, bool includeDemoValue)
@@ -248,12 +251,7 @@ namespace MetadataProcessor
 
             metaContainer.Add(propBase);
             
-
-            if (!string.IsNullOrWhiteSpace(metaElement.Value))
-            {
-                propBase.Add("description", metaElement.Value.Trim());
-            }
-
+            AddPropertyDescription(propBase, metaElement, docElement);
 
             if (includeDemoValue)
             {
@@ -282,6 +280,24 @@ namespace MetadataProcessor
             //    propBase.Add("optional", false);
             //}
             return propBase;
+        }
+
+        internal static void AddPropertyDescription(JObject propBase, XElement metaElement, XElement docElement)
+        {
+            if (TryAddPropertyDescription(metaElement.Value, propBase)) return;
+
+            var summary = docElement.Elements()
+                    .Where(e => e.Name.LocalName.ToLower() == "summary")
+                    .Select(e => e.Value).FirstOrDefault();
+            TryAddPropertyDescription(summary, propBase);
+        }
+
+        private static bool TryAddPropertyDescription(string description, JObject propBase)
+        {
+            if (string.IsNullOrWhiteSpace(description)) return false;
+
+            propBase.Add("description", description.Trim());
+            return true;
         }
     }
 }

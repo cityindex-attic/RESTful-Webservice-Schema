@@ -52,12 +52,12 @@ namespace MetadataProcessor
 
             var smdBase = SmdGenerator.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion, includeDemoValue);
 
-            var dtoAssemblies = profile.DtoAssemblies.Cast<AssemblyReferenceElement>().ToList();
+            List<string> dtoAssemblyNames = GetDtoAssemblyNames(profile);
 
             var mappedTypes = new List<Type>(); // just to keep track of types so we don't map twice
             foreach (UrlMapElement route in profile.Routes)
             {
-                SmdGenerator.BuildServiceMapping(route, mappedTypes, smdBase, dtoAssemblies, includeDemoValue);
+                SmdGenerator.BuildServiceMapping(route, mappedTypes, dtoAssemblyNames, smdBase, includeDemoValue);
             }
 
             // TODO: set caching headers and use asp.net cache
@@ -69,6 +69,13 @@ namespace MetadataProcessor
             }
             return smdBase;
         }
+
+        private static List<string> GetDtoAssemblyNames(ApiProfileElement profile)
+        {
+            var dtoAssemblies = profile.DtoAssemblies.Cast<AssemblyReferenceElement>().ToList();
+            return dtoAssemblies.Select(assemblyName => assemblyName.Assembly).ToList();
+        }
+
         public bool IsReusable
         {
             get { return true; }

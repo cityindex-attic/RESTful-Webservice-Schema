@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RESTWebServicesDTO.Request
+namespace MetadataProcessor.Tests.TestDTO.Request
 {
     /// <jschema/>
     [Serializable, DataContract]
@@ -9,12 +9,11 @@ namespace RESTWebServicesDTO.Request
     {
         ///<summary>
         /// Username is case sensitive
-        /// TODO: Why isn't this appearing in the documentation?
         ///</summary>
         /// <jschema
         /// minLength="6"
         /// maxLength="20"
-        /// demoValue="CC735158"
+        /// demoValue="3T999"
         /// />
         [DataMember]
         public string UserName { get; set; }

@@ -39,9 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.5.7.10213\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RESTWebServicesDTO">
-      <HintPath>..\..\packages\Dependancies-to-be-removed\RESTWebServicesDTO\RESTWebServicesDTO.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -53,12 +50,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingApi.CoreDTO">
-      <HintPath>..\..\packages\Dependancies-to-be-removed\RESTWebServicesDTO\TradingApi.CoreDTO.dll</HintPath>
-    </Reference>
-    <Reference Include="TradingApi.ServerCommon">
-      <HintPath>..\..\packages\Dependancies-to-be-removed\TradingApi.ServerCommon\TradingApi.ServerCommon.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MetaCollector\MetaCollectorFixture.cs" />
@@ -69,13 +60,13 @@
     <Compile Include="JsonSchemaFixture.cs" />
     <Compile Include="SerializationFixture.cs" />
     <Compile Include="SmdFixture.cs" />
-    <Compile Include="TestDTO\CreateSessionResponseDTO.cs" />
+    <Compile Include="TestDTO\Response\CreateSessionResponseDTO.cs" />
     <Compile Include="TestDTO\ErrorCode.cs" />
-    <Compile Include="TestDTO\ErrorResponseDTO.cs" />
+    <Compile Include="TestDTO\Response\ErrorResponseDTO.cs" />
     <Compile Include="TestDTO\JSchemaDTO.cs" />
-    <Compile Include="TestDTO\LogonRequestDTO.cs" />
-    <Compile Include="TestDTO\SessionDeletionRequestDTO.cs" />
-    <Compile Include="TestDTO\SessionDeletionResponseDTO.cs" />
+    <Compile Include="TestDTO\Request\LogonRequestDTO.cs" />
+    <Compile Include="TestDTO\Request\SessionDeletionRequestDTO.cs" />
+    <Compile Include="TestDTO\Response\SessionDeletionResponseDTO.cs" />
     <Compile Include="TestDTO\WithInvalidDemoValue.cs" />
     <Compile Include="TestEndpoint\ITestService.cs" />
   </ItemGroup>
