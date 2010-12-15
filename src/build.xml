@@ -11,7 +11,7 @@
     <Assemblies     Include="$(SrcDirectory)\MetadataProcessor\bin\$(Configuration)\MetadataProcessor.dll;
                              $(SrcDirectory)\RESTWebServices.Configuration\bin\$(Configuration)\RESTWebServices.Configuration.dll;
                              $(SrcDirectory)\RESTWebServices.XDRSupport\bin\$(Configuration)\RESTWebServices.XDRSupport.dll;
-                             $(RootDirectory)\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll"/>
+                             $(SrcDirectory)\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll"/>
     
     <TestAssemblies Include="$(SrcDirectory)\MetadataProcessor.Tests\bin\$(Configuration)\MetadataProcessor.Tests.dll"/>
   </ItemGroup>
