@@ -108,6 +108,7 @@ namespace MetadataProcessor
                             service.Add("uriTemplate", methodUriTemplate);
                         }
 
+
                         service.Add("contentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("responseContentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("transport", methodTransport);
@@ -129,6 +130,14 @@ namespace MetadataProcessor
                         {
                             methodGroup = methodSmdElementGroupAttribute.Value;
                             service.Add("group", methodGroup);
+                        }
+
+                        int cacheDuration;
+                        XAttribute cacheDurationAttribute = methodSmdElement.Attributes("cacheDuration").FirstOrDefault();
+                        if (cacheDurationAttribute != null)
+                        {
+                            cacheDuration = Convert.ToInt32(cacheDurationAttribute.Value);
+                            service.Add("cacheDuration", cacheDuration);
                         }
 
                         var parameters = new JArray();
