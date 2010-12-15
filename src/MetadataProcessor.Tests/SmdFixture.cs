@@ -15,10 +15,15 @@ namespace MetadataProcessor.Tests
     public class SmdFixture
     {
         private JObject _smdBase;
+        private List<string> _dtoAssemblyNames;
+        private static UrlMapElement _sessionRoute = new UrlMapElement {Name = "session", Endpoint = "/session", FilePath = "~/Session.svc", PathInfo = "/", UrlPattern = "$", Type = "MetadataProcessor.Tests.TestEndpoint.ITestService, MetadataProcessor.Tests, Version=1.0.0.0" };
+        private static UrlMapElement _sessionLogoutRoute = new UrlMapElement {Name = "session_logout", Endpoint = "/session", FilePath = "~/Session.svc", PathInfo = "/${match1}", UrlPattern = @"/(\w+)$", Type = "MetadataProcessor.Tests.TestEndpoint.ITestService, MetadataProcessor.Tests, Version=1.0.0.0" };
+
         [SetUp]
         public void SetUp()
         {
             _smdBase = GenerateSmdBase();
+            _dtoAssemblyNames = new List<string> { GetType().Assembly.FullName };
         }
 
         private static JObject GenerateSmdBase()
@@ -36,18 +41,28 @@ namespace MetadataProcessor.Tests
         [Test]
         public void BuildTestService()
         {
-            var profile = TradingApiConfigurationSection.Instance.Profiles[""];
-            var dtoAssemblies = profile.DtoAssemblies.Cast<AssemblyReferenceElement>().ToList();
-            var dtoAssemblyNames = dtoAssemblies.Select(assemblyName => assemblyName.Assembly).ToList();
-
-            var mappedTypes = new List<Type>(); // just to keep track of types so we don't map twice
-            foreach (UrlMapElement route in profile.Routes)
-            {
-                SmdGenerator.BuildServiceMapping(route, mappedTypes, dtoAssemblyNames, _smdBase, true);
-            }
+            var mappedTypes = new List<Type>(); 
+            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(_sessionLogoutRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
 
             var smdJson = _smdBase.ToString();
-            string testTarget = GetTestTarget("BuildTestService");
+            var testTarget = GetTestTarget("BuildTestService");
+            Console.WriteLine(testTarget);
+            Console.WriteLine(smdJson);
+            Assert.AreEqual(testTarget, smdJson);
+        }
+
+        [Test]
+        public void BuildTestServiceWithUnversionedAssemblyNames()
+        {
+            var mappedTypes = new List<Type>();
+            var unVersionedDtoAssemblyNames = new List<string> { "MetadataProcessor.Tests" };
+
+            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(_sessionLogoutRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
+
+            var smdJson = _smdBase.ToString();
+            var testTarget = GetTestTarget("BuildTestService");
             Console.WriteLine(testTarget);
             Console.WriteLine(smdJson);
             Assert.AreEqual(testTarget, smdJson);
@@ -62,11 +77,9 @@ namespace MetadataProcessor.Tests
         [Test]
         public void ParameterDescriptionMetadataIsPulledFromMetaDataOfDtos()
         {
-            var dtoAssemblyNames = new List<string> {GetType().Assembly.FullName};
             var mappedTypes = new List<Type>();
-            var route = new UrlMapElement{Endpoint = "/session",FilePath = "~/Session.svc", Name="session",PathInfo = "/", UrlPattern = "$", Type = "MetadataProcessor.Tests.TestEndpoint.ITestService, MetadataProcessor.Tests, Version=1.0.0.0"};
 
-            SmdGenerator.BuildServiceMapping(route, mappedTypes, dtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
 
             var actualParameters = _smdBase.SelectToken("services.CreateSession.parameters[0]").ToString();
             StringAssert.Contains("\"description\": \"Username is case sensitive\"", actualParameters, "description not found in SMD description of parameters");

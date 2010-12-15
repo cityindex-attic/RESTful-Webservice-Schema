@@ -194,7 +194,7 @@ namespace MetadataProcessor
 
             foreach (var assemblyName in dtoAssemblyNames)
             {
-                if (assemblyName.StartsWith(parameterAssemblyFullName))
+                if (parameterAssemblyFullName.StartsWith(assemblyName))
                 {
                     isDTO = true;
                     break;
