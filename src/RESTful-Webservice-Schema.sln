@@ -19,10 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E20EDE46
 		PartCover4.settings.xml = PartCover4.settings.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTWebServices.Configuration", "RESTWebServices.Configuration\RESTWebServices.Configuration.csproj", "{0D8B5AB3-D905-4303-91D7-877DE1D35065}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTWebServices.XDRSupport", "RESTWebServices.XDRSupport\RESTWebServices.XDRSupport.csproj", "{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,14 +33,6 @@ Global
 		{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8216D9E3-2F46-435F-BEF3-69E5DA3F9A50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D8B5AB3-D905-4303-91D7-877DE1D35065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D8B5AB3-D905-4303-91D7-877DE1D35065}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D8B5AB3-D905-4303-91D7-877DE1D35065}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D8B5AB3-D905-4303-91D7-877DE1D35065}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

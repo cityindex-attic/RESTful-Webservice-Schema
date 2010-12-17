@@ -48,12 +48,6 @@
     <Compile Include="JsonContentTypeMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RESTWebServices.Configuration\RESTWebServices.Configuration.csproj">
-      <Project>{0D8B5AB3-D905-4303-91D7-877DE1D35065}</Project>
-      <Name>RESTWebServices.Configuration</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

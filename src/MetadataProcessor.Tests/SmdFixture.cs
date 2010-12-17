@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using MetadataProcessor.Tests.TestEndpoint;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using TradingApi.Configuration;
 
 namespace MetadataProcessor.Tests
 {
@@ -16,8 +16,8 @@ namespace MetadataProcessor.Tests
     {
         private JObject _smdBase;
         private List<string> _dtoAssemblyNames;
-        private static UrlMapElement _sessionRoute = new UrlMapElement {Name = "session", Endpoint = "/session", FilePath = "~/Session.svc", PathInfo = "/", UrlPattern = "$", Type = "MetadataProcessor.Tests.TestEndpoint.ITestService, MetadataProcessor.Tests, Version=1.0.0.0" };
-        private static UrlMapElement _sessionLogoutRoute = new UrlMapElement {Name = "session_logout", Endpoint = "/session", FilePath = "~/Session.svc", PathInfo = "/${match1}", UrlPattern = @"/(\w+)$", Type = "MetadataProcessor.Tests.TestEndpoint.ITestService, MetadataProcessor.Tests, Version=1.0.0.0" };
+        private static readonly ServiceRoute SessionRoute = new ServiceRoute { Name = "session", Endpoint = "/session", ServiceType = typeof(ITestService) };
+        private static readonly ServiceRoute SessionLogoutRoute = new ServiceRoute { Name = "session_logout", Endpoint = "/session", ServiceType = typeof(ITestService) };
 
         [SetUp]
         public void SetUp()
@@ -42,8 +42,8 @@ namespace MetadataProcessor.Tests
         public void BuildTestService()
         {
             var mappedTypes = new List<Type>(); 
-            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
-            SmdGenerator.BuildServiceMapping(_sessionLogoutRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(SessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(SessionLogoutRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
 
             var smdJson = _smdBase.ToString();
             var testTarget = GetTestTarget("BuildTestService");
@@ -58,8 +58,8 @@ namespace MetadataProcessor.Tests
             var mappedTypes = new List<Type>();
             var unVersionedDtoAssemblyNames = new List<string> { "MetadataProcessor.Tests" };
 
-            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
-            SmdGenerator.BuildServiceMapping(_sessionLogoutRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(SessionRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(SessionLogoutRoute, mappedTypes, unVersionedDtoAssemblyNames, _smdBase, true);
 
             var smdJson = _smdBase.ToString();
             var testTarget = GetTestTarget("BuildTestService");
@@ -79,7 +79,7 @@ namespace MetadataProcessor.Tests
         {
             var mappedTypes = new List<Type>();
 
-            SmdGenerator.BuildServiceMapping(_sessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
+            SmdGenerator.BuildServiceMapping(SessionRoute, mappedTypes, _dtoAssemblyNames, _smdBase, true);
 
             var actualParameters = _smdBase.SelectToken("services.CreateSession.parameters[0]").ToString();
             StringAssert.Contains("\"description\": \"Username is case sensitive\"", actualParameters, "description not found in SMD description of parameters");

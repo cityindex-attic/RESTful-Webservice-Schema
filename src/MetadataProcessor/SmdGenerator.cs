@@ -7,16 +7,15 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using MetadataProcessor.Utilities;
 using Newtonsoft.Json.Linq;
-using TradingApi.Configuration;
 
 namespace MetadataProcessor
 {
     public static class SmdGenerator
     {
-        public static void BuildServiceMapping(UrlMapElement route, List<Type> mappedTypes, List<string> dtoAssemblyNames, JObject smdBase, bool includeDemoValue)
+        public static void BuildServiceMapping(ServiceRoute route, List<Type> mappedTypes, List<string> dtoAssemblyNames, JObject smdBase, bool includeDemoValue)
         {
 
-            var type = Type.GetType(route.Type);
+            var type = route.ServiceType;
 
             var doc = JsonSchemaUtilities.GetXmlDocs(type);
 

@@ -52,25 +52,14 @@
     <Compile Include="Refactor\MetaCollector.cs" />
     <Compile Include="Refactor\MetaDataPackage.cs" />
     <Compile Include="Refactor\MetaDataPackageType.cs" />
-    <Compile Include="SchemaHandler.cs" />
+    <Compile Include="ServiceRoute.cs" />
     <Compile Include="SmdGenerator.cs" />
-    <Compile Include="SmdHandler.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlDocExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RESTWebServices.Configuration\RESTWebServices.Configuration.csproj">
-      <Project>{0D8B5AB3-D905-4303-91D7-877DE1D35065}</Project>
-      <Name>RESTWebServices.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RESTWebServices.XDRSupport\RESTWebServices.XDRSupport.csproj">
-      <Project>{C7C2EAB2-7AAB-4844-B0A3-72B5643F71E2}</Project>
-      <Name>RESTWebServices.XDRSupport</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
