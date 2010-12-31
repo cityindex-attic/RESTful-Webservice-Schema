@@ -18,6 +18,7 @@
       "returns": {
         "$ref": "#.CreateSessionResponseDTO"
       },
+      "throttleScope": "scope1",
       "parameters": [
         {
           "type": "string",

@@ -86,6 +86,7 @@
     <Content Include="test-targets\BuildTestService.txt" />
     <Content Include="test-targets\BuildTypeSchema.txt" />
     <Content Include="test-targets\GenerateRWSDTO.txt" />
+    <Content Include="test-targets\json-scratchpad.js" />
     <Content Include="TestDTO\jschema.js" />
   </ItemGroup>
   <ItemGroup>

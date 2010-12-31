@@ -24,7 +24,7 @@ namespace MetadataProcessor.Tests.TestEndpoint
         ///</summary>
         ///<param name="logOnRequest">disregarded - description from DTO Properties</param>
         ///<returns></returns>
-        /// <smd/>
+        /// <smd throttleScope="scope1"/>
         [OperationContract]
         [WebInvoke(Method = "POST",
             UriTemplate = "/",
@@ -38,7 +38,7 @@ namespace MetadataProcessor.Tests.TestEndpoint
         /// </summary>
         /// <param name="logoutRequest"></param>
         /// <returns></returns>
-        /// <smd/>
+        /// <smd throttleScope="scope2"/>
         [OperationContract]
         [WebInvoke(Method = "DELETE",
             UriTemplate = "/",

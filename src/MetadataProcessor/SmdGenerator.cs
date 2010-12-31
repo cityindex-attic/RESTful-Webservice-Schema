@@ -12,6 +12,23 @@ namespace MetadataProcessor
 {
     public static class SmdGenerator
     {
+        private static void SetStringAttribute(XElement methodSmdElement, JObject service, string attributeName)
+        {
+            XAttribute throttleScopeAttribute = methodSmdElement.Attributes(attributeName).FirstOrDefault();
+            if (throttleScopeAttribute != null)
+            {
+                service.Add(attributeName, throttleScopeAttribute.Value);
+            }
+        }
+
+        private static void SetIntAttribute(XElement methodSmdElement, JObject service, string attributeName)
+        {
+            XAttribute throttleScopeAttribute = methodSmdElement.Attributes(attributeName).FirstOrDefault();
+            if (throttleScopeAttribute != null)
+            {
+                service.Add(attributeName, Convert.ToInt64(throttleScopeAttribute.Value));
+            }
+        }
         public static void BuildServiceMapping(ServiceRoute route, List<Type> mappedTypes, List<string> dtoAssemblyNames, JObject smdBase, bool includeDemoValue)
         {
 
@@ -66,7 +83,7 @@ namespace MetadataProcessor
 
 
                     string methodTransport = null;
-                    string methodEnvelope = null; 
+                    string methodEnvelope = null;
                     string methodUriTemplate = null;
                     if (webGet != null)
                     {
@@ -77,7 +94,7 @@ namespace MetadataProcessor
                         // is an odd interaction between flxhr and dojox.rpc.Service
                         // HACK: use JSON envelope for now - results in not entirely correct smd but dojox behaves as it should
                         methodEnvelope = "URL";
-                         //methodEnvelope = "JSON"; 
+                        //methodEnvelope = "JSON"; 
                     }
                     else
                     {
@@ -123,21 +140,10 @@ namespace MetadataProcessor
                         service.Add("returns", returnType); //NOTE: scalar return types are not indicated by API and are not supported by this code
 
 
-                        string methodGroup = null;
-                        XAttribute methodSmdElementGroupAttribute = methodSmdElement.Attributes("group").FirstOrDefault();
-                        if (methodSmdElementGroupAttribute != null)
-                        {
-                            methodGroup = methodSmdElementGroupAttribute.Value;
-                            service.Add("group", methodGroup);
-                        }
 
-                        int cacheDuration;
-                        XAttribute cacheDurationAttribute = methodSmdElement.Attributes("cacheDuration").FirstOrDefault();
-                        if (cacheDurationAttribute != null)
-                        {
-                            cacheDuration = Convert.ToInt32(cacheDurationAttribute.Value);
-                            service.Add("cacheDuration", cacheDuration);
-                        }
+                        SetStringAttribute(methodSmdElement, service, "group");
+                        SetIntAttribute(methodSmdElement, service, "cacheDuration");
+                        SetStringAttribute(methodSmdElement, service, "throttleScope");
 
                         AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue);
                     }

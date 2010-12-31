@@ -176,7 +176,7 @@ namespace MetadataProcessor.Tests
             Assert.AreEqual(GetTestTarget("BuildEnumSchema"), propJSON);
         }
 
-        [Test, Ignore]
+        [Test]
         public void BuildTypeSchema()
         {
             var type = typeof(JSchemaDTO);
@@ -190,7 +190,7 @@ namespace MetadataProcessor.Tests
 
         }
 
-        [Test, Ignore]
+        [Test]
         public void BuildDerivedTypeSchema()
         {
             var type = typeof(JSchemaDTOImpl);
@@ -204,7 +204,7 @@ namespace MetadataProcessor.Tests
         }
 
 
-        [Test, Ignore]
+        [Test, Ignore("dependant on external assembly")]
         public void GenerateRWSDTO()
         {
             JObject properties = new JObject();
