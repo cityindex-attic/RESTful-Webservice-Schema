@@ -114,7 +114,15 @@ namespace MetadataProcessor
             if (targetType.FullName.StartsWith("System"))
             {
                 var schemaType = MiscellaneousUtils.GetJsonSchemaType(targetType, Required.Always);
+
                 jsPropertyValue.Add("type", MiscellaneousUtils.JsonSchemaReverseTypeMapping[schemaType]);
+
+                // HACK:
+                if (targetType == typeof(DateTime) || targetType == typeof(DateTimeOffset))
+                {
+                    jsPropertyValue.Add("format", "wcf-date");
+                }
+
             }
             else
             {
@@ -457,6 +465,7 @@ namespace MetadataProcessor
                 {
                     ApplyPropertyAttribute(attributeTarget, attribute, parentName,propertyName);
                 }
+                
                 //if (propBase["optional"] == null)
                 //{
                 //    propBase.Add("optional", false);

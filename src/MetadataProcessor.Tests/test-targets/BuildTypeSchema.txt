@@ -9,6 +9,16 @@
     "TestEnumAsIntProperty": {
       "$ref": "#.TestEnum"
     },
+    "DateTimeProperty": {
+      "type": "string",
+      "format": "wcf-date",
+      "description": ""
+    },
+    "DateTimeOffsetProperty": {
+      "type": "string",
+      "format": "wcf-date",
+      "description": ""
+    },
     "IntProperty": {
       "type": "integer",
       "description": "this is a description of JSchemaDTO.IntProperty",

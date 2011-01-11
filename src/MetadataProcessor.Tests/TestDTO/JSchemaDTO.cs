@@ -31,6 +31,15 @@ namespace MetadataProcessor.Tests.TestDTO
         public int TestEnumAsIntProperty { get; set; }
 
 
+        ///<summary>
+        ///</summary>
+        /// <jschema/>
+        public DateTime DateTimeProperty { get; set; }
+
+        ///<summary>
+        ///</summary>
+        /// <jschema/>
+        public DateTimeOffset DateTimeOffsetProperty { get; set; }
 
         ///<summary>
         /// this is a description of JSchemaDTO.IntProperty
