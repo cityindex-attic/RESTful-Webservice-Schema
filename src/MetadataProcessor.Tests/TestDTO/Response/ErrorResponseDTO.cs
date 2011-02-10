@@ -13,14 +13,14 @@ namespace MetadataProcessor.Tests.TestDTO.Response
         ///<summary>
         /// This is a description of the ErrorMessage property
         ///</summary>
-        /// <jschema required="always"/>
+        /// <jschema required="true"/>
         [DataMember]
         public string ErrorMessage { get; set; }
 
         ///<summary>
         /// This is a description of the ErrorCode property
         ///</summary>
-        /// <jschema underlyingType="MetadataProcessor.Tests.TestDTO.ErrorCode, MetadataProcessor.Tests" required="always"/>
+        /// <jschema underlyingType="MetadataProcessor.Tests.TestDTO.ErrorCode, MetadataProcessor.Tests" required="true"/>
         [DataMember]
         public int ErrorCode { get; set;}
     }
