@@ -198,8 +198,7 @@ namespace MetadataProcessor.Tests.TestDTO
         /// this is a description of JSchemaDTO.IListJSchemaDTOProperty
         /// </summary>
         /// <jschema
-        /// <jschema
-        /// demoValue="{foo: &quot;bar&quot;}"
+        /// demoValue="{&quot;foo&quot;: &quot;bar&quot;}"
         /// />
         public IList<JSchemaDTO> IListJSchemaDTOProperty { get; set; }
            

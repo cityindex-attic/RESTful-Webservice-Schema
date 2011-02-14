@@ -217,99 +217,97 @@ namespace MetadataProcessor
                     throw new ArgumentException("attribute is null");
                 }
 
-
-                // FIXME: have introduced required demo value when called for so complex types
-                // are throwing left and right (as should be) so need to check for $ref and build that json
-                // on both single and array types
-                // NOTE: self referencing types are going to result in a stack overflow - so need to simply prohibit this scenario
-                // which means the old JSchemaDTO is already faulty. need another complex type to use as property type
-
-
-
-
                 JToken propTypeAttribute = propBase["type"];
                 var propType = propTypeAttribute != null ? propTypeAttribute.Value<string>() : "string";
                 var propertyName = attribute.Name.ToString();
                 var propertyValue = attribute.Value;
-                if (propType.IndexOf("string") > -1)
+
+                if (treatAsLiteral)
                 {
-                    if (treatAsLiteral)
+                    var literal = (JToken)JsonConvert.DeserializeObject(propertyValue);
+                    propBase.Add(propertyName, literal);
+                }
+                else
+                {
+
+
+
+                    if (propType.IndexOf("string") > -1)
                     {
-                        var literal = (JToken)JsonConvert.DeserializeObject(propertyValue);
-                        propBase.Add(propertyName, literal);
+
+
+                        propBase.Add(propertyName, propertyValue);
+
+
                     }
-                    else
+                    if (propType.IndexOf("integer") > -1)
+                    {
+                        propBase.Add(propertyName, Convert.ToInt64(propertyValue));
+
+                    }
+                    if (propType.IndexOf("number") > -1)
+                    {
+                        // this seems right in the context of demoing the API 
+                        propBase.Add(propertyName, Convert.ToDecimal(propertyValue));
+                    }
+                    if (propType.IndexOf("boolean") > -1)
+                    {
+                        propBase.Add(propertyName, Convert.ToBoolean(propertyValue));
+                    }
+
+                    if (propType.IndexOf("object") > -1)
                     {
                         propBase.Add(propertyName, propertyValue);
                     }
 
-                }
-                if (propType.IndexOf("integer") > -1)
-                {
-                    propBase.Add(propertyName, Convert.ToInt64(propertyValue));
-
-                }
-                if (propType.IndexOf("number") > -1)
-                {
-                    // this seems right in the context of demoing the API 
-                    propBase.Add(propertyName, Convert.ToDecimal(propertyValue));
-                }
-                if (propType.IndexOf("boolean") > -1)
-                {
-                    propBase.Add(propertyName, Convert.ToBoolean(propertyValue));
-                }
-
-                if (propType.IndexOf("object") > -1)
-                {
-                    propBase.Add(propertyName, propertyValue);
-                }
-
-                // handles only simple types - arrays of complex types are handled when the reference is resolved
-                if (propType.IndexOf("array") > -1)
-                {
-
-                    var elementType = propBase["items"]["type"].Value<string>();
-
-                    // have to deconstruct the array and build it to emit
-                    // the proper JSON
-
-
-
-                    var elements = propertyValue.Trim('[', ']').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                    var arrayProp = new JArray();
-
-                    foreach (string element in elements)
+                    // handles only simple types - arrays of complex types are handled when the reference is resolved
+                    if (propType.IndexOf("array") > -1)
                     {
 
-                        if (elementType.IndexOf("string") > -1)
+                        var elementType = propBase["items"]["type"].Value<string>();
+
+                        // have to deconstruct the array and build it to emit
+                        // the proper JSON
+
+
+
+                        var elements = propertyValue.Trim('[', ']').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        var arrayProp = new JArray();
+
+                        foreach (string element in elements)
                         {
-                            // strip the quotes
-                            arrayProp.Add(element.Trim('"', '\''));
-                        }
-                        if (elementType.IndexOf("integer") > -1)
-                        {
-                            arrayProp.Add(Convert.ToInt64(element));
+
+                            if (elementType.IndexOf("string") > -1)
+                            {
+                                // strip the quotes
+                                arrayProp.Add(element.Trim('"', '\''));
+                            }
+                            if (elementType.IndexOf("integer") > -1)
+                            {
+                                arrayProp.Add(Convert.ToInt64(element));
+
+                            }
+                            if (elementType.IndexOf("number") > -1)
+                            {
+                                arrayProp.Add(Convert.ToDecimal(element));
+
+                            }
+                            if (elementType.IndexOf("boolean") > -1)
+                            {
+                                arrayProp.Add(Convert.ToBoolean(element));
+                            }
 
                         }
-                        if (elementType.IndexOf("number") > -1)
-                        {
-                            arrayProp.Add(Convert.ToDecimal(element));
 
-                        }
-                        if (elementType.IndexOf("boolean") > -1)
-                        {
-                            arrayProp.Add(Convert.ToBoolean(element));
-                        }
+                        propBase.Add(propertyName, arrayProp);
 
                     }
-
-                    propBase.Add(propertyName, arrayProp);
-
+                    if (propType.IndexOf("any") > -1)
+                    {
+                        propBase.Add(propertyName, propertyValue);
+                    }
                 }
-                if (propType.IndexOf("any") > -1)
-                {
-                    propBase.Add(propertyName, propertyValue);
-                }
+
             }
             catch (Exception e)
             {

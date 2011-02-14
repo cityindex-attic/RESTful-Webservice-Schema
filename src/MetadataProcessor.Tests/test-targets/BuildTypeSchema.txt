@@ -133,6 +133,16 @@
       "demoValue": {
         "foo": "bar"
       }
+    },
+    "IListJSchemaDTOProperty": {
+      "type": "array",
+      "items": {
+        "$ref": "#.JSchemaDTO"
+      },
+      "description": "this is a description of JSchemaDTO.IListJSchemaDTOProperty",
+      "demoValue": {
+        "foo": "bar"
+      }
     }
   }
 }

@@ -95,7 +95,7 @@ namespace MetadataProcessor.Tests
         {
             Type type = typeof (BadDTOTestAssembly.ClassWithBadCollections);
             Assembly assembly = type.Assembly;
-            var doc = JsonSchemaUtilities.GetXmlDocs(assembly.GetTypes()[0]);
+            var doc = XmlDocExtensions.GetXmlDocs(assembly.GetTypes()[0]);
             Assert.Throws<Exception>(() => JsonSchemaUtilities.BuildTypeSchema(type, doc, false),"");
             
         }
@@ -106,7 +106,7 @@ namespace MetadataProcessor.Tests
             var schema = new JObject();
 
 
-            var doc = JsonSchemaUtilities.GetXmlDocs(assembly.GetTypes()[0]);
+            var doc = XmlDocExtensions.GetXmlDocs(assembly.GetTypes()[0]);
 
 
             foreach (var type in assembly.GetTypes())

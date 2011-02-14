@@ -60,14 +60,14 @@ namespace MetadataProcessor.Tests
         [Test]
         public void CanLoadDocs()
         {
-            var target = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            var target = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             Assert.AreEqual("doc", target.Root.Name.ToString());
         }
 
         [Test]
         public void CanGetMemberNode()
         {
-            var doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            var doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             Assert.IsNotNull(JsonSchemaUtilities.GetMemberNode(doc, "T:MetadataProcessor.Tests.TestDTO.JSchemaDTO"));
 
         }
@@ -75,7 +75,7 @@ namespace MetadataProcessor.Tests
         [Test]
         public void CanGetMemberNodes()
         {
-            var doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            var doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             IEnumerable<XElement> actual = JsonSchemaUtilities.GetMemberNodes(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO");
             Assert.Greater(actual.Count(), 0);
         }
@@ -84,7 +84,7 @@ namespace MetadataProcessor.Tests
         public void ApplyDescription()
         {
             JObject propBase = JsonSchemaUtilities.BuildPropertyBase(typeof(string));
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             XElement propElement = JsonSchemaUtilities.GetMemberNode(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO.StringProperty");
             // apply description
 
@@ -102,7 +102,7 @@ namespace MetadataProcessor.Tests
         public void ApplyStringDemoValue()
         {
             JObject propBase = JsonSchemaUtilities.BuildPropertyBase(typeof(string));
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             XElement propElement = JsonSchemaUtilities.GetMemberNode(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO.StringProperty");
 
             XElement jschema = propElement.Descendants("jschema").FirstOrDefault();
@@ -123,7 +123,7 @@ namespace MetadataProcessor.Tests
         public void ApplyStringArrayDemoValue()
         {
             JObject propBase = JsonSchemaUtilities.BuildPropertyBase(typeof(string[]));
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             XElement propElement = JsonSchemaUtilities.GetMemberNode(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO.StringArrayProperty");
 
             XElement jschema = propElement.Descendants("jschema").FirstOrDefault();
@@ -145,7 +145,7 @@ namespace MetadataProcessor.Tests
         public void ApplyIntArrayDemoValue()
         {
             JObject propBase = JsonSchemaUtilities.BuildPropertyBase(typeof(int[]));
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             XElement propElement = JsonSchemaUtilities.GetMemberNode(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO.IntArrayProperty");
 
             XElement jschema = propElement.Descendants("jschema").FirstOrDefault();
@@ -166,7 +166,7 @@ namespace MetadataProcessor.Tests
         public void ApplyStringPropertyAttributes()
         {
             JObject propBase = JsonSchemaUtilities.BuildPropertyBase(typeof(string));
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(JSchemaDTO));
             XElement propElement = JsonSchemaUtilities.GetMemberNode(doc, "P:MetadataProcessor.Tests.TestDTO.JSchemaDTO.StringProperty");
 
             XElement jschema = propElement.Descendants("jschema").FirstOrDefault();
@@ -185,7 +185,7 @@ namespace MetadataProcessor.Tests
         [Test]
         public void BuildEnumSchema()
         {
-            XDocument doc = JsonSchemaUtilities.GetXmlDocs(typeof(TestEnum));
+            XDocument doc = XmlDocExtensions.GetXmlDocs(typeof(TestEnum));
             var actual = JsonSchemaUtilities.BuildEnumSchema(doc, typeof(TestEnum),true);
             var propJSON = actual.ToString();
             Assert.AreEqual(GetTestTarget("BuildEnumSchema"), propJSON);
@@ -195,7 +195,7 @@ namespace MetadataProcessor.Tests
         public void BuildTypeSchema()
         {
             var type = typeof(JSchemaDTO);
-            var doc = JsonSchemaUtilities.GetXmlDocs(type);
+            var doc = XmlDocExtensions.GetXmlDocs(type);
 
             var jsob = JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
 
@@ -209,7 +209,7 @@ namespace MetadataProcessor.Tests
         public void BuildDerivedTypeSchema()
         {
             var type = typeof(JSchemaDTOImpl);
-            var doc = JsonSchemaUtilities.GetXmlDocs(type);
+            var doc = XmlDocExtensions.GetXmlDocs(type);
 
             var jsob = JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
 
@@ -234,7 +234,7 @@ namespace MetadataProcessor.Tests
 
                 foreach (var type in assembly.GetTypes())
                 {
-                    var doc = JsonSchemaUtilities.GetXmlDocs(type);
+                    var doc = XmlDocExtensions.GetXmlDocs(type);
                     var typeSchema = JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
                     if (typeSchema != null)
                     {
@@ -253,7 +253,7 @@ namespace MetadataProcessor.Tests
         public void ThrowsMeaningfulErrorWhenDemoValueIsInvalid()
         {
             var type = typeof(WithInvalidDemoValue);
-            var doc = JsonSchemaUtilities.GetXmlDocs(type);
+            var doc = XmlDocExtensions.GetXmlDocs(type);
 
             // this odd pattern required when you need to examine the exception in detail
             bool thrown = false;
