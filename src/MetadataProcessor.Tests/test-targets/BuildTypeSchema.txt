@@ -4,26 +4,30 @@
   "description": "this is a description of JSchemaDTO see http://tools.ietf.org/html/draft-zyp-json-schema-02",
   "properties": {
     "TestEnumProperty": {
-      "$ref": "#.TestEnum"
+      "$ref": "#.TestEnum",
+      "description": "TestEnumProperty Description"
     },
     "TestEnumAsIntProperty": {
-      "$ref": "#.TestEnum"
+      "$ref": "#.TestEnum",
+      "description": "TestEnumAsIntProperty Description"
     },
     "DateTimeProperty": {
       "type": "string",
-      "format": "wcf-date",
-      "description": ""
+      "description": "DateTimeProperty description",
+      "demoValue": "\\/Date(1290164280000)\\/",
+      "format": "wcf-date"
     },
     "DateTimeOffsetProperty": {
       "type": "string",
-      "format": "wcf-date",
-      "description": ""
+      "description": "DateTimeOffsetProperty description",
+      "demoValue": "\\/Date(1290164280000)\\/",
+      "format": "wcf-date"
     },
     "IntProperty": {
       "type": "integer",
       "description": "this is a description of JSchemaDTO.IntProperty",
       "demoValue": 100,
-      "optional": false,
+      "required": true,
       "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
       "maximumCanEqual": false,
       "minimumCanEqual": true,
@@ -74,7 +78,8 @@
     },
     "CharProperty": {
       "type": "string",
-      "description": "this is a description of JSchemaDTO.CharProperty"
+      "description": "this is a description of JSchemaDTO.CharProperty",
+      "demoValue": "a"
     },
     "StringArrayProperty": {
       "type": "array",
@@ -108,7 +113,7 @@
       "type": "string",
       "description": "this is a description of JSchemaDTO.StringProperty",
       "demoValue": "D2FF3E4D-01EA-4741-86F0-437C919B5559",
-      "optional": false,
+      "required": true,
       "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
       "format": "guid",
       "contentEncoding": "text/plain",
@@ -119,45 +124,15 @@
     "BoolProperty": {
       "type": "boolean",
       "description": "this is a description of JSchemaDTO.BoolProperty",
-      "optional": true
+      "demoValue": true,
+      "required": false
     },
     "JSchemaDTOProperty": {
-      "$ref": "#.JSchemaDTO"
-    },
-    "SchemaDTOArrayProperty": {
-      "type": "array",
-      "items": {
-        "$ref": "#.JSchemaDTO"
-      },
-      "description": "this is a description of JSchemaDTO.SchemaDTOArrayProperty"
-    },
-    "IListJSchemaDTOProperty": {
-      "type": "array",
-      "items": {
-        "$ref": "#.JSchemaDTO"
-      },
-      "description": "this is a description of JSchemaDTO.IListJSchemaDTOProperty"
-    },
-    "ListJSchemaDTOProperty": {
-      "type": "array",
-      "items": {
-        "$ref": "#.JSchemaDTO"
-      },
-      "description": "this is a description of JSchemaDTO.ListJSchemaDTOProperty"
-    },
-    "ICollectionJSchemaDTOProperty": {
-      "type": "array",
-      "items": {
-        "$ref": "#.JSchemaDTO"
-      },
-      "description": "this is a description of JSchemaDTO.ICollectionJSchemaDTOProperty"
-    },
-    "IEnumerableJSchemaDTOProperty": {
-      "type": "array",
-      "items": {
-        "$ref": "#.JSchemaDTO"
-      },
-      "description": "this is a description of JSchemaDTO.IEnumerableJSchemaDTOProperty"
+      "$ref": "#.JSchemaDTO",
+      "description": "JSchemaDTOProperty description",
+      "demoValue": {
+        "foo": "bar"
+      }
     }
   }
 }

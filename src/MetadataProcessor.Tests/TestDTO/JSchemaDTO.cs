@@ -13,39 +13,46 @@ namespace MetadataProcessor.Tests.TestDTO
     public class JSchemaDTO
     {
 
-
-        // this is the protocol for specifying an enum property that is being serialized as enum
-        // NOTE: summary/description is not valid on a referenced type. The description comes from the referenced type.
-        // the alternative is to emit this as type{ description:"foo", extends: {$ref:"typename"} }, which is valid
-        // but the js app is not tooled to handle this yet.
+ 
+        /// <summary>
+        /// TestEnumProperty Description
+        /// </summary>
         /// <jschema 
         /// />
         public TestEnum TestEnumProperty { get; set; }
 
 
-        // this is the protocol for specifying an enum property that is being serialized as integer
-        // NOTE: summary/description is not valid on a referenced type. The description comes from the referenced type.
-        // the alternative is to emit this as type{ description:"foo", extends: {$ref:"typename"} }, which is valid
-        // but the js app is not tooled to handle this yet.
+ 
+        /// <summary>
+        /// TestEnumAsIntProperty Description
+        /// </summary>
         /// <jschema underlyingType="MetadataProcessor.Tests.TestDTO.TestEnum, MetadataProcessor.Tests"/>
         public int TestEnumAsIntProperty { get; set; }
 
 
         ///<summary>
+        /// DateTimeProperty description
         ///</summary>
-        /// <jschema/>
+        /// <jschema
+        /// demoValue="\/Date(1290164280000)\/"
+        /// format = "wcf-date"
+        /// />
         public DateTime DateTimeProperty { get; set; }
 
         ///<summary>
+        /// DateTimeOffsetProperty description
         ///</summary>
-        /// <jschema/>
+        /// <jschema
+        /// demoValue="\/Date(1290164280000)\/"
+        /// format = "wcf-date"
+        /// />
         public DateTimeOffset DateTimeOffsetProperty { get; set; }
 
         ///<summary>
         /// this is a description of JSchemaDTO.IntProperty
         ///</summary>
         /// <jschema
-        /// optional="false"
+        /// required="true"
         /// title="This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node"
         /// maximumCanEqual="false"
         /// minimumCanEqual="true"
@@ -118,7 +125,9 @@ namespace MetadataProcessor.Tests.TestDTO
         ///<summary>
         /// this is a description of JSchemaDTO.CharProperty
         ///</summary>
-        /// <jschema/>
+        /// <jschema
+        /// demoValue="a"
+        /// />
         public char CharProperty { get; set; }
 
         ///<summary>
@@ -151,7 +160,7 @@ namespace MetadataProcessor.Tests.TestDTO
         /// 
         ///</summary>
         /// <jschema 
-        /// optional="false"
+        /// required="true"
         /// title="This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node"
         /// format="guid" 
         /// contentEncoding="text/plain"
@@ -167,49 +176,33 @@ namespace MetadataProcessor.Tests.TestDTO
         /// this is a description of JSchemaDTO.BoolProperty
         ///</summary>
         /// <jschema
-        /// optional="true"
+        /// required="false"
+        /// demoValue="true"
+        /// 
         /// />
         public bool BoolProperty { get; set; }
 
-
-
-
-        // NOTE: summary/description is not valid on a referenced type. The description comes from the referenced type.
-        // the alternative is to emit this as type{ description:"foo", extends: {$ref:"typename"} }, which is valid
-        // but the js app is not tooled to handle this yet.
-        /// <jschema/>
+        // TODO: insert correct json for demoValue?
+        /// <summary>
+        /// JSchemaDTOProperty description
+        /// </summary>
+        /// <jschema
+        /// demoValue="{foo: &quot;bar&quot;}"
+        /// />
         public JSchemaDTO JSchemaDTOProperty { get; set; }
 
 
-        /// <summary>
-        /// this is a description of JSchemaDTO.SchemaDTOArrayProperty
-        /// </summary>
-        /// <jschema/>
-        public JSchemaDTO[] SchemaDTOArrayProperty { get; set; }
+      
 
         /// <summary>
         /// this is a description of JSchemaDTO.IListJSchemaDTOProperty
         /// </summary>
-        /// <jschema/>
+        /// <jschema
+        /// <jschema
+        /// demoValue="{foo: &quot;bar&quot;}"
+        /// />
         public IList<JSchemaDTO> IListJSchemaDTOProperty { get; set; }
-
-        /// <summary>
-        /// this is a description of JSchemaDTO.ListJSchemaDTOProperty
-        /// </summary>
-        /// <jschema/>
-        public List<JSchemaDTO> ListJSchemaDTOProperty { get; set; }
-
-        /// <summary>
-        /// this is a description of JSchemaDTO.ICollectionJSchemaDTOProperty
-        /// </summary>
-        /// <jschema/>
-        public ICollection<JSchemaDTO> ICollectionJSchemaDTOProperty { get; set; }
-
-        /// <summary>
-        /// this is a description of JSchemaDTO.IEnumerableJSchemaDTOProperty 
-        /// </summary>
-        /// <jschema/>
-        public IEnumerable<JSchemaDTO> IEnumerableJSchemaDTOProperty { get; set; }
+           
 
     }
 
@@ -222,7 +215,7 @@ namespace MetadataProcessor.Tests.TestDTO
         /// <summary>
         /// This is a property on a derived class
         /// </summary>
-        /// <jschema/>
+        /// <jschema demoValue="demo"/>
         public string PropertyOnDerivedClass { get; set; }
     }
 

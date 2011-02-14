@@ -68,8 +68,21 @@
     <Compile Include="TestDTO\Response\SessionDeletionResponseDTO.cs" />
     <Compile Include="TestDTO\WithInvalidDemoValue.cs" />
     <Compile Include="TestEndpoint\ITestService.cs" />
+    <Compile Include="TypeCheckingFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MetadataProcessor.BadDTOTestAssembly\MetadataProcessor.BadDTOTestAssembly.csproj">
+      <Project>{1AB05A9D-091A-404F-A546-61C000B24C7D}</Project>
+      <Name>MetadataProcessor.BadDTOTestAssembly</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetadataProcessor.DTOTestAssembly\MetadataProcessor.DTOTestAssembly.csproj">
+      <Project>{250BA86E-3C24-4768-9EC7-143D304F93A3}</Project>
+      <Name>MetadataProcessor.DTOTestAssembly</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetadataProcessor.ServiceTestAssembly\MetadataProcessor.ServiceTestAssembly.csproj">
+      <Project>{E4625F84-C980-4E06-B92C-6D7E7ABE945D}</Project>
+      <Name>MetadataProcessor.ServiceTestAssembly</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetadataProcessor\MetadataProcessor.csproj">
       <Project>{B3C4DE16-3828-41A2-AC74-2D8D2AC7EFBE}</Project>
       <Name>MetadataProcessor</Name>

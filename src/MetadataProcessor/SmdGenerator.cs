@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Web;
 using System.Xml.Linq;
 using MetadataProcessor.Utilities;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,46 @@ namespace MetadataProcessor
 {
     public static class SmdGenerator
     {
+        public static JObject BuildSMD(HttpContext context, bool includeDemoValue, string smdUrl, string smdTargetUrl, string smdSchemaUrl, string apiVersion, string smdDescription, string smdVersion, List<string> dtoAssemblyNames, IEnumerable<UrlMapInfo> routes)
+        {
+            var smdBase = SmdGenerator.BuildSMDBase(smdUrl, smdTargetUrl, smdSchemaUrl, smdDescription, apiVersion, smdVersion, includeDemoValue);
+            var mappedTypes = new List<Type>(); // just to keep track of types so we don't map twice
+
+            foreach (UrlMapInfo route in routes)
+            {
+                var serviceRoute = new ServiceRoute
+                {
+                    Name = route.Name,
+                    Endpoint = route.Endpoint,
+                    ServiceType = Type.GetType(route.Type)
+                };
+
+                try
+                {
+
+                    SmdGenerator.BuildServiceMapping(serviceRoute, mappedTypes, dtoAssemblyNames, smdBase, includeDemoValue);
+                }
+                catch (Exception exc)
+                {
+                    string errorMessage = string.Format("Error Building the Service Mapping for Service . {0}: {1}", Type.GetType(route.Type), exc);
+                    if (context != null)
+                    {
+                        context.Response.Write(errorMessage);
+                    }
+
+                    throw new Exception(errorMessage);
+                }
+            }
+
+
+
+
+
+
+
+            return smdBase;
+        }
+
         private static void SetStringAttribute(XElement methodSmdElement, JObject service, string attributeName)
         {
             XAttribute throttleScopeAttribute = methodSmdElement.Attributes(attributeName).FirstOrDefault();
@@ -262,9 +303,28 @@ namespace MetadataProcessor
             {
                 var demoValueAttribute = metaElement.Attributes("demoValue").FirstOrDefault();
 
-                if (demoValueAttribute != null)
+                // if type is class and not System.* then the demoValue indicates embedded JSON. 
+                // typically this is the case when the shape of the type is problematic due to recursion
+                // or circular references
+
+                bool isComplexType = JsonSchemaUtilities.IsComplexType(propertyType);
+
+
+                // we do not force demo values on complex types. if one is not present, the js will try to compose one.
+                if (demoValueAttribute == null )
                 {
-                    JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute);
+                    if (!isComplexType)
+                    {
+                        throw new Exception(
+                            string.Format("includeDemoValue is true but {0}.{1} has no demoValue attribute", parentName,
+                                          propertyName));                        
+                    }
+
+                }
+
+                else
+                {
+                    JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute, isComplexType);
                 }
             }
 
@@ -304,5 +364,7 @@ namespace MetadataProcessor
             propBase.Add("description", description.Trim());
             return true;
         }
+
+
     }
 }

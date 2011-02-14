@@ -1,6 +1,6 @@
 ﻿{
   "type": "string",
-  "optional": false,
+  "required": true,
   "title": "This provides a short description of the instance property.  The value must be a string. Full description is in xml-doc summary node",
   "format": "guid",
   "contentEncoding": "text/plain",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,9 +16,54 @@ namespace MetadataProcessor
 {
     public static class JsonSchemaUtilities
     {
+        private const bool SwallowAttributeErrors = false;
 
-        
+        public static Type GetNullableTypeIfAny(Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                type = type.GetGenericArguments()[0];
+            }
+            return type;
+        }
 
+
+        /// <summary>
+        /// NOTE: arrays of arrays (or lists of lists etc) are not supported by this check
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsCollectionType(Type type)
+        {
+            return GetCollectionType(type) != null;
+        }
+
+        /// <summary>
+        /// NOTE: arrays of arrays (or lists of lists etc) are not supported by this check
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Type GetCollectionType(Type type)
+        {
+            // check all possible array, list and collection types
+            Type result = null;
+            if (type.IsArray)
+            {
+                throw new Exception("array types are not supported. Use IList");
+                //return type.GetElementType();
+            }
+
+            if (!type.IsGenericType)
+            {
+                return null;
+            }
+
+            if(!type.Name.StartsWith("IList"))
+            {
+                throw new Exception(type.Name + " are not supported. Use IList");
+            }
+                return type.GetGenericArguments()[0];
+        }
 
         public static JObject BuildEnumSchema(XDocument doc, Type targetType, bool includeDemoValue)
         {
@@ -27,7 +73,19 @@ namespace MetadataProcessor
             if (includeDemoValue)
             {
                 var jschemaElement = typeElement.Descendants("jschema").First();
-                result.Add("demoValue", Convert.ToInt32(jschemaElement.Attribute("demoValue").Value));
+                XAttribute demoValueAttribute = jschemaElement.Attribute("demoValue");
+
+
+                if (demoValueAttribute == null)
+                {
+                    // FIXME: reinstate when complex type demov value strategy determined
+                    //throw new Exception(string.Format("includeDemoValue is true but {0} has no demoValue attribute", targetType.FullName));
+                }
+                else
+                {
+                    result.Add("demoValue", Convert.ToInt32(demoValueAttribute.Value));
+                }
+
             }
 
             ApplyDescription(result, typeElement);
@@ -117,11 +175,7 @@ namespace MetadataProcessor
 
                 jsPropertyValue.Add("type", MiscellaneousUtils.JsonSchemaReverseTypeMapping[schemaType]);
 
-                // HACK:
-                if (targetType == typeof(DateTime) || targetType == typeof(DateTimeOffset))
-                {
-                    jsPropertyValue.Add("format", "wcf-date");
-                }
+
 
             }
             else
@@ -174,16 +228,42 @@ namespace MetadataProcessor
         /// Will do string comparison on the type to allow for future handling
         /// of nullable union types
         /// </summary>
-        public static void ApplyTypedValue(JObject propBase, XAttribute attribute)
+        public static void ApplyTypedValue(JObject propBase, XAttribute attribute, bool treatAsLiteral)
         {
             try
             {
-                var propType = propBase["type"].Value<string>();
+
+                if (attribute == null)
+                {
+                    throw new ArgumentException("attribute is null");
+                }
+
+
+                // FIXME: have introduced required demo value when called for so complex types
+                // are throwing left and right (as should be) so need to check for $ref and build that json
+                // on both single and array types
+                // NOTE: self referencing types are going to result in a stack overflow - so need to simply prohibit this scenario
+                // which means the old JSchemaDTO is already faulty. need another complex type to use as property type
+
+
+
+
+                JToken propTypeAttribute = propBase["type"];
+                var propType = propTypeAttribute != null ? propTypeAttribute.Value<string>() : "string";
                 var propertyName = attribute.Name.ToString();
                 var propertyValue = attribute.Value;
                 if (propType.IndexOf("string") > -1)
                 {
-                    propBase.Add(propertyName, propertyValue);
+                    if (treatAsLiteral)
+                    {
+                        var literal = (JToken)JsonConvert.DeserializeObject(propertyValue);
+                        propBase.Add(propertyName, literal);
+                    }
+                    else
+                    {
+                        propBase.Add(propertyName, propertyValue);
+                    }
+
                 }
                 if (propType.IndexOf("integer") > -1)
                 {
@@ -208,7 +288,9 @@ namespace MetadataProcessor
                 // handles only simple types - arrays of complex types are handled when the reference is resolved
                 if (propType.IndexOf("array") > -1)
                 {
+
                     var elementType = propBase["items"]["type"].Value<string>();
+
                     // have to deconstruct the array and build it to emit
                     // the proper JSON
 
@@ -252,9 +334,17 @@ namespace MetadataProcessor
             }
             catch (Exception e)
             {
-                throw new ApplicationException(
-                    string.Format("An exception occured when applying attribute\n\n{1}\n\nto\n\n{0}", propBase, attribute),
-                    e);
+                string errorMessage = string.Format("An exception occured when applying attribute\n\n{1}\n\nto\n\n{0}", propBase, attribute);
+                if (!SwallowAttributeErrors)
+                {
+
+                    throw new ApplicationException(errorMessage, e);
+                }
+                else
+                {
+                    Console.WriteLine(errorMessage);
+                }
+
             }
         }
 
@@ -270,12 +360,12 @@ namespace MetadataProcessor
             }
         }
 
-        public static void ApplyPropertyAttribute(JObject propBase, XAttribute attribute,string parentName,string name)
+        public static void ApplyPropertyAttribute(JObject propBase, XAttribute attribute, string parentName, string name)
         {
-            
-            
-            
-       
+
+
+
+
 
             string attributeName = attribute.Name.ToString();
             switch (attributeName)
@@ -331,7 +421,7 @@ namespace MetadataProcessor
                     }
                     else
                     {
-                        throw new InvalidOperationException("invalid property type for attribute min/max\n"+string.Format("Type:{0}, Member:{1}, Attribute:{2}",parentName, name, attributeName));
+                        throw new InvalidOperationException("invalid property type for attribute min/max\n" + string.Format("Type:{0}, Member:{1}, Attribute:{2}", parentName, name, attributeName));
                     }
                     break;
                 case "minItems":
@@ -341,7 +431,7 @@ namespace MetadataProcessor
                     propBase.Add(attributeName, Convert.ToInt64(attribute.Value));
                     break;
                 case "default":
-                    ApplyTypedValue(propBase, attribute);
+                    ApplyTypedValue(propBase, attribute, false);
                     break;
                 case "enum":
                     throw new NotImplementedException("enum is constructed by use of underlying type attributeName\n" + string.Format("Type:{0}, Member:{1}, Attribute:{2}", parentName, name, attributeName));
@@ -364,70 +454,97 @@ namespace MetadataProcessor
             if (typeElement != null)
             {
                 var typeJschemaElement = typeElement.Descendants("jschema").FirstOrDefault();
-                // no jschema on the type, no process
+                // TODO: flatten nesting
                 if (typeJschemaElement != null)
                 {
 
-
-                    JObject jsob;
-                    if (type.IsEnum)
+                    var outputAttribute = typeJschemaElement.Attributes("output").FirstOrDefault();
+                    if (outputAttribute == null || outputAttribute.Value == "true")
                     {
-                        jsob = BuildEnumSchema(doc, type, includeDemoValue);
-                    }
-                    else
-                    {
-                        jsob = new JObject();
-                        jsob.Add("id", type.Name);
-                        jsob.Add("type", "object");
-                        ApplyDescription(jsob, typeElement);
-                        // check for inheritance
-                        if (type.BaseType != null && type.BaseType.IsClass && type.BaseType != typeof(object))
+                        JObject jsob;
+                        if (type.IsEnum)
                         {
-                            // must be derived from one of our classes
-                            JObject propObj = new JObject(new JProperty("$ref", "#." + type.BaseType.Name));
-                            // TODO: go ahead and add description to reference. we are the only people in the world that are
-                            // excercising json-schema and smd to this extent. let them follow us.
-
-                            jsob.Add(new JProperty("extends", propObj));
+                            jsob = BuildEnumSchema(doc, type, includeDemoValue);
                         }
-
-                        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance);
-                        var schemaProperties = new JObject();
-                        jsob.Add("properties", schemaProperties);
-
-                        foreach (PropertyInfo property in properties)
+                        else
                         {
+                            jsob = new JObject
+                                       {
+                                           {
+                                               "id", type.Name
+                                           }, 
+                                           {
+                                               "type", "object"
+                                            }
+                                       };
 
-                            XElement propElement = GetMemberNode(doc, "P:" + type.FullName + "." + property.Name);
-                            if (propElement != null)
+                            ApplyDescription(jsob, typeElement);
+
+
+                            // check for inheritance
+                            if (type.BaseType != null && type.BaseType.IsClass && type.BaseType != typeof(object))
                             {
-                                XElement metaElement = propElement.Descendants("jschema").FirstOrDefault();
-                                if (metaElement != null)
+                                // must be derived from one of our classes
+                                var propObj = new JObject(new JProperty("$ref", "#." + type.BaseType.Name));
+                                jsob.Add(new JProperty("extends", propObj));
+                            }
+
+                            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance);
+                            var schemaProperties = new JObject();
+                            jsob.Add("properties", schemaProperties);
+
+                            foreach (PropertyInfo property in properties)
+                            {
+
+                                XElement propElement = GetMemberNode(doc, "P:" + type.FullName + "." + property.Name);
+                                if (propElement != null)
                                 {
-                                    BuildPropertySchema(propElement, metaElement, includeDemoValue, schemaProperties, property.Name, property.PropertyType, type.FullName);
+                                    XElement metaElement = propElement.Descendants("jschema").FirstOrDefault();
+                                    if (metaElement != null)
+                                    {
+                                        BuildPropertySchema(propElement, metaElement, includeDemoValue, schemaProperties, property.Name, property.PropertyType, type.FullName);
+                                    }
+
                                 }
+
 
                             }
 
-
                         }
 
+
+
+                        return jsob;
                     }
 
 
-
-                    return jsob;
                 }
             }
             return null;
         }
 
 
-        public static JObject BuildPropertySchema(XElement docElement, XElement metaElement, bool includeDemoValue, JObject metaContainer, string propertyName, Type propertyType,string parentName)
+        public static bool IsComplexType(Type propertyType)
+        {
+            return (
+                // is a custom type
+                (propertyType.IsClass || propertyType.IsEnum) && !propertyType.FullName.StartsWith("System") ||
+                // is a list of custom types
+                (propertyType.Name.StartsWith("IList") && !propertyType.GetGenericArguments()[0].FullName.StartsWith("System"))
+
+            );
+        }
+        public static JObject BuildPropertySchema(XElement docElement, XElement metaElement, bool includeDemoValue, JObject metaContainer, string propertyName, Type propertyType, string parentName)
         {
             try
             {
-                // no jschema, no process
+                // no jschema, no process 
+                if (propertyName == "ListJSchemaDTOProperty")
+                {
+
+                }
+
+                
 
                 var underlyingType = metaElement.Attributes("underlyingType").FirstOrDefault();
 
@@ -448,14 +565,35 @@ namespace MetadataProcessor
                 {
                     var demoValueAttribute = metaElement.Attributes("demoValue").FirstOrDefault();
 
-                    if (demoValueAttribute != null)
+                    // if type is class and not System.* then the demoValue indicates embedded JSON. 
+                    // typically this is the case when the shape of the type is problematic due to recursion
+                    // or circular references
+
+  
+
+                    bool isComplexType = IsComplexType(propertyType);
+
+
+                    // we do not force demo values on complex types. if one is not present, the js will try to compose one.
+                    if (demoValueAttribute == null)
                     {
-                        ApplyTypedValue(propBase, demoValueAttribute);
+                        if (!isComplexType)
+                        {
+                            throw new Exception(
+                                string.Format("includeDemoValue is true but {0}.{1} has no demoValue attribute", parentName,
+                                              propertyName));
+                        }
+
                     }
+                    else
+                    {
+                        ApplyTypedValue(propBase, demoValueAttribute, isComplexType);
+                    }
+
                 }
 
-
                 JObject attributeTarget = propBase;
+
                 if (propBase["type"] != null && propBase["type"].Value<string>() == "array")
                 {
                     attributeTarget = propBase["items"].Value<JObject>();
@@ -463,24 +601,21 @@ namespace MetadataProcessor
 
                 foreach (var attribute in metaElement.Attributes())
                 {
-                    ApplyPropertyAttribute(attributeTarget, attribute, parentName,propertyName);
+                    ApplyPropertyAttribute(attributeTarget, attribute, parentName, propertyName);
                 }
-                
-                //if (propBase["optional"] == null)
-                //{
-                //    propBase.Add("optional", false);
-                //}
+
+
                 return propBase;
             }
             catch (Exception e)
             {
-                throw new Exception(String.Format("Exception with\n\n{0}",docElement),e);
+                throw new Exception(String.Format("Exception with\n\n{0}", docElement), e);
             }
         }
 
 
-        
 
-        
+
+
     }
 }

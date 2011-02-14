@@ -43,6 +43,21 @@ namespace MetadataProcessor.Tests
         }
 
         [Test]
+        public void ComplexTypeBaseCheck()
+        {
+            var json = JsonSchemaUtilities.BuildPropertyBase(typeof (JSchemaDTO)).ToString();
+            Assert.AreEqual("{\r\n  \"$ref\": \"#.JSchemaDTO\"\r\n}", json);
+
+        }
+        [Test]
+        public void ComplexTypeCOllectionBaseCheck()
+        {
+            var json = JsonSchemaUtilities.BuildPropertyBase(typeof(JSchemaDTO[])).ToString();
+            Assert.AreEqual("{\r\n  \"type\": \"array\",\r\n  \"items\": {\r\n    \"$ref\": \"#.JSchemaDTO\"\r\n  }\r\n}",json);
+        }
+ 
+
+        [Test]
         public void CanLoadDocs()
         {
             var target = JsonSchemaUtilities.GetXmlDocs(typeof(JSchemaDTO));
@@ -96,7 +111,7 @@ namespace MetadataProcessor.Tests
 
             if (demoValueAttribute != null)
             {
-                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute);
+                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute,false);
             }
 
             var propJSON = propBase.ToString();
@@ -117,7 +132,7 @@ namespace MetadataProcessor.Tests
 
             if (demoValueAttribute != null)
             {
-                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute);
+                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute, false);
             }
 
             var propJSON = propBase.ToString();
@@ -139,7 +154,7 @@ namespace MetadataProcessor.Tests
 
             if (demoValueAttribute != null)
             {
-                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute);
+                JsonSchemaUtilities.ApplyTypedValue(propBase, demoValueAttribute, false);
             }
 
             var propJSON = propBase.ToString();
@@ -240,13 +255,15 @@ namespace MetadataProcessor.Tests
             var type = typeof(WithInvalidDemoValue);
             var doc = JsonSchemaUtilities.GetXmlDocs(type);
 
+            // this odd pattern required when you need to examine the exception in detail
+            bool thrown = false;
             try
             {
                 JsonSchemaUtilities.BuildTypeSchema(type, doc, true);
-                Assert.Fail("Exception should have been thrown");
             }
             catch (Exception ex)
             {
+                thrown = true;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
 
@@ -255,6 +272,7 @@ namespace MetadataProcessor.Tests
                 StringAssert.Contains("demoValue=\"buy\"", ex.InnerException.Message,"Must mention the invalid attribute");
                 StringAssert.Contains("ACustomType", ex.InnerException.Message,"Must mention the type which is causing the error");
             }
+            Assert.IsTrue(thrown, "Exception should have been thrown");
            
         }
     }

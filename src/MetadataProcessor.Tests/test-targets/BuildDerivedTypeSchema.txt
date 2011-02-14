@@ -8,7 +8,8 @@
   "properties": {
     "PropertyOnDerivedClass": {
       "type": "string",
-      "description": "This is a property on a derived class"
+      "description": "This is a property on a derived class",
+      "demoValue": "demo"
     }
   }
 }
