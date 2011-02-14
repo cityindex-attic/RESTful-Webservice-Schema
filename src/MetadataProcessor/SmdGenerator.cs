@@ -75,7 +75,7 @@ namespace MetadataProcessor
 
             var type = route.ServiceType;
 
-            var doc = JsonSchemaUtilities.GetXmlDocs(type);
+            var doc = XmlDocExtensions.GetXmlDocs(type);
 
             if (mappedTypes.Contains(type))
             {
@@ -208,7 +208,7 @@ namespace MetadataProcessor
                 {
                     // break dto down into properties and include each as a parameter
                     // use jsonschema to build parameters
-                    XDocument dtoDoc = JsonSchemaUtilities.GetXmlDocs(parameter.ParameterType);
+                    XDocument dtoDoc = XmlDocExtensions.GetXmlDocs(parameter.ParameterType);
                     foreach (PropertyInfo parameterProperty in parameter.ParameterType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
 

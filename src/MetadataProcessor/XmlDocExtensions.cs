@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
@@ -25,8 +26,26 @@ namespace MetadataProcessor
                                   ? HttpContext.Current.Server.MapPath(Path.Combine("~/bin", fileName))
                                   : fileName;
 
-            return XDocument.Load(filePath);
+            XDocument doc = XDocument.Load(filePath);
+            EnsureXmlDocsValid(doc);            
+            return doc;
         }
+
+        public static void EnsureXmlDocsValid(XDocument doc)
+        {
+            var badCommentRX = new Regex("<!-- Badly formed XML comment ignored for member (?<bad>\".*\") -->", RegexOptions.ExplicitCapture);
+            var matches = badCommentRX.Matches(doc.ToString());
+            if (matches.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (Match m in matches)
+                {
+                    sb.Append(m.Groups["bad"].Value + ", ");
+                }
+                throw new Exception("Badly formed XML comments for " + sb);
+            }
+        }
+
 
         public static XElement GetMemberNode(XDocument doc, string memberName)
         {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
@@ -58,11 +59,11 @@ namespace MetadataProcessor
                 return null;
             }
 
-            if(!type.Name.StartsWith("IList"))
+            if (!type.Name.StartsWith("IList"))
             {
                 throw new Exception(type.Name + " are not supported. Use IList");
             }
-                return type.GetGenericArguments()[0];
+            return type.GetGenericArguments()[0];
         }
 
         public static JObject BuildEnumSchema(XDocument doc, Type targetType, bool includeDemoValue)
@@ -185,28 +186,6 @@ namespace MetadataProcessor
 
 
             return result;
-        }
-
-
-        /// <summary>
-        /// Loads the xml document from referenced type build output
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static XDocument GetXmlDocs(Type type)
-        {
-            string path;
-            if (HttpContext.Current != null)
-            {
-
-                path = HttpContext.Current.Server.MapPath(Path.Combine("~/bin", Path.GetFileNameWithoutExtension(type.Assembly.ManifestModule.Name) + ".xml"));
-            }
-            else
-            {
-                path = Path.GetFileNameWithoutExtension(type.Assembly.ManifestModule.Name) + ".xml";
-            }
-
-            return XDocument.Load(path);
         }
 
         public static XElement GetMemberNode(XDocument doc, string memberName)
@@ -489,6 +468,7 @@ namespace MetadataProcessor
                                 jsob.Add(new JProperty("extends", propObj));
                             }
 
+
                             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance);
                             var schemaProperties = new JObject();
                             jsob.Add("properties", schemaProperties);
@@ -544,7 +524,7 @@ namespace MetadataProcessor
 
                 }
 
-                
+
 
                 var underlyingType = metaElement.Attributes("underlyingType").FirstOrDefault();
 
@@ -569,7 +549,7 @@ namespace MetadataProcessor
                     // typically this is the case when the shape of the type is problematic due to recursion
                     // or circular references
 
-  
+
 
                     bool isComplexType = IsComplexType(propertyType);
 

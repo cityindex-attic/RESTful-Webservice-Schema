@@ -26,7 +26,7 @@ namespace MetadataProcessor
 
             foreach (Assembly assembly in assemblies)
             {
-                var docXml = JsonSchemaUtilities.GetXmlDocs(assembly.GetTypes()[0]);
+                var docXml = XmlDocExtensions.GetXmlDocs(assembly.GetTypes()[0]);
 
                 foreach (Type type in assembly.GetTypes())
                 {
