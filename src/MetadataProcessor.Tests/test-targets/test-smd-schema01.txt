@@ -1,0 +1,20 @@
+﻿{
+  "anotherTestDTO": {
+    "id": "anotherTestDTO",
+    "type": "object",
+    "properties": {
+      "TickDate": {
+        "type": "string",
+        "description": "The datetime at which a price tick occured. Accurate to the millisecond",
+        "demoValue": "/Date(1287136540715)/",
+        "format": "wcf-date"
+      },
+      "Price": {
+        "type": "number",
+        "description": "The mid price",
+        "demoValue": 1.5457,
+        "minimum": 0.0
+      }
+    }
+  }
+}

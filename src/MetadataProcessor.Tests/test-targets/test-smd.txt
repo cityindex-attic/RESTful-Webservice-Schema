@@ -1,5 +1,4 @@
-﻿var foo = 
-{
+﻿{
     "services": {
         "Service1": {
             "description": "foo",
@@ -10,7 +9,7 @@
             "transport": "POST",
             "envelope": "JSON",
             "returns": {
-                "$ref": "#.CreateSessionResponseDTO"
+                "$ref": "#.TestDTO"
             },
             "group": "Authentication",
             "throttleScope": "data",

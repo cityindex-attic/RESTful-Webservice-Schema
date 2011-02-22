@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSchemaFixture.cs" />
     <Compile Include="SerializationFixture.cs" />
+    <Compile Include="SmdCheckingFixture.cs" />
     <Compile Include="SmdFixture.cs" />
     <Compile Include="TestDTO\Response\CreateSessionResponseDTO.cs" />
     <Compile Include="TestDTO\ErrorCode.cs" />
@@ -98,8 +99,11 @@
     <Content Include="test-targets\BuildEnumSchema.txt" />
     <Content Include="test-targets\BuildTestService.txt" />
     <Content Include="test-targets\BuildTypeSchema.txt" />
+    <Content Include="test-targets\test-smd-schema02.txt" />
+    <Content Include="test-targets\test-smd-schema01.txt" />
     <Content Include="test-targets\GenerateRWSDTO.txt" />
     <Content Include="test-targets\json-scratchpad.js" />
+    <Content Include="test-targets\test-smd.txt" />
     <Content Include="TestDTO\jschema.js" />
   </ItemGroup>
   <ItemGroup>

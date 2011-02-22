@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MetadataProcessor
 {
+
     /// <summary>
     /// Performs sanity checks to ensure all exposed DTO types are properly referenced/described across
     /// assemblies/smd/schema.
@@ -18,22 +19,78 @@ namespace MetadataProcessor
     /// <exception cref="Exception">If a type is missing from SMD or Schema</exception>
     public class TypeChecker
     {
+        /// <summary>
+        /// central assembler of schema verification methods
+        /// </summary>
+        /// <param name="schema"></param>
+        /// <param name="smd"></param>
+        /// <param name="verifyDemoValues"></param>
+        public void VerifySmd(string schema, string smd, bool verifyDemoValues)
+        {
+            VerifySmdReturnTypes(schema, smd);
+
+
+        }
+
+        /// <summary>
+        /// Verifies only return types. 
+        /// </summary>
+        /// <param name="schema"></param>
+        /// <param name="smd"></param>
+        public void VerifySmdReturnTypes(string schema, string smd)
+        {
+            var schemaObj = (JObject)JsonConvert.DeserializeObject(schema);
+            var smdObj = (JObject)JsonConvert.DeserializeObject(smd);
+            foreach (JProperty token in smdObj["services"])
+            {
+                JToken returnsToken = token.Value["returns"];
+                if (returnsToken["$ref"] != null)
+                {
+                    string returnType = returnsToken["$ref"].Value<string>().Substring(2);
+                    var type = schemaObj[returnType];
+                    if (type == null)
+                    {
+                        throw new Exception(string.Format("Method {0} return type {1} is not represented in schema", token.Name, returnType));
+                    }
+                }
+
+            }
+        }
+
         public void CheckSchema(string schema, params Assembly[] assemblies)
         {
-            
+
             var schemaObj = (JObject)JsonConvert.DeserializeObject(schema);
             var exposedTypes = new List<Type>();
-
+            MetaVerificationException aggregatedException = null;
             foreach (Assembly assembly in assemblies)
             {
                 var docXml = XmlDocExtensions.GetXmlDocs(assembly.GetTypes()[0]);
 
                 foreach (Type type in assembly.GetTypes())
                 {
-                    CheckType(docXml, type, schemaObj);
+                    try
+                    {
+                        CheckType(docXml, type, schemaObj);
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        if (aggregatedException == null)
+                        {
+                            aggregatedException = new MetaVerificationException();
+                        }
+                        aggregatedException.Messages.Add(ex.Message);
+                    }
+
+                    
                 }
             }
-
+            if (aggregatedException != null)
+            {
+                throw aggregatedException;
+            }
         }
 
 
@@ -47,51 +104,67 @@ namespace MetadataProcessor
                 // if it is not in the xml then it would not be in the schema or smd under any 
                 // circumstances and we can/should do nothing but move on to the next type
                 return;
-                
+
             }
+            
+     
 
-            // if xml specifies jschema then we need to check the deserialized json schema 
-            if (typeNode.Descendants("jschema").FirstOrDefault() != null)
-            {
-                EnsureTypeInSchema(schemaObj, type.Name);
-
-                // check each property
-                foreach (var propInfo in type.GetProperties())
+                // if xml specifies jschema then we need to check the deserialized json schema 
+                XElement jschemaNode = typeNode.Descendants("jschema").FirstOrDefault();
+                if (jschemaNode != null && ShouldTypeShouldBeIncluded(jschemaNode))
                 {
-                    if (propInfo.PropertyType.IsClass || propInfo.PropertyType.IsEnum)
+                    EnsureTypeInSchema(schemaObj, type.Name);
+
+                    // if derived, recursively ensure base type in schema.
+                    if (!type.BaseType.FullName.StartsWith("System"))
                     {
-
-                        // if is nullable type get underlying type
-                        type = JsonSchemaUtilities.GetNullableTypeIfAny(type);
-
-                        // if it is a collection type, get element type otherwise prop type
-                        // NOTE: arrays of arrays (or lists of lists etc) are not supported by this check
-                        var propType = JsonSchemaUtilities.GetCollectionType(propInfo.PropertyType) ?? propInfo.PropertyType;
-
-                        // check again, if is nullable type get underlying type
-                        propType = JsonSchemaUtilities.GetNullableTypeIfAny(propType);
-
-                        // avoid intrinsic types that are classes
-                        switch (propType.Name)
-                        {
-                            case "String":
-                            case "DateTime":
-                            case "DateTimeOffset":
-                                // others?
-                                continue;
-                            default:
-                                break;
-                        }
-
-                        EnsureTypeInSchema(schemaObj, propType.Name);
+                        var baseDocXml = XmlDocExtensions.GetXmlDocs(type.BaseType);
+                        CheckType(baseDocXml, type.BaseType, schemaObj);
                     }
 
+                    // check each property
+                    foreach (var propInfo in type.GetProperties())
+                    {
+                        if (propInfo.PropertyType.IsClass || propInfo.PropertyType.IsEnum)
+                        {
 
-                    // could recurse here but the way i see it is if the property type is a class
-                    // and it is present in the schema then it is also exposed on the assembly and will
-                    // get checked.
+                            // if is nullable type get underlying type
+                            type = JsonSchemaUtilities.GetNullableTypeIfAny(type);
+
+                            // if it is a collection type, get element type otherwise prop type
+                            // NOTE: arrays of arrays (or lists of lists etc) are not supported by this check
+                            var propType = JsonSchemaUtilities.GetCollectionType(propInfo.PropertyType) ?? propInfo.PropertyType;
+
+                            // check again, if is nullable type get underlying type
+                            propType = JsonSchemaUtilities.GetNullableTypeIfAny(propType);
+
+                            // avoid intrinsic types that are classes
+                            switch (propType.Name)
+                            {
+                                case "String":
+                                case "DateTime":
+                                case "DateTimeOffset":
+                                    // others?
+                                    continue;
+                                default:
+                                    break;
+                            }
+
+                            EnsureTypeInSchema(schemaObj, propType.Name);
+                        }
+
+
+                        // could recurse here but the way i see it is if the property type is a class
+                        // and it is present in the schema then it is also exposed on the assembly and will
+                        // get checked.
+                    }
                 }
-            }
+      
+        }
+
+        private static bool ShouldTypeShouldBeIncluded(XElement jschemaNode)
+        {
+            return ((jschemaNode.Attributes("output").FirstOrDefault() != null && jschemaNode.Attributes("output").First().Value == "true") || jschemaNode.Attributes("output").FirstOrDefault() == null);
         }
 
         /// <summary>
@@ -114,6 +187,29 @@ namespace MetadataProcessor
                 throw new Exception(string.Format("type {0} is not represented in schema", name));
             }
 
+        }
+    }
+
+    public class MetaVerificationException : Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return string.Join(Environment.NewLine, Messages);
+            }
+        }
+        private List<string> _messages = new List<string>();
+        public List<string> Messages
+        {
+            get
+            {
+                return _messages;
+            }
+            set
+            {
+                _messages = value;
+            }
         }
     }
 }
