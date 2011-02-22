@@ -23,7 +23,7 @@ namespace MetadataProcessor.Tests
             schemaObj.Remove("Class2");
             string schema = schemaObj.ToString();
             TypeChecker checker = new TypeChecker();
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<MetadataProcessor.MetaVerificationException>(() =>
             {
                 checker.CheckSchema(schema, dtoAssembly);
             }, "type Class2 is not represented in schema");
