@@ -29,6 +29,7 @@ namespace MetadataProcessor
         {
             VerifySmdReturnTypes(schema, smd);
 
+            // TODO: verify demoValue is present (and valid?)
 
         }
 
