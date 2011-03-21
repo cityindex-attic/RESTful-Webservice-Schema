@@ -313,12 +313,12 @@ namespace MetadataProcessor
                 // we do not force demo values on complex types. if one is not present, the js will try to compose one.
                 if (demoValueAttribute == null )
                 {
-                    if (!isComplexType)
-                    {
-                        throw new Exception(
-                            string.Format("includeDemoValue is true but {0}.{1} has no demoValue attribute", parentName,
-                                          propertyName));                        
-                    }
+                    //if (!isComplexType)
+                    //{
+                    //    throw new Exception(
+                    //        string.Format("includeDemoValue is true but {0}.{1} has no demoValue attribute", parentName,
+                    //                      propertyName));                        
+                    //}
 
                 }
 
