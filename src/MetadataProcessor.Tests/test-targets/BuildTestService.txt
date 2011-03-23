@@ -21,20 +21,9 @@
       "throttleScope": "scope1",
       "parameters": [
         {
-          "type": "string",
-          "name": "UserName",
-          "description": "Username is case sensitive",
-          "demoValue": "3T999",
-          "minLength": 6,
-          "maxLength": 20
-        },
-        {
-          "type": "string",
-          "name": "Password",
-          "description": "Password is case sensitive",
-          "demoValue": "password",
-          "minLength": 6,
-          "maxLength": 20
+          "$ref": "#.LogOnRequestDTO",
+          "name": "logOnRequest",
+          "description": "disregarded - description from DTO Properties"
         }
       ]
     },

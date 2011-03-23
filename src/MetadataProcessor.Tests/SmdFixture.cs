@@ -74,7 +74,7 @@ namespace MetadataProcessor.Tests
             return File.ReadAllText(@"..\..\test-targets\" + name + ".txt");
         }
 
-        [Test]
+        [Test,Ignore("dto are no longer decomposed so this test is invalid")]
         public void ParameterDescriptionMetadataIsPulledFromMetaDataOfDtos()
         {
             var mappedTypes = new List<Type>();

@@ -234,6 +234,7 @@ namespace MetadataProcessor
 
         private static bool IsParameterADto(ParameterInfo parameter, List<string> dtoAssemblyNames)
         {
+            return false;
             Type parameterType = parameter.ParameterType;
             var parameterAssemblyFullName = parameterType.Assembly.FullName;
             bool isDTO = false;
