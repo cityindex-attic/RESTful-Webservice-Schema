@@ -103,7 +103,10 @@ namespace MetadataProcessor
 
                 //NOTE: Under certain circumstances, WCF supports overloading - this SMD generation code does not.
                 // this element fetch would need to be extended to specify type and order of parameters to support overloading.
-                var methodElement = JsonSchemaUtilities.GetMemberNodes(doc, "M:" + type.FullName + "." + method.Name).FirstOrDefault();
+                // FIXED: method names with same prefix getting mixed up
+                var methodElement = JsonSchemaUtilities.GetMemberNodes(doc, "M:" + type.FullName + "." + method.Name + "(").FirstOrDefault();
+
+
                 var methodSmdElement = methodElement.Descendants("smd").FirstOrDefault();
                 if (methodSmdElement == null)
                     continue;
@@ -226,7 +229,11 @@ namespace MetadataProcessor
                 }
                 else
                 {
-                    var metaElement = methodElement.Descendants("param").Where(p => p.Attribute("name").Value == parameter.Name).First();
+                    var metaElement = methodElement.Descendants("param").Where(p => p.Attribute("name").Value == parameter.Name).FirstOrDefault();
+                    if (metaElement == null)
+                    {
+                        throw new Exception(string.Format("param element not found for {0}", parameter.Name));
+                    }
                     BuildParameterSchema(methodElement, metaElement, includeDemoValue, parameters, parameter.Name, parameter.ParameterType, type.FullName);
                 }
             }

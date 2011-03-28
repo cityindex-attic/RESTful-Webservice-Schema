@@ -197,7 +197,10 @@ namespace MetadataProcessor
         {
             return doc.XPathSelectElements("/doc/members/member[starts-with(@name,'" + memberNamePartial + "')]");
         }
-
+        public static IEnumerable<XElement> GetMemberNodesExplicit(XDocument doc, string memberName)
+        {
+            return doc.XPathSelectElements("/doc/members/member[@name='" + memberName + "']");
+        }
 
         /// <summary>
         /// This will require a bit of special casing. 
@@ -427,6 +430,7 @@ namespace MetadataProcessor
 
         public static JObject BuildTypeSchema(Type type, XDocument doc, bool includeDemoValue)
         {
+            
             var typeElement = GetMemberNode(doc, "T:" + type.FullName);
             if (typeElement != null)
             {
