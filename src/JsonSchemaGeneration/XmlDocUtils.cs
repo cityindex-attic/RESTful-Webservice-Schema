@@ -8,7 +8,7 @@ using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace JsonSchemaGeneration.JsonSchemaDTO
+namespace JsonSchemaGeneration
 {
     public static class XmlDocUtils
     {
@@ -26,8 +26,40 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
             return typeNode;
         }
+        public static XElement GetXmlDocTypeNodeWithSMD(this Type type)
+        {
+            XDocument doc = type.GetXmlDocs();
+            var node = doc.XPathSelectElement("/doc/members/member[@name = 'T:" + type.FullName + "']");
+            if (node != null)
+            {
+                if (node.XPathSelectElement("smd") == null)
+                {
+                    node = null;
+                }
+            }
 
-        public static XElement GetXmlDocNode(this Type type, string typeName, string memberName)
+            return node;
+        }
+        public static XElement GetXmlDocMemberNodeWithSMD(this Type type, string name)
+        {
+            XElement node2 = null;
+            XDocument doc = type.GetXmlDocs();
+
+            if (doc != null)
+            {
+
+                node2 = doc.XPathSelectElement("/doc/members/member[starts-with(@name,'M:" + name + "(')]");
+                if (node2 != null)
+                {
+                    if (node2.XPathSelectElement("smd") == null)
+                    {
+                        node2 = null;
+                    }
+                }
+            }
+            return node2;
+        }
+        public static XElement GetXmlDocNodeJschema(this Type type, string typeName, string memberName)
         {
             XDocument doc = type.GetXmlDocs();
             var node = doc.XPathSelectElement("/doc/members/member[@name = '" + typeName + ":" + memberName + "']");
@@ -44,16 +76,23 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         public static XElement GetXmlDocTypeNode(this Type type)
         {
-            return type.GetXmlDocNode("T", type.FullName);
+            return type.GetXmlDocNodeJschema("T", type.FullName);
         }
+
+ 
+        public static XElement GetXmlDocMemberNode(this Type type, string name)
+        {
+            return type.GetXmlDocNodeJschema("M", type.FullName + "." + name);
+        }
+
         public static XElement GetXmlDocFieldNode(this Type type, string name)
         {
-            return type.GetXmlDocNode("F", type.FullName + "." + name);
+            return type.GetXmlDocNodeJschema("F", type.FullName + "." + name);
         }
 
         public static XElement GetXmlDocPropertyNode(this Type type, string name)
         {
-            return type.GetXmlDocNode("P", type.FullName + "."  + name);
+            return type.GetXmlDocNodeJschema("P", type.FullName + "." + name);
         }
         public static void EnsureXmlDocsAreValid(params string[] assemblyNames)
         {

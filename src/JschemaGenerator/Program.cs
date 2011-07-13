@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using JsonSchemaGeneration;
 using JsonSchemaGeneration.JsonSchemaDTO;
 
 namespace JschemaGenerator
@@ -12,6 +13,7 @@ namespace JschemaGenerator
     {
         static void Main(string[] args)
         {
+
             if (args.Length == 0)
             {
                 DisplayUsage();
@@ -20,32 +22,29 @@ namespace JschemaGenerator
 
             try
             {
-                string namespaceName = args[0];
-                string outputFileName = args[1];
+                string intputFileName = args[0];
+                string jschemaOutputFileName = args[1];
+                string smdOutputFileName = args[2];
 
-                List<string> assemblyFileNames = new List<string>();
-                for (int i = 2; i < args.Length; i++)
-                {
-                    assemblyFileNames.Add(args[i]);
-                }
+                WcfConfigReader reader = new WcfConfigReader();
 
-                List<string> assemblyDisplayNames = new List<string>();
+                reader.Read(intputFileName);
 
-                foreach (var assemblyFileName in assemblyFileNames)
-                {
-                    var asm = Assembly.ReflectionOnlyLoadFrom(assemblyFileName);
-                    assemblyDisplayNames.Add(asm.FullName);
-                }
+                XmlDocUtils.EnsureXmlDocsAreValid(reader.DTOAssemblyNames);
 
+                new Auditor().AuditTypes(reader.DTOAssemblyNames);
+
+                var jsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(reader.DTOAssemblyNames);
+
+                File.WriteAllText(jschemaOutputFileName, jsonSchema);
 
 
-                XmlDocUtils.EnsureXmlDocsAreValid(assemblyDisplayNames.ToArray());
+                var smdEmitter = new JsonSchemaGeneration.WcfSMD.Emitter();
+                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames);
+                File.WriteAllText(smdOutputFileName, smd);
 
-                new Auditor().AuditTypes(assemblyDisplayNames.ToArray());
-
-                var result = new JsonSchemaDtoEmitter().EmitDtoJson(namespaceName, assemblyDisplayNames.ToArray());
-
-                File.WriteAllText(outputFileName, result);
+                Console.WriteLine("press enter to exit. ;-)");
+                Console.ReadLine();
             }
             catch (Exception e)
             {
@@ -58,12 +57,7 @@ namespace JschemaGenerator
 
         static void DisplayUsage()
         {
-            Console.WriteLine(@"JschemaGenerator Usage:
-
-JschemaGenerator generated-namespace  output-file-path [assembly file names]
-
-Place appropriately decorated assemblies and xml files in the 
-execution directory manually or via build step and specify assembly names in command line.");
+            Console.WriteLine("JschemaGenerator Usage:\nJschemaGenerator config-input-file-path schema-output-file-path smd-output-file-path");
         }
     }
 }

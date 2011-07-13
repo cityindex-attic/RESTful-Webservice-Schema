@@ -15,11 +15,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
     {
             
 
-        public string EmitDtoJson(string namespaceName, params string[] assemblyNames)
+        public string EmitDtoJson(params string[] assemblyNames)
         {
             var schemaObj = new JObject();
             var assemblies = UtilityExtensions.GetAssemblies(assemblyNames);
-            schemaObj["namespace"] = namespaceName;
+            
 
 
             var schemaProperties = new JObject();

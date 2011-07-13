@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Xml.Linq;
+using System.Xml.XPath;
 using JsonSchemaGeneration.JsonSchemaDTO;
+using JsonSchemaGeneration.WcfSMD;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using TradingApi.Configuration;
 
 namespace JsonSchemaGeneration
 {
@@ -12,6 +18,30 @@ namespace JsonSchemaGeneration
     [TestFixture]
     public class ScratchPad
     {
+        [Test]
+        public void LoadWCF()
+        {
+            var asm = Assembly.LoadFrom("RESTWebServicesDTO.dll");
+
+            var config = XDocument.Load("web.config");
+            var apiNode = config.XPathSelectElement("configuration/tradingApi");
+            var profile = apiNode.XPathSelectElement("profiles").Descendants("profile").First();
+            var dtoAssemblyNames = profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray();
+
+            var routeNodes = profile.XPathSelectElement("routes").XPathSelectElements("add").ToList();
+            List<UrlMapElement > routes = new List<UrlMapElement>();
+            foreach (var item in routeNodes)
+            {
+                UrlMapElement map = new UrlMapElement()
+                                     {
+                                         Endpoint = item.Attribute("endpoint").Value + item.Attribute("pathInfo").Value,
+                                         Name = item.Attribute("name").Value,
+                                         Type = item.Attribute("type").Value
+                                     };
+                routes.Add(map);
+            }
+
+        }
 
         [Test]
         public void Test()
@@ -41,7 +71,7 @@ namespace JsonSchemaGeneration
 
             var emitter = new JsonSchemaDtoEmitter();
 
-            var result = emitter.EmitDtoJson("NameSpaceName", assemblyNames);
+            var result = emitter.EmitDtoJson(assemblyNames);
             Console.WriteLine(result);
 
         }
