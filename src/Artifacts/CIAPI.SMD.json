@@ -7,7 +7,7 @@
       "target": "",
       "services": {
         "LogOn": {
-          "description": "<p>Create a new session. This is how you \"log on\" to the CIAPI. Post a ApiLogOnRequestDTO to the uri specified below</p>",
+          "description": "<p>Create a new session. This is how you \"log on\" to the CIAPI. Post a <a onclick=\"dojo.hash('#type.ApiLogOnRequestDTO'); return false;\" class=\"json-link\" href=\"#\">ApiLogOnRequestDTO</a> to the uri specified below</p>",
           "target": "session",
           "uriTemplate": "/",
           "contentType": "application/json",
@@ -63,7 +63,7 @@
         },
         "GetPriceBars": {
           "description": "Get historic price bars in OHLC (open, high, low, close) format, suitable for plotting candlestick chartsReturns price bars in ascending order up to the current time.When there are no prices per a particular time period, no price bar is returned. Thus, it can appear that the array of price bars has \"gaps\", i.e. the gap between the datetime of each price bar might not be equal to interval x spanSample Urls: /market/1234/history?interval=MINUTE&span=15&pricebars=180/market/735/history?interval=HOUR&span=1&pricebars=240/market/1577/history?interval=DAY&span=1&pricebars=10",
-          "target": "market/${match1}/barhistory",
+          "target": "market",
           "uriTemplate": "/{marketId}/barhistory?interval={interval}&span={span}&pricebars={priceBars}",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -104,7 +104,7 @@
         },
         "GetPriceTicks": {
           "description": "Get historic price ticks. Returns price ticks in ascending order up to the current time. The length of time between each tick will be different.",
-          "target": "market/${match1}/barhistory",
+          "target": "market",
           "uriTemplate": "/{marketId}/tickhistory?priceticks={priceTicks}",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -133,7 +133,7 @@
         },
         "GetMarketInformation": {
           "description": "<p>Get Market Information for the specified market.</p>",
-          "target": "market/${match1}/information",
+          "target": "market",
           "uriTemplate": "/{marketId}/information",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -155,8 +155,8 @@
         },
         "ListMarketInformationSearch": {
           "description": "<p>Queries for market information.</p>",
-          "target": "market/${match1}/information",
-          "uriTemplate": "/market/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}",
+          "target": "market",
+          "uriTemplate": "/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -371,8 +371,8 @@
           ]
         },
         "Order": {
-          "description": "<p>Place an order on a particular market. Post a NewStopLimitOrderRequestDTO to the uri specified below.</p> <p>Do not set any order id fields when requesting a new order, the platform will generate them.</p>",
-          "target": "order/newstoplimitorder",
+          "description": "<p>Place an order on a particular market. Post a <a onclick=\"dojo.hash('#type.NewStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">NewStopLimitOrderRequestDTO</a> to the uri specified below.</p> <p>Do not set any order id fields when requesting a new order, the platform will generate them.</p>",
+          "target": "order",
           "uriTemplate": "/newstoplimitorder",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -392,8 +392,8 @@
           ]
         },
         "CancelOrder": {
-          "description": "<p>Cancel an order. Post a CancelOrderRequestDTO to the uri specified below</p>",
-          "target": "order/newstoplimitorder",
+          "description": "<p>Cancel an order. Post a <a onclick=\"dojo.hash('#type.CancelOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">CancelOrderRequestDTO</a> to the uri specified below</p>",
+          "target": "order",
           "uriTemplate": "/cancel",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -412,8 +412,8 @@
           ]
         },
         "UpdateOrder": {
-          "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship). Post an UpdateStopLimitOrderRequestDTO to the uri specified below</p>",
-          "target": "order/newstoplimitorder",
+          "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship). Post an <a onclick=\"dojo.hash('#type.UpdateStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateStopLimitOrderRequestDTO</a> to the uri specified below</p>",
+          "target": "order",
           "uriTemplate": "/updatestoplimitorder",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -427,14 +427,14 @@
             {
               "$ref": "#.UpdateStopLimitOrderRequestDTO",
               "name": "order",
-              "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship).  Post an UpdateStopLimitOrderRequestDTO to the uri specified below</p>"
+              "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship).  Post an <a onclick=\"dojo.hash('#type.UpdateStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateStopLimitOrderRequestDTO</a> to the uri specified below</p>"
             }
           ]
         },
         "ListOpenPositions": {
-          "description": "<p>Queries for a specified trading account's trades / open positions.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call GetOpenPosition when you get updates on the order stream to get the updated data in this format.</p>",
-          "target": "order/newstoplimitorder",
-          "uriTemplate": "/order/openpositions?TradingAccountId={tradingAccountId}",
+          "description": "<p>Queries for a specified trading account's trades / open positions.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetOpenPosition'); return false;\" class=\"json-link\" href=\"#\">GetOpenPosition</a> when you get updates on the order stream to get the updated data in this format.</p>",
+          "target": "order",
+          "uriTemplate": "/openpositions?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -452,9 +452,9 @@
           ]
         },
         "ListActiveStopLimitOrders": {
-          "description": "<p>Queries for a specified trading account's active stop / limit orders.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call GetActiveStopLimitOrder when you get updates on the order stream to get the updated data in this format.</p>",
-          "target": "order/newstoplimitorder",
-          "uriTemplate": "/order/activestoplimitorders?TradingAccountId={tradingAccountId}",
+          "description": "<p>Queries for a specified trading account's active stop / limit orders.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetActiveStopLimitOrder'); return false;\" class=\"json-link\" href=\"#\">GetActiveStopLimitOrder</a> when you get updates on the order stream to get the updated data in this format.</p>",
+          "target": "order",
+          "uriTemplate": "/activestoplimitorders?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -472,8 +472,8 @@
           ]
         },
         "GetActiveStopLimitOrder": {
-          "description": "<p>Queries for a active stop limit order with a specified order id. It will return a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see GetOrder<p>",
-          "target": "order/newstoplimitorder",
+          "description": "<p>Queries for a active stop limit order with a specified order id. It will return a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call <a onclick=\"dojo.hash('#service.ListActiveStopLimitOrders'); return false;\" class=\"json-link\" href=\"#\">ListActiveStopLimitOrders</a> for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see <a onclick=\"dojo.hash('#service.GetOrder'); return false;\" class=\"json-link\" href=\"#\">GetOrder</a><p>",
+          "target": "order",
           "uriTemplate": "/{orderId}/activestoplimitorder",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -492,8 +492,8 @@
           ]
         },
         "GetOpenPosition": {
-          "description": "<p>Queries for a trade / open position with a specified order id. It will return a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see GetOrder<p>",
-          "target": "order/newstoplimitorder",
+          "description": "<p>Queries for a trade / open position with a specified order id. It will return a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call <a onclick=\"dojo.hash('#service.ListOpenPositions'); return false;\" class=\"json-link\" href=\"#\">ListOpenPositions</a> for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see <a onclick=\"dojo.hash('#service.GetOrder'); return false;\" class=\"json-link\" href=\"#\">GetOrder</a><p>",
+          "target": "order",
           "uriTemplate": "/{orderId}/openposition",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -513,8 +513,8 @@
         },
         "ListTradeHistory": {
           "description": "<p>Queries for a specified trading account's trade history. The result set will contain orders with a status of <b>(3 - Open, 9 - Closed)</b>, and includes <b>orders that were a trade / stop / limit order</b>.</p> <p>There's currently no corresponding GetTradeHistory (as with ListOpenPositions).</p>",
-          "target": "order/newstoplimitorder",
-          "uriTemplate": "/order/tradehistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
+          "target": "order",
+          "uriTemplate": "/tradehistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -538,8 +538,8 @@
         },
         "ListStopLimitOrderHistory": {
           "description": "<p>Queries for a specified trading account's stop / limit order history. The result set will include <b>only orders that were originally stop / limit orders</b> that currently have one of the following statuses <b>(3 - Open, 4 - Cancelled, 5 - Rejected, 9 - Closed, 10 - Red Card)</b> </p> <p>There's currently no corresponding GetStopLimitOrderHistory (as with ListActiveStopLimitOrders).</p>",
-          "target": "order/newstoplimitorder",
-          "uriTemplate": "/order/stoplimitorderhistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
+          "target": "order",
+          "uriTemplate": "/stoplimitorderhistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -563,7 +563,7 @@
         },
         "GetOrder": {
           "description": "<p>Queries for an order by a specific order id.</p> <p>The current implementation only returns active orders (i.e. those with a status of <b>1 - Pending, 2 - Accepted, 3 - Open, 6 - Suspended, 8 - Yellow Card, 11 - Triggered)</b>.</p>",
-          "target": "order/newstoplimitorder",
+          "target": "order",
           "uriTemplate": "/{orderId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -582,8 +582,8 @@
           ]
         },
         "Trade": {
-          "description": "<p>Place a trade on a particular market. Post a NewTradeOrderRequestDTO to the uri specified below.</p> <p>Do not set any order id fields when requesting a new trade, the platform will generate them.</p>",
-          "target": "order/newtradeorder",
+          "description": "<p>Place a trade on a particular market. Post a <a onclick=\"dojo.hash('#type.NewTradeOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">NewTradeOrderRequestDTO</a> to the uri specified below.</p> <p>Do not set any order id fields when requesting a new trade, the platform will generate them.</p>",
+          "target": "order",
           "uriTemplate": "/newtradeorder",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -603,8 +603,8 @@
           ]
         },
         "UpdateTrade": {
-          "description": "Update a trade (for adding a stop/limit etc). Post an UpdateTradeOrderRequestDTO to the uri specified below</p>",
-          "target": "order/newtradeorder",
+          "description": "Update a trade (for adding a stop/limit etc). Post an <a onclick=\"dojo.hash('#type.UpdateTradeOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateTradeOrderRequestDTO</a> to the uri specified below</p>",
+          "target": "order",
           "uriTemplate": "/updatetradeorder",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -625,14 +625,14 @@
         },
         "GetChartingEnabled": {
           "description": "Whether a User is allowed to see Charting Data.",
-          "target": "useraccount/${match1}/chartingenabled",
-          "uriTemplate": "/UserAccount/{id}/ChartingEnabled",
+          "target": "useraccount",
+          "uriTemplate": "/{id}/ChartingEnabled",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "type": "Boolean"
+            "$ref": "#/Boolean"
           },
           "group": "AccountInformation",
           "throttleScope": "data",
@@ -646,14 +646,14 @@
         },
         "GetTermsAndConditions": {
           "description": "What are the Users Terms and Conditions.",
-          "target": "useraccount/${match1}/chartingenabled",
-          "uriTemplate": "/UserAccount/{clientaccount}/TermsAndConditions",
+          "target": "useraccount",
+          "uriTemplate": "/{clientaccount}/TermsAndConditions",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "type": "#/String"
+            "$ref": "#/String"
           },
           "group": "AccountInformation",
           "throttleScope": "data",

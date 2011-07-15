@@ -28,7 +28,7 @@ namespace JschemaGenerator
             {
                 UrlMapElement map = new UrlMapElement()
                 {
-                    Endpoint = item.Attribute("endpoint").Value + item.Attribute("pathInfo").Value,
+                    Endpoint = item.Attribute("endpoint").Value /*+ item.Attribute("pathInfo").Value*/,
                     Name = item.Attribute("name").Value,
                     Type = item.Attribute("type").Value
                 };
