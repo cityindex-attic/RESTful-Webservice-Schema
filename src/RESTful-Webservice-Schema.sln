@@ -30,6 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JschemaGenerator", "JschemaGenerator\JschemaGenerator.csproj", "{1F0CF509-5ED7-45DF-8C93-444AD2729FC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example Output", "Example Output", "{09565F15-9AA7-4563-8367-4A1875040FE8}"
+	ProjectSection(SolutionItems) = preProject
+		Artifacts\CIAPI.Schema.json = Artifacts\CIAPI.Schema.json
+		Artifacts\CIAPI.SMD.json = Artifacts\CIAPI.SMD.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

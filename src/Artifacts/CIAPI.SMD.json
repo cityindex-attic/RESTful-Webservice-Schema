@@ -15,16 +15,15 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiLogOnResponseDTO"
+            "$ref": "ApiLogOnResponseDTO"
           },
           "group": "Authentication",
           "throttleScope": "data",
           "parameters": [
             {
+              "$ref": "#/ApiLogOnRequestDTO",
               "name": "apiLogOnRequest",
-              "type": {
-                "$ref": "#/ApiLogOnRequestDTO"
-              }
+              "description": ""
             }
           ]
         },
@@ -37,7 +36,7 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiLogOffResponseDTO"
+            "$ref": "ApiLogOffResponseDTO"
           },
           "group": "Authentication",
           "throttleScope": "data",
@@ -70,7 +69,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetPriceBarResponseDTO"
+            "$ref": "GetPriceBarResponseDTO"
           },
           "group": "Price History",
           "cacheDuration": 10000,
@@ -111,7 +110,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetPriceTickResponseDTO"
+            "$ref": "GetPriceTickResponseDTO"
           },
           "group": "Price History",
           "cacheDuration": 10000,
@@ -140,7 +139,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetMarketInformationResponseDTO"
+            "$ref": "GetMarketInformationResponseDTO"
           },
           "group": "Market",
           "throttleScope": "data",
@@ -162,7 +161,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListMarketInformationSearchResponseDTO"
+            "$ref": "ListMarketInformationSearchResponseDTO"
           },
           "group": "Market",
           "throttleScope": "data",
@@ -220,7 +219,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListNewsHeadlinesResponseDTO"
+            "$ref": "ListNewsHeadlinesResponseDTO"
           },
           "group": "News",
           "cacheDuration": 10000,
@@ -254,7 +253,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetNewsDetailResponseDTO"
+            "$ref": "GetNewsDetailResponseDTO"
           },
           "group": "News",
           "cacheDuration": 10000,
@@ -279,7 +278,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListCfdMarketsResponseDTO"
+            "$ref": "ListCfdMarketsResponseDTO"
           },
           "group": "CFD Markets",
           "throttleScope": "data",
@@ -328,7 +327,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListSpreadMarketsResponseDTO"
+            "$ref": "ListSpreadMarketsResponseDTO"
           },
           "group": "Spread Markets",
           "cacheDuration": 10000,
@@ -379,13 +378,13 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiTradeOrderResponseDTO"
+            "$ref": "ApiTradeOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "throttleScope": "trading",
           "parameters": [
             {
-              "$ref": "#.NewStopLimitOrderRequestDTO",
+              "$ref": "#/NewStopLimitOrderRequestDTO",
               "name": "order",
               "description": "The order request"
             }
@@ -400,12 +399,12 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiTradeOrderResponseDTO"
+            "$ref": "ApiTradeOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
             {
-              "$ref": "#.CancelOrderRequestDTO",
+              "$ref": "#/CancelOrderRequestDTO",
               "name": "cancelOrder",
               "description": "The cancel order request"
             }
@@ -420,12 +419,12 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiTradeOrderResponseDTO"
+            "$ref": "ApiTradeOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
             {
-              "$ref": "#.UpdateStopLimitOrderRequestDTO",
+              "$ref": "#/UpdateStopLimitOrderRequestDTO",
               "name": "order",
               "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship).  Post an <a onclick=\"dojo.hash('#type.UpdateStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateStopLimitOrderRequestDTO</a> to the uri specified below</p>"
             }
@@ -440,7 +439,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListOpenPositionsResponseDTO"
+            "$ref": "ListOpenPositionsResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -460,7 +459,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListActiveStopLimitOrderResponseDTO"
+            "$ref": "ListActiveStopLimitOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -480,7 +479,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetActiveStopLimitOrderResponseDTO"
+            "$ref": "GetActiveStopLimitOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -500,7 +499,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetOpenPositionResponseDTO"
+            "$ref": "GetOpenPositionResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -520,7 +519,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListTradeHistoryResponseDTO"
+            "$ref": "ListTradeHistoryResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -545,7 +544,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ListStopLimitOrderHistoryResponseDTO"
+            "$ref": "ListStopLimitOrderHistoryResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -570,7 +569,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/GetOrderResponseDTO"
+            "$ref": "GetOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "parameters": [
@@ -590,13 +589,13 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiTradeOrderResponseDTO"
+            "$ref": "ApiTradeOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "throttleScope": "trading",
           "parameters": [
             {
-              "$ref": "#.NewTradeOrderRequestDTO",
+              "$ref": "#/NewTradeOrderRequestDTO",
               "name": "trade",
               "description": "The trade request"
             }
@@ -611,59 +610,32 @@
           "transport": "POST",
           "envelope": "JSON",
           "returns": {
-            "$ref": "#/ApiTradeOrderResponseDTO"
+            "$ref": "ApiTradeOrderResponseDTO"
           },
           "group": "Trades and Orders",
           "throttleScope": "trading",
           "parameters": [
             {
-              "$ref": "#.UpdateTradeOrderRequestDTO",
+              "$ref": "#/UpdateTradeOrderRequestDTO",
               "name": "update",
               "description": "The trade request"
             }
           ]
         },
-        "GetChartingEnabled": {
-          "description": "Whether a User is allowed to see Charting Data.",
+        "GetClientAndTradingAccount": {
+          "description": "Returns the Users ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.",
           "target": "useraccount",
-          "uriTemplate": "/{id}/ChartingEnabled",
+          "uriTemplate": "/UserAccount/ClientAndTradingAccount",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/Boolean"
+            "$ref": "AccountInformationResponseDTO"
           },
           "group": "AccountInformation",
           "throttleScope": "data",
-          "parameters": [
-            {
-              "type": "string",
-              "name": "id",
-              "description": "Whether a User is allowed to see Charting Data."
-            }
-          ]
-        },
-        "GetTermsAndConditions": {
-          "description": "What are the Users Terms and Conditions.",
-          "target": "useraccount",
-          "uriTemplate": "/{clientaccount}/TermsAndConditions",
-          "contentType": "application/json",
-          "responseContentType": "application/json",
-          "transport": "GET",
-          "envelope": "URL",
-          "returns": {
-            "$ref": "#/String"
-          },
-          "group": "AccountInformation",
-          "throttleScope": "data",
-          "parameters": [
-            {
-              "type": "string",
-              "name": "clientaccount",
-              "description": "What are the Users Terms and Conditions."
-            }
-          ]
+          "parameters": []
         },
         "GenerateException": {
           "description": "Simulates an error condition.",
@@ -674,7 +646,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "$ref": "#/ApiErrorResponseDTO"
+            "$ref": "ApiErrorResponseDTO"
           },
           "group": "Exception Handling",
           "throttleScope": "data",

@@ -187,7 +187,7 @@ namespace JsonSchemaGeneration.WcfSMD
                         // this is not accurate/valid SMD for GET but dojox.io.services is not, yet, a very good 
                         // implementation of the SMD spec, which is funny as they were both written by the same person.
                         service.Add("envelope", methodEnvelope);
-                        JObject returnType = new JObject(new JProperty("$ref", "#/" + method.ReturnType.Name));
+                        JObject returnType = new JObject(new JProperty("$ref",  method.ReturnType.Name));
                         // TODO: go ahead and add description to reference. we are the only people in the world that are
                         // excercising json-schema and smd to this extent. let them follow us.
                         service.Add("returns", returnType); //NOTE: scalar return types are not indicated by API and are not supported by this code
@@ -234,15 +234,7 @@ namespace JsonSchemaGeneration.WcfSMD
                         throw new Exception(message);    
                     }
                     
-                    //// #FIXME - DTO params are not decorated in RESTWebServices - for now just assume that it is an obj
-                    //// throw new Exception(message);
-                    //Console.WriteLine("ERROR: " + message);
-                    //// ## BELOW IS HACK
-                    //var propBase = new JObject();
-                    //parameters.Add(propBase);
-                    //propBase["name"] = parameter.Name;
-                    //var propType = propBase["type"] = new JObject();
-                    //propType["$ref"] = "#/" + parameter.ParameterType.Name;
+                    
                 }
                 else
                 {
