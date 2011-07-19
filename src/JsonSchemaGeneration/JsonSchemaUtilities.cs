@@ -181,7 +181,7 @@ namespace MetadataProcessor
             }
             else
             {
-                jsPropertyValue.Add("$ref", "#." + targetType.Name);
+                jsPropertyValue.Add("$ref", "#/" + targetType.Name);
             }
 
 
@@ -466,7 +466,7 @@ namespace MetadataProcessor
                             if (type.BaseType != null && type.BaseType.IsClass && type.BaseType != typeof(object))
                             {
                                 // must be derived from one of our classes
-                                var propObj = new JObject(new JProperty("$ref", "#." + type.BaseType.Name));
+                                var propObj = new JObject(new JProperty("$ref", "#/" + type.BaseType.Name));
                                 jsob.Add(new JProperty("extends", propObj));
                             }
 

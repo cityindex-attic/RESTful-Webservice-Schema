@@ -569,7 +569,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                 }
                 else
                 {
-                    jobj["type"] = typeObj["type"];
+                    jobj["type"] = new JArray("null", typeObj["type"]); ;
                 }
             }
             else

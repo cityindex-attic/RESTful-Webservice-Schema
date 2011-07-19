@@ -48,7 +48,8 @@ namespace JsonSchemaGeneration
             if (doc != null)
             {
 
-                node2 = doc.XPathSelectElement("/doc/members/member[starts-with(@name,'M:" + name + "(')]");
+                node2 = doc.XPathSelectElement("/doc/members/member[@name='M:" + name + "']") ?? doc.XPathSelectElement("/doc/members/member[starts-with(@name,'M:" + name + "(')]");
+
                 if (node2 != null)
                 {
                     if (node2.XPathSelectElement("smd") == null)
@@ -79,7 +80,7 @@ namespace JsonSchemaGeneration
             return type.GetXmlDocNodeJschema("T", type.FullName);
         }
 
- 
+
         public static XElement GetXmlDocMemberNode(this Type type, string name)
         {
             return type.GetXmlDocNodeJschema("M", type.FullName + "." + name);

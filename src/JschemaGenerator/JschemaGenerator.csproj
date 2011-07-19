@@ -62,6 +62,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="testAssemblies\GatewayCoreDTO.dll" />
+    <Content Include="testAssemblies\patch.js" />
     <Content Include="testAssemblies\RESTWebServices.dll" />
     <Content Include="testAssemblies\RESTWebServices.XML" />
     <Content Include="testAssemblies\RESTWebServicesDTO.dll" />

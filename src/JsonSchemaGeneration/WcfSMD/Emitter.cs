@@ -7,9 +7,10 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using JsonSchemaGeneration.JsonSchemaDTO;
+
 using MetadataProcessor;
 using MetadataProcessor.Utilities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TradingApi.Configuration;
 
@@ -18,9 +19,9 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public string EmitSmdJson(IEnumerable<UrlMapElement> routes, bool includeDemoValue, string[] dtoAssemblyNames)
+        public string EmitSmdJson(IEnumerable<UrlMapElement> routes, bool includeDemoValue, string[] dtoAssemblyNames, string patchJson)
         {
-            
+            JObject patch = (JObject)JsonConvert.DeserializeObject(patchJson);
             JObject smd = new JObject
                               {
                                   {"SMDVersion","2.6"},
@@ -44,7 +45,7 @@ namespace JsonSchemaGeneration.WcfSMD
                 try
                 {
 
-                    BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, dtoAssemblyNames);
+                    BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, dtoAssemblyNames, patch);
                 }
                 catch (Exception exc)
                 {
@@ -58,9 +59,9 @@ namespace JsonSchemaGeneration.WcfSMD
             return result;
         }
 
-        private void BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, string[] dtoAssemblyNames)
+        private void BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, string[] dtoAssemblyNames, JObject patch)
         {
-            
+
 
             Type type = Assembly.Load(route.Type.Substring(route.Type.IndexOf(",") + 1).Trim()).GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
             if (seenTypes.Contains(type))
@@ -86,6 +87,18 @@ namespace JsonSchemaGeneration.WcfSMD
 
             foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {
+
+                
+                if (patch["smd"][method.Name] != null)
+                {
+                    if (patch["smd"][method.Name].Type == JTokenType.String && patch["smd"][method.Name].Value<string>() == "exclude")
+                    {
+                        continue;
+                    }
+                }
+
+                JObject methodPatch = (JObject)patch["smd"][method.Name];
+
                 var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name);
                 if (methodElement == null)
                 {
@@ -151,6 +164,14 @@ namespace JsonSchemaGeneration.WcfSMD
                     {
                         JsonSchemaUtilities.ApplyDescription(service, methodElement);
                         service.Add("target", methodTarget.TrimEnd('/'));
+                        if(methodPatch!=null)
+                        {
+                            if(methodPatch["uriTemplate"]!=null )
+                            {
+                                methodUriTemplate = methodPatch["uriTemplate"].Value<string>();
+
+                            }
+                        }
                         if (!string.IsNullOrWhiteSpace(methodUriTemplate))
                         {
                             service.Add("uriTemplate", methodUriTemplate);
@@ -177,7 +198,7 @@ namespace JsonSchemaGeneration.WcfSMD
                         SetIntAttribute(methodSmdElement, service, "cacheDuration");
                         SetStringAttribute(methodSmdElement, service, "throttleScope");
 
-                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue);
+                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue,methodPatch);
                     }
 
                 }
@@ -188,9 +209,9 @@ namespace JsonSchemaGeneration.WcfSMD
 
         }
 
- 
+        
 
-        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, IEnumerable<string> dtoAssemblyNames, bool includeDemoValue)
+        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, IEnumerable<string> dtoAssemblyNames, bool includeDemoValue,JObject methodPatch)
         {
             var parameters = new JArray();
             service.Add("parameters", parameters);
@@ -202,17 +223,26 @@ namespace JsonSchemaGeneration.WcfSMD
                         FirstOrDefault();
                 if (metaElement == null)
                 {
-                    string message = string.Format("param element not found for {0}.{1} - {2}", type.Name,method.Name, parameter.Name);
-
-                    // #FIXME - DTO params are not decorated in RESTWebServices - for now just assume that it is an obj
-                    // throw new Exception(message);
-                    Console.WriteLine("ERROR: " + message);
-                    // ## BELOW IS HACK
-                    var propBase = new JObject();
-                    parameters.Add(propBase);
-                    propBase["name"] = parameter.Name;
-                    var propType = propBase["type"] = new JObject();
-                    propType["$ref"] = "#/" + parameter.ParameterType.Name;
+                    // check patch
+                    if (methodPatch["parameters"][parameter.Name] != null)
+                    {
+                        parameters.Add(methodPatch["parameters"][parameter.Name]);    
+                    }
+                    else
+                    {
+                        string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
+                        throw new Exception(message);    
+                    }
+                    
+                    //// #FIXME - DTO params are not decorated in RESTWebServices - for now just assume that it is an obj
+                    //// throw new Exception(message);
+                    //Console.WriteLine("ERROR: " + message);
+                    //// ## BELOW IS HACK
+                    //var propBase = new JObject();
+                    //parameters.Add(propBase);
+                    //propBase["name"] = parameter.Name;
+                    //var propType = propBase["type"] = new JObject();
+                    //propType["$ref"] = "#/" + parameter.ParameterType.Name;
                 }
                 else
                 {

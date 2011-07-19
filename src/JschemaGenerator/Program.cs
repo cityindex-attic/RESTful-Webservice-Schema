@@ -25,6 +25,11 @@ namespace JschemaGenerator
                 string intputFileName = args[0];
                 string jschemaOutputFileName = args[1];
                 string smdOutputFileName = args[2];
+                
+                
+                // todo parameterize
+                string patchJson = File.ReadAllText("patch.js");
+
 
                 WcfConfigReader reader = new WcfConfigReader();
 
@@ -40,11 +45,11 @@ namespace JschemaGenerator
 
 
                 var smdEmitter = new JsonSchemaGeneration.WcfSMD.Emitter();
-                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames);
+                
+                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames,patchJson);
                 File.WriteAllText(smdOutputFileName, smd);
 
-                Console.WriteLine("press enter to exit. ;-)");
-                Console.ReadLine();
+ 
             }
             catch (Exception e)
             {
@@ -52,6 +57,9 @@ namespace JschemaGenerator
                 Console.WriteLine(e.ToString());
                 DisplayUsage();
             }
+
+            Console.WriteLine("press enter to exit. ;-)");
+            Console.ReadLine();
 
         }
 

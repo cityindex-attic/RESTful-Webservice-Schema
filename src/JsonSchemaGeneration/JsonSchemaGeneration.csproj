@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonSchemaDTO\Auditor.cs" />
-    <Compile Include="JsonSchemaDTO\DefectException.cs" />
+    <Compile Include="DefectException.cs" />
     <Compile Include="JsonSchemaDTO\JsonSchemaDTOEmitter.cs" />
     <Compile Include="JsonSchemaUtilities.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="testAssemblies\patch.js" />
     <None Include="testAssemblies\Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JsonSchemaGeneration.JsonSchemaDTO
+namespace JsonSchemaGeneration
 {
     /// <summary>
     /// http://davidlaing.com/2011/02/18/a-defect-exception/
