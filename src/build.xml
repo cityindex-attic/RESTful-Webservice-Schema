@@ -17,8 +17,8 @@
   <Target Name="Go" DependsOnTargets="UpdateVersion; 
                                       Build; 
                                       RunTests; 
-                                      CalculateMetrics;
                                       Package">
+  <!--  CalculateMetrics target not used until a replacement for Reflector is integrated -->
   </Target>
 
   <Target Name="Build">
