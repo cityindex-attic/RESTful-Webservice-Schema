@@ -73,6 +73,7 @@
     <Content Include="testAssemblies\RESTWebServices.XML" />
     <Content Include="testAssemblies\RESTWebServicesDTO.dll" />
     <Content Include="testAssemblies\RESTWebServicesDTO.xml" />
+    <None Include="testAssemblies\streaming.json" />
     <Content Include="testAssemblies\TradingApi.CoreDTO.dll" />
     <Content Include="testAssemblies\TradingApi.CoreDTO.xml" />
   </ItemGroup>

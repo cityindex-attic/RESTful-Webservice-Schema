@@ -54,6 +54,12 @@ namespace JschemaGenerator
                 var smdEmitter = new JsonSchemaGeneration.WcfSMD.Emitter();
 
                 var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames, patchJson, smdPatchPath, (JObject) JsonConvert.DeserializeObject(jsonSchema));
+
+                JObject smdObj = (JObject) JsonConvert.DeserializeObject(smd);
+                var streaming = File.ReadAllText("streaming.json");
+                JObject streamingObj = (JObject) JsonConvert.DeserializeObject(streaming);
+                smdObj["services"]["streaming"] = streamingObj;
+                smd = smdObj.ToString(Formatting.Indented);
                 File.WriteAllText(smdOutputFileName, smd);
 
  

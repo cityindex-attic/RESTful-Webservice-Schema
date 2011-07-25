@@ -1,0 +1,47 @@
+﻿{
+    "target": "",
+    "services": {
+        "NewsHeadlines": {
+            "description": "Stream of current news headlines.  Try NEWS.HEADLINES.UK for a mock stream",
+            "target": "CITYINDEXSTREAMING",
+            "channel": "NEWS.HEADLINES.{category}",
+            "transport": "HTTP",
+            "protocol": "lightstreamer-3.6",
+            "returns": {
+                "$ref": "NewsDTO"
+            },
+            "group": "Streaming API",
+            "parameters": [
+                {
+                    "type": "string",
+                    "name": "category",
+                    "description": "A news category",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "demoValue": "UK"
+                }
+            ]
+        },
+        "Prices": {
+            "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs",
+            "target": "CITYINDEXSTREAMING",
+            "channel": "PRICES.PRICE.{marketIds}",
+            "transport": "HTTP",
+            "protocol": "lightstreamer-3.6",
+            "returns": {
+                "$ref": "PriceDTO"
+            },
+            "group": "Streaming API",
+            "parameters": [
+                        {
+                            "type": "array",
+                            "items": [{ "type": "string"}],
+                            "name": "marketIds",
+                            "description": "The marketIds",
+                            "demoValue": "[\"71442\", \"71443\"]"
+                        }]
+        }
+
+
+    }
+}
