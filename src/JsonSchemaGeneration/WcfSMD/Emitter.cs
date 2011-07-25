@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
@@ -19,7 +20,7 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public string EmitSmdJson(IEnumerable<UrlMapElement> routes, bool includeDemoValue, string[] dtoAssemblyNames, string patchJson)
+        public string EmitSmdJson(IEnumerable<UrlMapElement> routes, bool includeDemoValue, string[] dtoAssemblyNames, string patchJson, string smdPatchPath, JObject schema)
         {
             JObject patch = (JObject)JsonConvert.DeserializeObject(patchJson);
             JObject smd = new JObject
@@ -45,7 +46,7 @@ namespace JsonSchemaGeneration.WcfSMD
                 try
                 {
 
-                    BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, dtoAssemblyNames, patch);
+                    BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, dtoAssemblyNames, patch, smdPatchPath, schema);
                 }
                 catch (Exception exc)
                 {
@@ -59,7 +60,7 @@ namespace JsonSchemaGeneration.WcfSMD
             return result;
         }
 
-        private void BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, string[] dtoAssemblyNames, JObject patch)
+        private void BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, string[] dtoAssemblyNames, JObject patch, string smdPatchPath, JObject schema)
         {
 
 
@@ -73,7 +74,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
 
 
-            var typeElement = type.GetXmlDocTypeNodeWithSMD();
+            var typeElement = type.GetXmlDocTypeNodeWithSMD(smdPatchPath);
 
             if (typeElement == null)
             {
@@ -88,7 +89,7 @@ namespace JsonSchemaGeneration.WcfSMD
             foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {
 
-                
+
                 if (patch["smd"][method.Name] != null)
                 {
                     if (patch["smd"][method.Name].Type == JTokenType.String && patch["smd"][method.Name].Value<string>() == "exclude")
@@ -99,7 +100,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
                 JObject methodPatch = (JObject)patch["smd"][method.Name];
 
-                var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name);
+                var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name, smdPatchPath);
                 if (methodElement == null)
                 {
                     continue;
@@ -164,9 +165,9 @@ namespace JsonSchemaGeneration.WcfSMD
                     {
                         JsonSchemaUtilities.ApplyDescription(service, methodElement);
                         service.Add("target", methodTarget.TrimEnd('/'));
-                        if(methodPatch!=null)
+                        if (methodPatch != null)
                         {
-                            if(methodPatch["uriTemplate"]!=null )
+                            if (methodPatch["uriTemplate"] != null)
                             {
                                 methodUriTemplate = methodPatch["uriTemplate"].Value<string>();
 
@@ -187,10 +188,43 @@ namespace JsonSchemaGeneration.WcfSMD
                         // this is not accurate/valid SMD for GET but dojox.io.services is not, yet, a very good 
                         // implementation of the SMD spec, which is funny as they were both written by the same person.
                         service.Add("envelope", methodEnvelope);
-                        JObject returnType = new JObject(new JProperty("$ref",  method.ReturnType.Name));
-                        // TODO: go ahead and add description to reference. we are the only people in the world that are
-                        // excercising json-schema and smd to this extent. let them follow us.
-                        service.Add("returns", returnType); //NOTE: scalar return types are not indicated by API and are not supported by this code
+
+                        // determine if return type is object or primitive
+                        JObject returnType = null;
+                        if (Type.GetTypeCode(method.ReturnType) == TypeCode.Object)
+                        {
+                            if (method.ReturnType.Name != "Void")
+                            {
+                                string methodReturnTypeName = method.ReturnType.Name;
+                                if (schema["properties"][methodReturnTypeName] == null)
+                                {
+                                    throw new Exception("Schema missing referenced return type " + methodReturnTypeName + " for method " + method.Name);
+                                }
+                                returnType = new JObject(new JProperty("$ref", methodReturnTypeName));
+                            }
+                            else
+                            {
+                                returnType = null;
+                            }
+                            
+
+                        }
+                        else if (Type.GetTypeCode(method.ReturnType) == TypeCode.Empty)
+                        {
+                            returnType = null;
+                            
+                        }
+                        else
+                        {
+                            returnType = new JObject(new JProperty("type", method.ReturnType.GetSchemaType()["type"].Value<string>()));
+                        }
+                        if (returnType != null)
+                        {
+                            service.Add("returns", returnType);
+                        }
+                        
+
+
 
 
 
@@ -198,7 +232,7 @@ namespace JsonSchemaGeneration.WcfSMD
                         SetIntAttribute(methodSmdElement, service, "cacheDuration");
                         SetStringAttribute(methodSmdElement, service, "throttleScope");
 
-                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue,methodPatch);
+                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue, methodPatch);
                     }
 
                 }
@@ -209,9 +243,9 @@ namespace JsonSchemaGeneration.WcfSMD
 
         }
 
-        
 
-        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, IEnumerable<string> dtoAssemblyNames, bool includeDemoValue,JObject methodPatch)
+
+        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, IEnumerable<string> dtoAssemblyNames, bool includeDemoValue, JObject methodPatch)
         {
             var parameters = new JArray();
             service.Add("parameters", parameters);
@@ -226,15 +260,15 @@ namespace JsonSchemaGeneration.WcfSMD
                     // check patch
                     if (methodPatch["parameters"][parameter.Name] != null)
                     {
-                        parameters.Add(methodPatch["parameters"][parameter.Name]);    
+                        parameters.Add(methodPatch["parameters"][parameter.Name]);
                     }
                     else
                     {
                         string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
-                        throw new Exception(message);    
+                        throw new Exception(message);
                     }
-                    
-                    
+
+
                 }
                 else
                 {

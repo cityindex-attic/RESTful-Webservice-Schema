@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using JsonSchemaGeneration;
 using MetadataProcessor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -505,7 +506,119 @@ namespace MetadataProcessor
             return null;
         }
 
+        public static JObject GetSchemaType(this Type type)
+        {
+            TypeCode typecode = Type.GetTypeCode(type);
+            var typeObj = new JObject();
+            switch (typecode)
+            {
+                case TypeCode.Boolean:
+                    typeObj["type"] = "boolean";
+                    break;
+                case TypeCode.Byte:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "byte";
+                    typeObj["minValue"] = 0;
+                    typeObj["maxValue"] = 255;
+                    break;
+                case TypeCode.Char:
+                    // ? quandry - represent char as a string of length 1 or as an uint16?
+                    // type: "string" maxLength: 1
+                    typeObj["type"] = "string";
+                    typeObj["minLength"] = 1;
+                    typeObj["maxLength"] = 1;
+                    break;
+                case TypeCode.DateTime:
+                    // type: "string" format: "wcf-date" <-- negotiable depending on service serialization 
+                    typeObj["type"] = "string";
+                    typeObj["format"] = "wcf-date";
+                    break;
+                case TypeCode.Decimal:
+                    // type: "number" format: "decimal" minValue:-79228162514264337593543950335,maxValue:79228162514264337593543950335, divisibleBy:0.01 <-- defines precision of 2
 
+                    typeObj["type"] = "number";
+                    typeObj["format"] = "decimal";
+                    typeObj["minValue"] = -79228162514264337593543950335m;
+                    typeObj["maxValue"] = 79228162514264337593543950335m;
+                    break;
+
+                case TypeCode.Double:
+                    // type: "number", minValue: -1.79769313486231e308 (one more than .net  else inifinty),maxValue: 1.79769313486231e308 (one less than .net else inifinty)
+                    typeObj["type"] = "number";
+                    typeObj["format"] = "decimal";
+                    typeObj["minValue"] = double.MinValue + 1; // minvalue is -infinity in IE js vm
+                    typeObj["maxValue"] = double.MaxValue - 1;// maxValue is infinity in IE js vm
+                    break;
+                    break;
+                case TypeCode.Int16:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "short";
+                    typeObj["minValue"] = -32768;
+                    typeObj["maxValue"] = 32767;
+                    break;
+                case TypeCode.Int32:
+                    typeObj["type"] = "integer";
+                    typeObj["minValue"] = -2147483648;
+                    typeObj["maxValue"] = 2147483647;
+                    break;
+                case TypeCode.Int64:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "long";
+                    typeObj["minValue"] = -9223372036854775808;
+                    typeObj["maxValue"] = 9223372036854775807;
+
+                    break;
+                case TypeCode.SByte:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "sbyte";
+                    typeObj["minValue"] = -128;
+                    typeObj["maxValue"] = 127;
+                    break;
+
+                case TypeCode.Single:
+                    typeObj["type"] = "number";
+                    typeObj["format"] = "single";
+                    typeObj["minValue"] = -3.402823e38;
+                    typeObj["maxValue"] = 3.402823e38;
+                    break;
+
+                case TypeCode.String:
+                    typeObj["type"] = "string";
+                    break;
+                case TypeCode.UInt16:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "ushort";
+                    typeObj["minValue"] = 0;
+                    typeObj["maxValue"] = 65535;
+                    break;
+                case TypeCode.UInt32:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "uint";
+                    typeObj["minValue"] = 0;
+                    typeObj["maxValue"] = 4294967295;
+                    break;
+                case TypeCode.UInt64:
+                    typeObj["type"] = "integer";
+                    typeObj["format"] = "ulong";
+                    typeObj["minValue"] = 0;
+                    typeObj["maxValue"] = 18446744073709551615;
+                    break;
+
+                case TypeCode.Object:
+                    JObject obj = new JObject();
+                    obj["$ref"] = type.Name;
+                    typeObj["type"] = obj;
+                    break;
+                case TypeCode.DBNull:
+                case TypeCode.Empty:
+                    throw new NotSupportedException("unsupported type " + typecode);
+
+                default:
+                    throw new DefectException("typecode from outerspace");
+            }
+
+            return typeObj;
+        }
         public static bool IsComplexType(Type propertyType)
         {
             return (

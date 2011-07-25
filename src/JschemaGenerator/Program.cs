@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Text;
 using JsonSchemaGeneration;
 using JsonSchemaGeneration.JsonSchemaDTO;
+using JsonSchemaGeneration.WcfSMD;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JschemaGenerator
 {
@@ -25,8 +28,11 @@ namespace JschemaGenerator
                 string intputFileName = args[0];
                 string jschemaOutputFileName = args[1];
                 string smdOutputFileName = args[2];
-                
-                
+
+
+                string smdPatchPath = "smd-patch.xml";
+                string schemaPatchPath = null;
+
                 // todo parameterize
                 string patchJson = File.ReadAllText("patch.js");
 
@@ -35,18 +41,19 @@ namespace JschemaGenerator
 
                 reader.Read(intputFileName);
 
-                XmlDocUtils.EnsureXmlDocsAreValid(reader.DTOAssemblyNames);
+                XmlDocUtils.EnsureXmlDocsAreValid(schemaPatchPath, reader.DTOAssemblyNames);
 
-                new Auditor().AuditTypes(reader.DTOAssemblyNames);
+                new Auditor().AuditTypes(schemaPatchPath,reader.DTOAssemblyNames);
 
-                var jsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(reader.DTOAssemblyNames);
+                var jsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(schemaPatchPath, reader.DTOAssemblyNames);
 
                 File.WriteAllText(jschemaOutputFileName, jsonSchema);
 
+                
 
                 var smdEmitter = new JsonSchemaGeneration.WcfSMD.Emitter();
-                
-                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames,patchJson);
+
+                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames, patchJson, smdPatchPath, (JObject) JsonConvert.DeserializeObject(jsonSchema));
                 File.WriteAllText(smdOutputFileName, smd);
 
  

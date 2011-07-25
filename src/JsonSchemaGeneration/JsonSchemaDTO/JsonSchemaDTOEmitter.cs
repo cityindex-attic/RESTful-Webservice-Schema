@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using MetadataProcessor;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +16,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
     {
             
 
-        public string EmitDtoJson(params string[] assemblyNames)
+        public string EmitDtoJson(string patchPath,params string[] assemblyNames)
         {
             var schemaObj = new JObject();
             var assemblies = UtilityExtensions.GetAssemblies(assemblyNames);
@@ -25,11 +26,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             var schemaProperties = new JObject();
             schemaObj["properties"] = schemaProperties;
 
-            var types = UtilityExtensions.GetSchemaTypes(assemblies);
+            var types = UtilityExtensions.GetSchemaTypes(assemblies, patchPath);
 
             foreach (Type type in types)
             {
-                var typeNode = type.GetXmlDocTypeNodeWithJSchema();
+                var typeNode = type.GetXmlDocTypeNodeWithJSchema(patchPath);
                 var jSchemaNode = typeNode.XPathSelectElement("jschema");
 
                 var typeObj = new JObject();
@@ -37,11 +38,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 if (type.IsEnum)
                 {
-                    RenderEnum(type, typeObj);
+                    RenderEnum(type, typeObj,patchPath);
                 }
                 else if (type.IsClass)
                 {
-                    RenderType(type, typeObj);
+                    RenderType(type, typeObj,patchPath);
                 }
                 else
                 {
@@ -70,7 +71,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             }
         }
         
-        private static void RenderEnum(Type type, JObject typeObj)
+        private static void RenderEnum(Type type, JObject typeObj,string patchPath)
         {
             typeObj["type"] = "integer";
 
@@ -94,7 +95,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 string description = "";
 
-                var fieldNode = type.GetXmlDocFieldNode(fieldName);
+                var fieldNode = type.GetXmlDocFieldNode(fieldName, patchPath);
                 if (fieldNode != null)
                 {
                     // TODO: may have to do some re-encoding
@@ -126,7 +127,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             }
             return name;
         }
-        private static void RenderType(Type type, JObject typeObj)
+        private static void RenderType(Type type, JObject typeObj, string patchPath)
         {
             string typeName = type.Name;
 
@@ -147,7 +148,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             foreach (var propertyInfo in type.GetProperties())
             {
                 string memberName = propertyInfo.Name;
-                var pnode = type.GetXmlDocPropertyNode(memberName);
+                var pnode = type.GetXmlDocPropertyNode(memberName, patchPath);
                 if (pnode != null)
                 {
                     var pobj = new JObject();
@@ -169,7 +170,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             foreach (var fieldInfo in type.GetFields())
             {
                 string memberName = fieldInfo.Name;
-                var pnode = type.GetXmlDocPropertyNode(memberName);
+                var pnode = type.GetXmlDocPropertyNode(memberName, patchPath);
                 if (pnode != null)
                 {
                     // TODO: should we emit a warning?
@@ -192,119 +193,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             }
 
         }
-        private static JObject GetSchemaType(Type type)
-        {
-            TypeCode typecode = Type.GetTypeCode(type);
-            var typeObj = new JObject();
-            switch (typecode)
-            {
-                case TypeCode.Boolean:
-                    typeObj["type"] = "boolean";
-                    break;
-                case TypeCode.Byte:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "byte";
-                    typeObj["minValue"] = 0;
-                    typeObj["maxValue"] = 255;
-                    break;
-                case TypeCode.Char:
-                    // ? quandry - represent char as a string of length 1 or as an uint16?
-                    // type: "string" maxLength: 1
-                    typeObj["type"] = "string";
-                    typeObj["minLength"] = 1;
-                    typeObj["maxLength"] = 1;
-                    break;
-                case TypeCode.DateTime:
-                    // type: "string" format: "wcf-date" <-- negotiable depending on service serialization 
-                    typeObj["type"] = "string";
-                    typeObj["format"] = "wcf-date";
-                    break;
-                case TypeCode.Decimal:
-                    // type: "number" format: "decimal" minValue:-79228162514264337593543950335,maxValue:79228162514264337593543950335, divisibleBy:0.01 <-- defines precision of 2
-
-                    typeObj["type"] = "number";
-                    typeObj["format"] = "decimal";
-                    typeObj["minValue"] = -79228162514264337593543950335m;
-                    typeObj["maxValue"] = 79228162514264337593543950335m;
-                    break;
-
-                case TypeCode.Double:
-                    // type: "number", minValue: -1.79769313486231e308 (one more than .net  else inifinty),maxValue: 1.79769313486231e308 (one less than .net else inifinty)
-                    typeObj["type"] = "number";
-                    typeObj["format"] = "decimal";
-                    typeObj["minValue"] = double.MinValue + 1; // minvalue is -infinity in IE js vm
-                    typeObj["maxValue"] = double.MaxValue - 1;// maxValue is infinity in IE js vm
-                    break;
-                    break;
-                case TypeCode.Int16:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "short";
-                    typeObj["minValue"] = -32768;
-                    typeObj["maxValue"] = 32767;
-                    break;
-                case TypeCode.Int32:
-                    typeObj["type"] = "integer";
-                    typeObj["minValue"] = -2147483648;
-                    typeObj["maxValue"] = 2147483647;
-                    break;
-                case TypeCode.Int64:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "long";
-                    typeObj["minValue"] = -9223372036854775808;
-                    typeObj["maxValue"] = 9223372036854775807;
-
-                    break;
-                case TypeCode.SByte:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "sbyte";
-                    typeObj["minValue"] = -128;
-                    typeObj["maxValue"] = 127;
-                    break;
-
-                case TypeCode.Single:
-                    typeObj["type"] = "number";
-                    typeObj["format"] = "single";
-                    typeObj["minValue"] = -3.402823e38;
-                    typeObj["maxValue"] = 3.402823e38;
-                    break;
-
-                case TypeCode.String:
-                    typeObj["type"] = "string";
-                    break;
-                case TypeCode.UInt16:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "ushort";
-                    typeObj["minValue"] = 0;
-                    typeObj["maxValue"] = 65535;
-                    break;
-                case TypeCode.UInt32:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "uint";
-                    typeObj["minValue"] = 0;
-                    typeObj["maxValue"] = 4294967295;
-                    break;
-                case TypeCode.UInt64:
-                    typeObj["type"] = "integer";
-                    typeObj["format"] = "ulong";
-                    typeObj["minValue"] = 0;
-                    typeObj["maxValue"] = 18446744073709551615;
-                    break;
-
-                case TypeCode.Object:
-                    JObject obj = new JObject();
-                    obj["$ref"] = type.Name;
-                    typeObj["type"] = obj;
-                    break;
-                case TypeCode.DBNull:
-                case TypeCode.Empty:
-                    throw new NotSupportedException("unsupported type " + typecode);
-
-                default:
-                    throw new DefectException("typecode from outerspace");
-            }
-
-            return typeObj;
-        }
+        
 
         public static void ApplyPropertyAttribute(JObject propBase, string attributeValue, string parentName, string name)
         {
@@ -558,7 +447,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             
             JObject typeObj;
 
-            typeObj = GetSchemaType(type);
+            typeObj = type.GetSchemaType();
             
             if (isNullable)
             {

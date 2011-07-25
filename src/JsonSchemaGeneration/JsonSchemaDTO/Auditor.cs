@@ -21,9 +21,9 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
     public class Auditor
     {
 
-        public void AuditType(Type type, bool failIfMetaMissing)
+        public void AuditType(Type type, bool failIfMetaMissing,string patchPath)
         {
-            XDocument doc = type.GetXmlDocs();
+            XDocument doc = type.GetXmlDocs(patchPath);
             var typeNode = doc.XPathSelectElement("/doc/members/member[@name = 'T:" + type.FullName + "']");
             if (typeNode == null)
             {
@@ -45,7 +45,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 if (type.BaseType != typeof(object) && type.BaseType != typeof(Enum))
                 {
-                    AuditType(type.BaseType, true);
+                    AuditType(type.BaseType, true, patchPath);
                 }
 
             }
@@ -188,7 +188,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         }
 
-        public void AuditTypes(params string[] assemblyNames)
+        public void AuditTypes(string patchPath,params string[] assemblyNames)
         {
             foreach (var assembly in UtilityExtensions.GetAssemblies(assemblyNames))
             {
@@ -201,7 +201,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                     }
                     else
                     {
-                        AuditType(type, false);
+                        AuditType(type, false, patchPath);
                     }
                                         
                 }

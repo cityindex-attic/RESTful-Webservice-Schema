@@ -8,12 +8,12 @@ namespace JsonSchemaGeneration
 {
     public static class UtilityExtensions
     {
-        public static IEnumerable<Type> GetSchemaTypes(IEnumerable<Assembly> assemblies)
+        public static IEnumerable<Type> GetSchemaTypes(IEnumerable<Assembly> assemblies,string patchPath)
         {
             var schemaTypes = new List<Type>();
             foreach (Assembly assembly in assemblies)
             {
-                schemaTypes.AddRange(assembly.GetTypes().Where(type => type.GetXmlDocTypeNodeWithJSchema() != null));
+                schemaTypes.AddRange(assembly.GetTypes().Where(type => type.GetXmlDocTypeNodeWithJSchema(patchPath) != null));
             }
 
             return schemaTypes;
