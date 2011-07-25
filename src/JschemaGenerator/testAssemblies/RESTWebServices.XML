@@ -4,359 +4,6 @@
         <name>RESTWebServices</name>
     </assembly>
     <members>
-        <member name="T:RESTWebServices.ICfdMarkets">
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.ICfdMarkets.ListCfdMarkets(System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Returns a list of CFD markets filtered by market name and/or market code
-            </summary>
-            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the CFD market name should start with</param>
-            <param name="searchByMarketCode" minLength="1" maxLength="50">The characters that the market code should start with (normally this is the RIC code for the market)</param>
-            <param name="clientAccountId" minimum="1" maximum="2147483647" demoValue="123456" required="true">The logged on user&apos;s ClientAccountId.  (This only shows you markets that you can trade on)</param>
-            <param name="maxResults" minimum="1" maximum="500" demoValue="20" default="20">The maximum number of markets to return.</param>
-            <returns>A list of markets matching all of the search criteria</returns>
-            <smd group="CFD Markets" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.ServiceBase">
-            <summary>
-            Contains common functionality used by all services
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.ServiceBase.ThrowWebException(System.Net.HttpStatusCode,RESTWebServicesDTO.ErrorCode,System.String)">
-            <summary>
-             Throws an exception that gets translated into an appropriate JSON error response
-            </summary>
-            <param name="httpStatusCode"></param>
-            <param name="errorCode"></param>
-            <param name="errorMessage"></param>
-            <exception cref="T:Microsoft.ServiceModel.Web.WebProtocolException"></exception>
-        </member>
-        <member name="M:RESTWebServices.ServiceBase.AddCORSHeadersToResponse">
-            <summary>
-            CORS headers in the response are needed to support cross domain JavaScript calls.
-            They should only be added when NOT returning an error response.
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.ServiceBase.FinaliseResponse``1(``0)">
-            <summary>
-            Handles last minute request processing; doing things like adding CORS headers if appropriate
-            </summary>
-            <param name="response"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RESTWebServices.ServiceBase.GetGatewayResponse``1(TradingApi.ServerCommon.IApiHandler,GatewayCoreDTO.Request.GatewayRequestDTO)">
-            <summary>
-            Makes Gateway Handler request, handling gateway errors
-            </summary>
-            <typeparam name="T">The expected gateway return type.  Will never be null</typeparam>
-            <param name="handler">The gateway handler</param>
-            <param name="gatewayRequestDTO">the request dto to send to the gateway handler</param>
-            <returns></returns>
-        </member>
-        <member name="T:RESTWebServices.IWatchlistService">
-            <summary>
-            Manage client watch list
-            </summary>
-            <smd />
-        </member>
-        <member name="M:RESTWebServices.IWatchlistService.GetUserWatchlists">
-            <summary>
-             Get client watchlist
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:RESTWebServices.IWatchlistService.UpdateUserWatchlistsDispayOrder(RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO)">
-            <summary>
-             Update user watchlist display order
-            </summary>
-            <param name="updateWatchlistDisplayOrderRequestDTO"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RESTWebServices.IWatchlistService.InsertUserWatchlistItem(RESTWebServicesDTO.Request.InsertWatchlistItemRequestDTO)">
-            <summary>
-             Inserts item to watchlist
-            </summary>
-            <param name="insertWatchlistItemRequestDTO"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RESTWebServices.IWatchlistService.DeleteUserWatchlistItem(RESTWebServicesDTO.Request.DeleteWatchlistItemRequestDTO)">
-            <summary>
-             Delete item to watchlist
-            </summary>
-            <param name="deleteWatchlistItemRequestDTO"></param>
-            <returns></returns>
-        </member>
-        <member name="T:RESTWebServices.WatchlistService">
-            <summary>
-             Watchlist
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.WatchlistService.#ctor(ActiveMQRequest.HandlerFactory)">
-            <summary>
-             Watchlist constructor with handle factory
-            </summary>
-            <param name="handlerFactory"></param>
-        </member>
-        <member name="M:RESTWebServices.WatchlistService.#ctor">
-            <summary>
-             Watchlist constructor
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.WatchlistService.UpdateUserWatchlistsDispayOrder(RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO)">
-            <summary>
-             Update user watchlists
-            </summary>
-            <param name="updateWatchlistDisplayOrderRequestDTO"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="T:RESTWebServices.ITradeService">
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.ITradeService.Trade(RESTWebServicesDTO.Request.NewTradeOrderRequestDTO)">
-            <summary>
-            &lt;p&gt;Place a trade on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewTradeOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
-            &lt;p&gt;Do not set any order id fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
-            </summary>
-            <param name="trade">The trade request</param>
-            <smd group="Trades and Orders" throttleScope="trading"/>
-        </member>
-        <member name="M:RESTWebServices.ITradeService.UpdateTrade(RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO)">
-            <summary>
-            Update a trade (for adding a stop/limit etc).  Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateTradeOrderRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
-            </summary>
-            <param name="update">The trade request</param>
-            <smd group="Trades and Orders" throttleScope="trading"/>
-        </member>
-        <member name="T:RESTWebServices.IMarketPriceHistoryService">
-            <summary>
-            
-            </summary>
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceBars(System.String,System.String,System.Int32,System.String)">
-            <summary>
-             <p>Get historic price bars in OHLC (open, high, low, close) format, suitable for plotting candlestick charts</p>
-             <p>Returns price bars in ascending order up to the current time.</p>
-             <p>When there are no prices per a particular time period, no price bar is returned.  Thus, it can appear that
-             the array of price bars has &quot;gaps&quot;, i.e. the gap between the datetime of each price bar might not
-             be equal to interval x span</p>
-             <p>Sample Urls:
-             <ul>
-                 <li>/market/1234/history?interval=MINUTE&amp;span=15&amp;pricebars=180</li>
-                 <li>/market/735/history?interval=HOUR&amp;span=1&amp;pricebars=240</li>
-                 <li>/market/1577/history?interval=DAY&amp;span=1&amp;pricebars=10</li>
-             </ul>
-             </p>
-            </summary>
-            <param name="marketId" demoValue="71442">The marketId</param>
-            <param name="interval" demoValue="MINUTE">The pricebar interval</param>
-            <param name="span" demoValue="1">The number of each interval per pricebar.</param>
-            <param name="priceBars" demoValue="15">The total number of pricebars to return</param>
-             <smd group="Price History"  cacheDuration="10000" throttleScope="data"/>
-        </member>
-        <member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceTicks(System.String,System.String)">
-            <summary>
-             Get historic price ticks.  
-             Returns price ticks in ascending order up to the current time.
-             The length of time between each tick will be different.
-            </summary>
-            <param name="marketId" demoValue="71442">The marketId</param>
-            <param name="priceTicks" demoValue="10">The total number of price ticks to return</param>
-             <smd group="Price History"  cacheDuration="10000" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.G2AuthenticatedServiceHostFactory">
-            <summary>
-            </summary>
-        </member>
-        <member name="F:RESTWebServices.Default.form1">
-            <summary>
-            form1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="T:RESTWebServices.IAuthenticatedSmokeTestService">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.IAuthenticatedSmokeTestService.DoAuthenticatedSmokeTest">
-            <summary>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:RESTWebServices.IHedgeService">
-            <summary>
-            Place a hedge trade
-            </summary>
-            <smd />
-        </member>
-        <member name="M:RESTWebServices.IHedgeService.Hedge(RESTWebServicesDTO.Request.NewFxHedgeRequestDTO)">
-            <summary>
-            TODO
-            </summary>
-            <param name="hedge"></param>
-        </member>
-        <member name="M:RESTWebServices.HedgeService.#ctor">
-            <summary>
-             Hedge Service provide handler factory
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.HedgeService.#ctor(ActiveMQRequest.HandlerFactory,RESTWebServices.Authentication.ServiceValidator)">
-            <summary>
-             Hedge service
-            </summary>
-            <param name="handlerFactory"></param>
-            <param name="serviceValidator"></param>
-        </member>
-        <member name="T:RESTWebServices.Authentication.HttpMethodOverrideInterceptor">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.HttpMethodOverrideInterceptor.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
-            <summary>
-            </summary>
-            <param name="requestContextFacade"></param>
-        </member>
-        <member name="T:RESTWebServices.Authentication.ServiceValidator">
-            <summary>
-             Service validator
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.ServiceValidator.ValidateTrianaTradingAccount">
-            <summary>
-             Validate hedge service calls against valid triana trading accounts
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:RESTWebServices.UrlMapper">
-            <summary>
-            </summary>
-        </member>
-        <member name="T:RESTWebServices.UrlMapper.UrlMap">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.UrlMapper.UrlMap.#ctor(System.String,System.String,System.String)">
-            <summary>
-            </summary>
-            <param name="urlPattern"></param>
-            <param name="filePath"></param>
-            <param name="pathInfo"></param>
-        </member>
-        <member name="P:RESTWebServices.UrlMapper.UrlMap.UrlPattern">
-            <summary>
-            Incoming Urls are always transformed to lowercase
-            </summary>
-        </member>
-        <member name="P:RESTWebServices.UrlMapper.UrlMap.FilePath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:RESTWebServices.UrlMapper.UrlMap.PathInfo">
-            <summary>
-            </summary>
-        </member>
-        <member name="T:RESTWebServices.Authentication.MoveClientAccountAndTradingAccountFromQueryStringToHeader">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.MoveClientAccountAndTradingAccountFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
-            <summary>
-            </summary>
-            <param name="requestContextFacade"></param>
-        </member>
-        <member name="T:RESTWebServices.Authentication.ValidateSessionInteceptor">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.ValidateSessionInteceptor.#ctor">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.ValidateSessionInteceptor.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
-            <summary>
-            </summary>
-            <param name="requestContextFacade"></param>
-        </member>
-        <member name="T:RESTWebServices.IFutureOptionService">
-            <summary>
-            Place a hedge trade
-            </summary>
-            <smd />
-        </member>
-        <member name="M:RESTWebServices.IFutureOptionService.Future(RESTWebServicesDTO.Request.NewFutureOptionRequestDTO)">
-            <summary>
-            Future or option request
-            </summary>
-            <param name="newFutureOptionRequestDTO"></param>
-        </member>
-        <member name="M:RESTWebServices.FutureOptionService.#ctor">
-            <summary>
-             Futures Service provide handler factory
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.FutureOptionService.#ctor(ActiveMQRequest.HandlerFactory,RESTWebServices.Authentication.ServiceValidator)">
-            <summary>
-             Futures service
-            </summary>
-            <param name="handlerFactory"></param>
-            <param name="serviceValidator"></param>
-        </member>
-        <member name="T:RESTWebServices.Authentication.MoveUniqueIdentifierFromQueryStringToHeader">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:RESTWebServices.Authentication.MoveUniqueIdentifierFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
-            <summary>
-            </summary>
-            <param name="requestContextFacade"></param>
-        </member>
-        <member name="T:RESTWebServices.IErrors">
-            <summary>
-            </summary>
-             <smd/>
-        </member>
-        <member name="M:RESTWebServices.IErrors.GenerateException(System.Int32)">
-            <summary>
-            Simulates an error condition.
-            </summary>
-            <param name="errorCode" demoValue="4000"></param>
-            <returns></returns>
-            <smd group="Exception Handling" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.INews">
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.INews.ListNewsHeadlines(System.String,System.Int32)">
-            <summary>
-             Get a list of current news headlines
-            </summary>
-            <param name="category" demoValue="UK" minLength="2" maxLength="3">Filter headlines by category</param>
-            <param name="maxResults" demoValue="10" default="25" minimum="1" maximum="500">Restrict the number of headlines returned</param>
-             <smd group="News" cacheDuration="10000" throttleScope="data"/>
-        </member>
-        <member name="M:RESTWebServices.INews.GetNewsDetail(System.String)">
-            <summary>
-             Get the detail of a specific news story
-            </summary>
-            <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story Id</param>
-             <smd group="News" cacheDuration="10000" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.IApiMessagesService">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:RESTWebServices.IReadAndReturn">
-            <summary>
-            
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:RESTWebServices.IReadAndReturn.GetDefaultResponse" -->
         <member name="T:RESTWebServices.IMarketInformationService">
             <smd/>
         </member>
@@ -387,107 +34,68 @@
             &lt;p&gt;Get Market Information for the specified list of markets.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ListMarketInformationRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ListMarketInformationRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
             </summary>
         </member>
-        <member name="T:RESTWebServices.BugException">
+        <member name="M:RESTWebServices.IMarketInformationService.SaveMarketInformation(RESTWebServicesDTO.Request.SaveMarketInformationRequestDTO)">
             <summary>
-             Use this to indicate when a branch of the code has been reached that 
-             can only be the result of a programmer bug
+            Save Market Information for the specified list of markets.  
             </summary>
         </member>
-        <member name="M:RESTWebServices.BugException.#ctor(System.String)">
+        <member name="T:RESTWebServices.ServiceBase">
             <summary>
-            </summary>
-            <param name="message">Detail on why this is a bug</param>
-        </member>
-        <member name="T:RESTWebServices.Authentication.MoveSessionAndUseridFromQueryStringToHeader">
-            <summary>
+            Contains common functionality used by all services
             </summary>
         </member>
-        <member name="M:RESTWebServices.Authentication.MoveSessionAndUseridFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
+        <member name="M:RESTWebServices.ServiceBase.ThrowWebException(System.Net.HttpStatusCode,RESTWebServicesDTO.ErrorCode,System.String)">
             <summary>
+             Throws an exception that gets translated into an appropriate JSON error response
             </summary>
-            <param name="requestContextFacade"></param>
+            <param name="httpStatusCode"></param>
+            <param name="errorCode"></param>
+            <param name="errorMessage"></param>
+            <exception cref="T:Microsoft.ServiceModel.Web.WebProtocolException"></exception>
         </member>
-        <member name="T:RESTWebServices.ISpreadMarkets">
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.ISpreadMarkets.ListSpreadMarkets(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:RESTWebServices.ServiceBase.AddCORSHeadersToResponse">
             <summary>
-            Returns a list of Spread Betting markets filtered by market name and/or market code
-            </summary>
-            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the Spread market name should start with</param>
-            <param name="searchByMarketCode" minLength="1" maxLength="50" demoValue="VOD.L">The characters that the Spread market code should start with (normally this is the RIC code for the market)</param>
-            <param name="clientAccountId" minimum="1" maximum="84272157" demoValue="123456">The logged on user&apos;s ClientAccountId.  (This only shows you markets that you can trade on)</param>
-            <param name="maxResults" minimum="1" maximum="500" demoValue="20" optional="true" default="20">The maximum number of markets to return.</param>
-            <returns>A list of markets matching all of the search criteria</returns>
-            <smd group="Spread Markets" cacheDuration="10000" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.IAccountInformationService">
-            <smd/>
-        </member>
-        <member name="M:RESTWebServices.IAccountInformationService.GetChartingEnabled(System.String)">
-            <summary>
-            Whether a User is allowed to see Charting Data.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-            <smd group="AccountInformation" throttleScope="data"/>
-        </member>
-        <member name="M:RESTWebServices.IAccountInformationService.GetTermsAndConditions(System.String)">
-            <summary>
-            What are the Users Terms and Conditions.
-            </summary>
-            <param name="clientaccount"></param>
-            <returns></returns>
-            <smd group="AccountInformation" throttleScope="data"/>
-        </member>
-        <member name="M:RESTWebServices.IAccountInformationService.GetClientAndTradingAccount">
-            <summary>
-            Returns the Users ClientAccountId and a list of their TradingAccounts.  There are no parameters for this call.
-            </summary>
-            <returns></returns>
-            <smd group="AccountInformation" throttleScope="data"/>
-        </member>
-        <member name="T:RESTWebServices.ISmokeTestService">
-            <summary>
+            CORS headers in the response are needed to support cross domain JavaScript calls.
+            They should only be added when NOT returning an error response.
             </summary>
         </member>
-        <member name="M:RESTWebServices.ISmokeTestService.DoSmokeTest">
+        <member name="M:RESTWebServices.ServiceBase.FinaliseResponse``1(``0)">
             <summary>
+            Handles last minute request processing; doing things like adding CORS headers if appropriate
             </summary>
+            <param name="response"></param>
             <returns></returns>
         </member>
-        <member name="T:RESTWebServices.ILoginService">
+        <member name="M:RESTWebServices.ServiceBase.GetGatewayResponse``1(ActiveMQPubSub.IApiHandler,GatewayCoreDTO.Request.GatewayRequestDTO)">
+            <summary>
+            Makes Gateway Handler request, handling gateway errors
+            </summary>
+            <typeparam name="T">The expected gateway return type.  Will never be null</typeparam>
+            <param name="handler">The gateway handler</param>
+            <param name="gatewayRequestDTO">the request dto to send to the gateway handler</param>
+            <returns></returns>
+        </member>
+        <member name="T:RESTWebServices.IErrors">
             <summary>
             </summary>
              <smd/>
         </member>
-        <member name="M:RESTWebServices.ILoginService.LogOn(RESTWebServicesDTO.Request.ApiLogOnRequestDTO)">
+        <member name="M:RESTWebServices.IErrors.GenerateException(System.Int32)">
             <summary>
-             &lt;p&gt;Create a new session.  This is how you &quot;log on&quot; to the CIAPI.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ApiLogOnRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ApiLogOnRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            Simulates an error condition.
             </summary>
-             <smd 
-             group="Authentication" 
-             throttleScope="data"
-             />
+            <param name="errorCode" demoValue="4000"></param>
+            <returns></returns>
+            <smd group="Exception Handling" throttleScope="data"/>
         </member>
-        <member name="M:RESTWebServices.ILoginService.LogOffFromQueryString(System.String,System.String)">
+        <member name="T:RESTWebServices.Interceptors.MoveSessionAndUseridFromQueryStringToHeader">
             <summary>
-             &lt;p&gt;Delete a session.  This is how you &quot;log off&quot; from the CIAPI.&lt;/p&gt;
             </summary>
-            <param name="userName" minLength="6" maxLength="20" demoValue="CC735158">Username is case sensitive. May be set as a service parameter or as a request header.</param>
-            <param name="session" format="guid" minLength="36" maxLength="36" demoValue="5998CBE8-3594-4232-A57E-09EC3A4E7AA8">The session token. May be set as a service parameter or as a request header.</param>
-             <smd 
-             method="DeleteSession"
-             group="Authentication"
-             throttleScope="data"
-             />
         </member>
-        <member name="M:RESTWebServices.ILoginService.LogOff(RESTWebServicesDTO.Request.ApiLogOffRequestDTO)">
+        <member name="M:RESTWebServices.Interceptors.MoveSessionAndUseridFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
             <summary>
-            Delete a session.  This call is obsolete but retained for backwards compatibility; please rather POST to /session/logout
-            TODO: How do I link to the DeleteSession method?
             </summary>
-            <smd/>
+            <param name="requestContextFacade"></param>
         </member>
         <member name="T:RESTWebServices.IOrderService">
             <smd/>
@@ -582,6 +190,427 @@
             </summary>
             <param name="orderId">The requested order id.</param>
             <smd group="Trades and Orders"/>
+        </member>
+        <member name="T:RESTWebServices.IAuthenticatedSmokeTestService">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.IAuthenticatedSmokeTestService.DoAuthenticatedSmokeTest">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RESTWebServices.ITradeService">
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.ITradeService.Trade(RESTWebServicesDTO.Request.NewTradeOrderRequestDTO)">
+            <summary>
+            &lt;p&gt;Place a trade on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewTradeOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Do not set any order id fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
+            </summary>
+            <param name="trade">The trade request</param>
+            <smd group="Trades and Orders" throttleScope="trading"/>
+        </member>
+        <member name="M:RESTWebServices.ITradeService.UpdateTrade(RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO)">
+            <summary>
+            Update a trade (for adding a stop/limit etc).  Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateTradeOrderRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            </summary>
+            <param name="update">The trade request</param>
+            <smd group="Trades and Orders" throttleScope="trading"/>
+        </member>
+        <member name="T:RESTWebServices.Authentication.ServiceValidator">
+            <summary>
+             Service validator
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Authentication.ServiceValidator.ValidateTrianaTradingAccount">
+            <summary>
+             Validate hedge service calls against valid triana trading accounts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RESTWebServices.Interceptors.MoveClientAccountAndTradingAccountFromQueryStringToHeader">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Interceptors.MoveClientAccountAndTradingAccountFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
+            <summary>
+            </summary>
+            <param name="requestContextFacade"></param>
+        </member>
+        <member name="T:RESTWebServices.IHedgeService">
+            <summary>
+            Place a hedge trade
+            </summary>
+            <smd />
+        </member>
+        <member name="M:RESTWebServices.IHedgeService.Hedge(RESTWebServicesDTO.Request.NewFxHedgeRequestDTO)">
+            <summary>
+            Hedge service
+            </summary>
+            <param name="hedge"></param>
+        </member>
+        <member name="M:RESTWebServices.HedgeService.#ctor">
+            <summary>
+             Hedge Service provide handler factory
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.HedgeService.#ctor(Handlers.HandlerFactory,RESTWebServices.Authentication.ServiceValidator)">
+            <summary>
+             Hedge service
+            </summary>
+            <param name="handlerFactory"></param>
+            <param name="serviceValidator"></param>
+        </member>
+        <member name="T:RESTWebServices.IAccountInformationService">
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.IAccountInformationService.GetChartingEnabled(System.String)">
+            <summary>
+            Whether a User is allowed to see Charting Data.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <smd group="AccountInformation" throttleScope="data"/>
+        </member>
+        <member name="M:RESTWebServices.IAccountInformationService.GetClientAndTradingAccount">
+            <summary>
+            Returns the Users ClientAccountId and a list of their TradingAccounts.  There are no parameters for this call.
+            </summary>
+            <returns></returns>
+            <smd group="AccountInformation" throttleScope="data"/>
+        </member>
+        <member name="T:RESTWebServices.INews">
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.INews.ListNewsHeadlines(System.String,System.Int32)">
+            <summary>
+             Get a list of current news headlines
+            </summary>
+            <param name="category" demoValue="UK" minLength="2" maxLength="3">Filter headlines by category</param>
+            <param name="maxResults" demoValue="10" default="25" minimum="1" maximum="500">Restrict the number of headlines returned</param>
+             <smd group="News" cacheDuration="10000" throttleScope="data"/>
+        </member>
+        <member name="M:RESTWebServices.INews.GetNewsDetail(System.String)">
+            <summary>
+             Get the detail of a specific news story
+            </summary>
+            <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story Id</param>
+             <smd group="News" cacheDuration="10000" throttleScope="data"/>
+        </member>
+        <member name="T:RESTWebServices.ISmokeTestService">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.ISmokeTestService.DoSmokeTest">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:RESTWebServices.Default.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="T:RESTWebServices.IFutureOptionService">
+            <summary>
+            Place a future or option trade
+            </summary>
+            <smd />
+        </member>
+        <member name="M:RESTWebServices.IFutureOptionService.Future(RESTWebServicesDTO.Request.NewFutureOptionRequestDTO)">
+            <summary>
+            Future or option request
+            </summary>
+            <param name="futureOption"></param>
+        </member>
+        <member name="T:RESTWebServices.FutureOptionService">
+            <summary>
+             Book future or option request from Triana
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.FutureOptionService.#ctor">
+            <summary>
+             Futures Service provide handler factory
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.FutureOptionService.#ctor(Handlers.HandlerFactory)">
+            <summary>
+             Futures service
+            </summary>
+            <param name="handlerFactory"></param>
+        </member>
+        <member name="T:RESTWebServices.ICfdMarkets">
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.ICfdMarkets.ListCfdMarkets(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Returns a list of CFD markets filtered by market name and/or market code
+            </summary>
+            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the CFD market name should start with</param>
+            <param name="searchByMarketCode" minLength="1" maxLength="50">The characters that the market code should start with (normally this is the RIC code for the market)</param>
+            <param name="clientAccountId" minimum="1" maximum="2147483647" demoValue="123456" required="true">The logged on user&apos;s ClientAccountId.  (This only shows you markets that you can trade on)</param>
+            <param name="maxResults" minimum="1" maximum="500" demoValue="20" default="20">The maximum number of markets to return.</param>
+            <returns>A list of markets matching all of the search criteria</returns>
+            <smd group="CFD Markets" throttleScope="data"/>
+        </member>
+        <member name="T:RESTWebServices.UrlMapper">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:RESTWebServices.UrlMapper.UrlMap">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.UrlMapper.UrlMap.#ctor(System.String,System.String,System.String)">
+            <summary>
+            </summary>
+            <param name="urlPattern"></param>
+            <param name="filePath"></param>
+            <param name="pathInfo"></param>
+        </member>
+        <member name="P:RESTWebServices.UrlMapper.UrlMap.UrlPattern">
+            <summary>
+            Incoming Urls are always transformed to lowercase
+            </summary>
+        </member>
+        <member name="P:RESTWebServices.UrlMapper.UrlMap.FilePath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:RESTWebServices.UrlMapper.UrlMap.PathInfo">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:RESTWebServices.ILoginService">
+            <summary>
+            </summary>
+             <smd/>
+        </member>
+        <member name="M:RESTWebServices.ILoginService.LogOn(RESTWebServicesDTO.Request.ApiLogOnRequestDTO)">
+            <summary>
+             &lt;p&gt;Create a new session.  This is how you &quot;log on&quot; to the CIAPI.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ApiLogOnRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ApiLogOnRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            </summary>
+             <smd 
+             group="Authentication" 
+             throttleScope="data"
+             />
+        </member>
+        <member name="M:RESTWebServices.ILoginService.LogOffFromQueryString(System.String,System.String)">
+            <summary>
+             &lt;p&gt;Delete a session.  This is how you &quot;log off&quot; from the CIAPI.&lt;/p&gt;
+            </summary>
+            <param name="userName" minLength="6" maxLength="20" demoValue="CC735158">Username is case sensitive. May be set as a service parameter or as a request header.</param>
+            <param name="session" format="guid" minLength="36" maxLength="36" demoValue="5998CBE8-3594-4232-A57E-09EC3A4E7AA8">The session token. May be set as a service parameter or as a request header.</param>
+             <smd 
+             method="DeleteSession"
+             group="Authentication"
+             throttleScope="data"
+             />
+        </member>
+        <member name="M:RESTWebServices.ILoginService.LogOff(RESTWebServicesDTO.Request.ApiLogOffRequestDTO)">
+            <summary>
+            Delete a session.  This call is obsolete but retained for backwards compatibility; please rather POST to /deleteSession
+            TODO: How do I link to the DeleteSession method?
+            </summary>
+            <smd/>
+        </member>
+        <member name="T:RESTWebServices.ServiceHostFactory.G2AuthenticatedServiceHostFactory">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:RESTWebServices.IMarketPriceHistoryService">
+            <summary>
+            
+            </summary>
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceBars(System.String,System.String,System.Int32,System.String)">
+            <summary>
+             <p>Get historic price bars in OHLC (open, high, low, close) format, suitable for plotting candlestick charts</p>
+             <p>Returns price bars in ascending order up to the current time.</p>
+             <p>When there are no prices per a particular time period, no price bar is returned.  Thus, it can appear that
+             the array of price bars has &quot;gaps&quot;, i.e. the gap between the datetime of each price bar might not
+             be equal to interval x span</p>
+             <p>Sample Urls:
+             <ul>
+                 <li>/market/1234/history?interval=MINUTE&amp;span=15&amp;pricebars=180</li>
+                 <li>/market/735/history?interval=HOUR&amp;span=1&amp;pricebars=240</li>
+                 <li>/market/1577/history?interval=DAY&amp;span=1&amp;pricebars=10</li>
+             </ul>
+             </p>
+            </summary>
+            <param name="marketId" demoValue="71442">The marketId</param>
+            <param name="interval" demoValue="MINUTE">The pricebar interval</param>
+            <param name="span" demoValue="1">The number of each interval per pricebar.</param>
+            <param name="priceBars" demoValue="15">The total number of pricebars to return</param>
+             <smd group="Price History"  cacheDuration="10000" throttleScope="data"/>
+        </member>
+        <member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceTicks(System.String,System.String)">
+            <summary>
+             Get historic price ticks.  
+             Returns price ticks in ascending order up to the current time.
+             The length of time between each tick will be different.
+            </summary>
+            <param name="marketId" demoValue="71442">The marketId</param>
+            <param name="priceTicks" demoValue="10">The total number of price ticks to return</param>
+             <smd group="Price History"  cacheDuration="10000" throttleScope="data"/>
+        </member>
+        <member name="T:RESTWebServices.Interceptors.ValidateSessionInteceptor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Interceptors.ValidateSessionInteceptor.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Interceptors.ValidateSessionInteceptor.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
+            <summary>
+            </summary>
+            <param name="requestContextFacade"></param>
+        </member>
+        <member name="T:RESTWebServices.IApiMessagesService">
+            <smd />
+        </member>
+        <member name="M:RESTWebServices.IApiMessagesService.GetMessage(System.String,System.String,System.String)">
+            <summary>
+            SHOULD NOT BE DOCUMENTED
+            </summary>
+            <param name="id"></param>
+            <param name="language"></param>
+            <param name="category"></param>
+            <returns></returns>
+            <smd group="Messages" />
+        </member>
+        <member name="M:RESTWebServices.IApiMessagesService.GetMessagePopup(System.String,System.Int32)">
+            <summary>
+            SHOULD NOT BE DOCUMENTED
+            </summary>
+            <param name="language"></param>
+            <param name="clientAccountId"></param>
+            <returns></returns>
+            <smd group="Messages" />
+        </member>
+        <member name="M:RESTWebServices.IApiMessagesService.AcceptOrRejectMessagePopupResponse(System.Int32,System.Boolean)">
+            <summary>
+            SHOULD NOT BE DOCUMENTED
+            </summary>
+            <param name="clientAccountId"></param>
+            <param name="accepted"></param>
+            <smd group="Messages" />
+        </member>
+        <member name="M:RESTWebServices.IApiMessagesService.GetSystemLookup(System.String,System.Int32)">
+            <summary>
+            Use the message lookup service to get localised textual names for the various status code &amp; Ids returned by the API. 
+            For example, a query for OrderStatusReasons will contain text names for all the possible values of OrderStatusReason in the ApiOrderResponseDTO.
+            You should only request the list once per session (for each entity you're interested in).
+            </summary>
+            <param name="lookupEntityName">The entity to lookup (eg OrderStatusReason, InstructionStatusReason, OrderApplicability or Culture)</param>
+            <param name="cultureId">The cultureId used to override the translated text description.</param>
+            <smd group="Messages"/>
+        </member>
+        <member name="T:RESTWebServices.BugException">
+            <summary>
+             Use this to indicate when a branch of the code has been reached that 
+             can only be the result of a programmer bug
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.BugException.#ctor(System.String)">
+            <summary>
+            </summary>
+            <param name="message">Detail on why this is a bug</param>
+        </member>
+        <member name="T:RESTWebServices.IWatchlistService">
+            <summary>
+            Manage client watch list
+            </summary>
+            <smd />
+        </member>
+        <member name="M:RESTWebServices.IWatchlistService.GetWatchlists">
+            <summary>
+             Get client watchlist
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RESTWebServices.IWatchlistService.SaveWatchlist(RESTWebServicesDTO.Request.ApiSaveWatchlistRequestDTO)">
+            <summary>
+             Save watchlist
+            </summary>
+            <param name="apiSaveWatchlistRequestDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RESTWebServices.IWatchlistService.DeleteWatchlist(RESTWebServicesDTO.Request.ApiDeleteWatchlistRequestDTO)">
+            <summary>
+             Delete a watchlist
+             </summary>
+             <param name="deleteWatchlistRequestDto"></param>
+             <returns></returns>
+        </member>
+        <member name="T:RESTWebServices.WatchlistService">
+            <summary>
+             Watchlist
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.WatchlistService.#ctor(Handlers.HandlerFactory)">
+            <summary>
+             Watchlist constructor with handle factory
+            </summary>
+            <param name="handlerFactory"></param>
+        </member>
+        <member name="M:RESTWebServices.WatchlistService.#ctor">
+            <summary>
+             Watchlist constructor
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.WatchlistService.UpdateUserWatchlistsDispayOrder(RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO)">
+            <summary>
+             Update user watchlists
+            </summary>
+            <param name="updateWatchlistDisplayOrderRequestDTO"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:RESTWebServices.Interceptors.MoveUniqueIdentifierFromQueryStringToHeader">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Interceptors.MoveUniqueIdentifierFromQueryStringToHeader.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
+            <summary>
+            </summary>
+            <param name="requestContextFacade"></param>
+        </member>
+        <member name="T:RESTWebServices.IReadAndReturn">
+            <summary>
+            
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RESTWebServices.IReadAndReturn.GetDefaultResponse" -->
+        <member name="T:RESTWebServices.Interceptors.HttpMethodOverrideInterceptor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:RESTWebServices.Interceptors.HttpMethodOverrideInterceptor.DoProcessRequest(WCFRequestContextFacade.RequestContextFacade)">
+            <summary>
+            </summary>
+            <param name="requestContextFacade"></param>
+        </member>
+        <member name="T:RESTWebServices.ISpreadMarkets">
+            <smd/>
+        </member>
+        <member name="M:RESTWebServices.ISpreadMarkets.ListSpreadMarkets(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Returns a list of Spread Betting markets filtered by market name and/or market code
+            </summary>
+            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the Spread market name should start with</param>
+            <param name="searchByMarketCode" minLength="1" maxLength="50" demoValue="VOD.L">The characters that the Spread market code should start with (normally this is the RIC code for the market)</param>
+            <param name="clientAccountId" minimum="1" maximum="84272157" demoValue="123456">The logged on user&apos;s ClientAccountId.  (This only shows you markets that you can trade on)</param>
+            <param name="maxResults" minimum="1" maximum="500" demoValue="20" optional="true" default="20">The maximum number of markets to return.</param>
+            <returns>A list of markets matching all of the search criteria</returns>
+            <smd group="Spread Markets" cacheDuration="10000" throttleScope="data"/>
         </member>
     </members>
 </doc>
