@@ -22,6 +22,7 @@
                 }
             ]
         },
+
         "Prices": {
             "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs",
             "target": "CITYINDEXSTREAMING",
@@ -35,12 +36,35 @@
             "parameters": [
                         {
                             "type": "array",
-                            "items": [{ "type": "string"}],
+                            "items": [{ "type": "integer"}],
                             "name": "marketIds",
                             "description": "The marketIds",
                             "demoValue": "[\"71442\", \"71443\"]"
                         }]
+        },
+		"ClientAccountMargin": {
+            "description": "Stream of clients current margin",
+            "target": "CLIENTACCOUNT", 
+            "channel": "ALL", 
+            "transport": "HTTP", 
+            "protocol": "lightstreamer-3.6", 
+            "returns": {
+                "$ref": "#.ClientAccountMarginDTO"
+            },
+            "group": "Streaming API"
+        },
+        "Quotes": {
+            "description": "Stream of quotes",
+            "target": "TRADINGACCOUNT", 
+            "channel": "QUOTE.ALL", 
+            "transport": "HTTP", 
+            "protocol": "lightstreamer-3.6", 
+            "returns": {
+                "$ref": "#.QuoteDTO"
+            },
+            "group": "Streaming API"
         }
+
 
 
     }

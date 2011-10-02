@@ -257,18 +257,20 @@ namespace JsonSchemaGeneration.WcfSMD
                         FirstOrDefault();
                 if (metaElement == null)
                 {
-                    // check patch
-                    if (methodPatch["parameters"][parameter.Name] != null)
+                    if (methodPatch!=null)
                     {
-                        parameters.Add(methodPatch["parameters"][parameter.Name]);
+                        // check patch
+                        if (methodPatch["parameters"][parameter.Name] != null)
+                        {
+                            parameters.Add(methodPatch["parameters"][parameter.Name]);
+                        }
+                        else
+                        {
+                            string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
+                            throw new Exception(message);
+                        }
+                        
                     }
-                    else
-                    {
-                        string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
-                        throw new Exception(message);
-                    }
-
-
                 }
                 else
                 {
