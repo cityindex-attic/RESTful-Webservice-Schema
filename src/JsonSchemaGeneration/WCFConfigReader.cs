@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -9,9 +10,9 @@ namespace JsonSchemaGeneration
 {
     public class WcfConfigReader
     {
-        public XmlDocSource Read(string configPath)
+        public XmlDocSource Read(string configPath, string patchJson, string smdPatchPath, string streamingJson)
         {
-            var wcfConfig = new XmlDocSource();
+            var wcfConfig = new XmlDocSource { JsonSchemaPatch = patchJson, StreamingJsonPatch = streamingJson, SMDPatchPath = smdPatchPath };
             var config = XDocument.Load(configPath);
             var apiNode = config.XPathSelectElement("configuration/tradingApi");
             var profile = apiNode.XPathSelectElement("profiles").Descendants("profile").First();

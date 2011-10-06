@@ -20,9 +20,9 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public string EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, string patchJson, string smdPatchPath, JObject schema)
+        public string EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
         {
-            JObject patch = (JObject)JsonConvert.DeserializeObject(patchJson);
+            JObject patch = (JObject)JsonConvert.DeserializeObject(xmlDocSource.JsonSchemaPatch);
             JObject smd = new JObject
                               {
                                   {"SMDVersion","2.6"},
@@ -45,7 +45,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
                 try
                 {
-                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, patch, smdPatchPath, schema);
+                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, patch, xmlDocSource.SMDPatchPath, schema);
                 }
                 catch (Exception exc)
                 {

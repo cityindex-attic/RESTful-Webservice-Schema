@@ -8,5 +8,8 @@ namespace JsonSchemaGeneration
     {
         public List<UrlMapElement> Routes;
         public List<Assembly> DtoAssemblies = new List<Assembly>();
+        public string JsonSchemaPatch;
+        public string StreamingJsonPatch;
+        public string SMDPatchPath;
     }
 }

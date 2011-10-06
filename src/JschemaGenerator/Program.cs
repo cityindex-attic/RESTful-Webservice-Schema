@@ -38,13 +38,13 @@ namespace JschemaGenerator
                 // todo parameterize
                 var patchJson = File.ReadAllText("patch.js");
                 
-                var wcfConfig = reader.Read(intputFileName);
+                var wcfConfig = reader.Read(intputFileName, patchJson, smdPatchPath, streaming);
 
                 var jsonSchema = generator.GenerateJsonSchema(wcfConfig, schemaPatchPath);
 
                 File.WriteAllText(jschemaOutputFileName, jsonSchema);
 
-                var smd = generator.GenerateSmd(wcfConfig, jsonSchema, patchJson, smdPatchPath, streaming);
+                var smd = generator.GenerateSmd(wcfConfig, jsonSchema);
 
                 File.WriteAllText(smdOutputFileName, smd);
             }

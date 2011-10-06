@@ -6,13 +6,13 @@ namespace JsonSchemaGeneration
 {
     public class Generator
     {
-        public string GenerateSmd(XmlDocSource xmlDocSource, string jsonSchema, string patchJson, string smdPatchPath, string streaming)
+        public string GenerateSmd(XmlDocSource xmlDocSource, string jsonSchema)
         {
             var smdEmitter = new WcfSMD.Emitter();
-            var smd = smdEmitter.EmitSmdJson(xmlDocSource, true, patchJson, smdPatchPath, (JObject) JsonConvert.DeserializeObject(jsonSchema));
+            var smd = smdEmitter.EmitSmdJson(xmlDocSource, true, (JObject) JsonConvert.DeserializeObject(jsonSchema));
             
             JObject smdObj = (JObject) JsonConvert.DeserializeObject(smd);
-            JObject streamingObj = (JObject) JsonConvert.DeserializeObject(streaming);
+            JObject streamingObj = (JObject) JsonConvert.DeserializeObject(xmlDocSource.StreamingJsonPatch);
             smdObj["services"]["streaming"] = streamingObj;
             smd = smdObj.ToString(Formatting.Indented);
             

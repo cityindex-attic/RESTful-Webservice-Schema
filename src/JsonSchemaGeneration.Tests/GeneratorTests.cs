@@ -13,12 +13,17 @@ namespace JsonSchemaGeneration.Tests
         private string _smdPatchPath;
         private string _streamingJson;
         private WcfConfigReader _wcfConfigReader = new WcfConfigReader();
+        private Generator _generator = new Generator();
+        private string _validSMD;
+        private string _validJsonSchema;
 
         public GeneratorTests()
         {
             _patchJson = File.ReadAllText(@"TestData\valid\patch.js");
             _streamingJson = File.ReadAllText(@"TestData\valid\streaming.json");
             _smdPatchPath = @"TestData\valid\smd-patch.xml";
+            _validJsonSchema = File.ReadAllText(@"TestData\valid\CIAPI.Schema.json");
+            _validSMD = File.ReadAllText(@"TestData\valid\CIAPI.SMD.json");
 
             //Ensure we also look for assemblies referenced in the Web.Config in the specified dtoAssemblyBasePath
             AppDomain.CurrentDomain.AssemblyResolve += (o, args) => {
@@ -29,46 +34,49 @@ namespace JsonSchemaGeneration.Tests
             };
         }
 
+        private XmlDocSource SetupValidXmlDocSource()
+        {
+            _dtoAssemblyBasePath = @"TestData\valid\";
+            return _wcfConfigReader.Read(@"TestData\valid\Web.Config", _patchJson, _smdPatchPath, _streamingJson);
+        }
+
         [Test]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
             var jsonSchema = "";
+            var xmlDocSource = SetupValidXmlDocSource();
+
             try
             {
-                _dtoAssemblyBasePath = @"TestData\valid\";
-                var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
-
-                jsonSchema = new Generator().GenerateJsonSchema(xmlDocSource, null);
-                File.WriteAllText("Generated.Schema.json", jsonSchema);
+                jsonSchema = _generator.GenerateJsonSchema(xmlDocSource, null);
             }
             catch (Exception e)
             {
                 Assert.Fail(string.Format("Json Schema generation should not have failed\n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
             }
 
-            Assert.AreEqual(jsonSchema, File.ReadAllText(@"TestData\valid\CIAPI.Schema.json"));
+            File.WriteAllText("Generated.Schema.json", jsonSchema);
+            Assert.AreEqual(jsonSchema, _validJsonSchema);
         }
 
         [Test]
         public void ValidXmlShouldGenerateValidSMD()
         {
             var smd = "";
+            var xmlDocSource = SetupValidXmlDocSource();
+
             try
             {
-                _dtoAssemblyBasePath = @"TestData\valid\";
-                var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
-
-                var generator = new Generator();
-                var jsonSchema = generator.GenerateJsonSchema(xmlDocSource, null);
-                smd = generator.GenerateSmd(xmlDocSource, jsonSchema, _patchJson, _smdPatchPath, _streamingJson);
-                File.WriteAllText("Generated.SMD.json", smd);
+                var jsonSchema = _generator.GenerateJsonSchema(xmlDocSource, null);
+                smd = _generator.GenerateSmd(xmlDocSource, jsonSchema);
             }
             catch (Exception e)
             {
                 Assert.Fail(string.Format("SMD generation should not have failed: \n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
             }
 
-            Assert.AreEqual(smd, File.ReadAllText(@"TestData\valid\CIAPI.SMD.json"));
+            File.WriteAllText("Generated.SMD.json", smd);
+            Assert.AreEqual(smd, _validSMD);
         }
     }
 }
