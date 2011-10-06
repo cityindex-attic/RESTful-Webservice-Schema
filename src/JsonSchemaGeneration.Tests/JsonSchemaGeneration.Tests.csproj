@@ -49,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestData\valid\CIAPI.Schema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\valid\CIAPI.SMD.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\valid\streaming.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

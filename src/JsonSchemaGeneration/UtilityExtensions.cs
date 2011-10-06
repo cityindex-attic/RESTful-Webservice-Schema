@@ -19,11 +19,6 @@ namespace JsonSchemaGeneration
             return schemaTypes;
         }
 
-        public  static IEnumerable<Assembly> GetAssemblies(params string[] assemblyNames)
-        {
-            return assemblyNames.Select(Assembly.Load).ToList();
-        }
-
         public static bool IsNullableType(this Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);

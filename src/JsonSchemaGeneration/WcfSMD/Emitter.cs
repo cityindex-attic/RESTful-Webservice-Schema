@@ -20,7 +20,7 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public string EmitSmdJson(IEnumerable<UrlMapElement> routes, bool includeDemoValue, string[] dtoAssemblyNames, string patchJson, string smdPatchPath, JObject schema)
+        public string EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, string patchJson, string smdPatchPath, JObject schema)
         {
             JObject patch = (JObject)JsonConvert.DeserializeObject(patchJson);
             JObject smd = new JObject
@@ -39,14 +39,13 @@ namespace JsonSchemaGeneration.WcfSMD
 
             var seenTypes = new List<Type>(); // just to keep track of types so we don't map twice
 
-            foreach (UrlMapElement route in routes)
+            foreach (UrlMapElement route in xmlDocSource.Routes)
             {
 
 
                 try
                 {
-
-                    BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, dtoAssemblyNames, patch, smdPatchPath, schema);
+                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, patch, smdPatchPath, schema);
                 }
                 catch (Exception exc)
                 {
@@ -60,10 +59,8 @@ namespace JsonSchemaGeneration.WcfSMD
             return result;
         }
 
-        private void BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, string[] dtoAssemblyNames, JObject patch, string smdPatchPath, JObject schema)
+        private void BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject patch, string smdPatchPath, JObject schema)
         {
-
-
             Type type = Assembly.Load(route.Type.Substring(route.Type.IndexOf(",") + 1).Trim()).GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
             if (seenTypes.Contains(type))
             {
@@ -72,17 +69,12 @@ namespace JsonSchemaGeneration.WcfSMD
 
             seenTypes.Add(type);
 
-
-
             var typeElement = type.GetXmlDocTypeNodeWithSMD(smdPatchPath);
 
             if (typeElement == null)
             {
                 return;
             }
-
-
-
 
             var methodTarget = route.Endpoint.Trim('/');
 
@@ -177,8 +169,6 @@ namespace JsonSchemaGeneration.WcfSMD
                         {
                             service.Add("uriTemplate", methodUriTemplate);
                         }
-
-
                         service.Add("contentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("responseContentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("transport", methodTransport);
@@ -232,7 +222,7 @@ namespace JsonSchemaGeneration.WcfSMD
                         SetIntAttribute(methodSmdElement, service, "cacheDuration");
                         SetStringAttribute(methodSmdElement, service, "throttleScope");
 
-                        AddParameters(type, method, methodElement, service, dtoAssemblyNames, includeDemoValue, methodPatch);
+                        AddParameters(xmlDocSource, type, method, methodElement, service, includeDemoValue, methodPatch);
                     }
 
                 }
@@ -245,7 +235,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
 
 
-        private static void AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, IEnumerable<string> dtoAssemblyNames, bool includeDemoValue, JObject methodPatch)
+        private static void AddParameters(XmlDocSource xmlDocSource, Type type, MethodInfo method, XElement methodElement, JObject service, bool includeDemoValue, JObject methodPatch)
         {
             var parameters = new JArray();
             service.Add("parameters", parameters);

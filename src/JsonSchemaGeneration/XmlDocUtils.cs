@@ -95,9 +95,9 @@ namespace JsonSchemaGeneration
         {
             return type.GetXmlDocNodeJschema("P", type.FullName + "." + name,patchPath);
         }
-        public static void EnsureXmlDocsAreValid(string patchPath, params string[] assemblyNames)
+        public static void EnsureXmlDocsAreValid(string patchPath, XmlDocSource xmlDocSource)
         {
-            foreach (var assembly in UtilityExtensions.GetAssemblies(assemblyNames))
+            foreach (var assembly in xmlDocSource.DtoAssemblies)
             {
                 foreach (Type type in assembly.GetTypes())
                 {

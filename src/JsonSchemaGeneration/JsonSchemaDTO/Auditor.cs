@@ -188,9 +188,9 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         }
 
-        public void AuditTypes(string patchPath,params string[] assemblyNames)
+        public void AuditTypes(string patchPath, XmlDocSource assemblyNames)
         {
-            foreach (var assembly in UtilityExtensions.GetAssemblies(assemblyNames))
+            foreach (var assembly in assemblyNames.DtoAssemblies)
             {
                 foreach (Type type in assembly.GetTypes())
                 {

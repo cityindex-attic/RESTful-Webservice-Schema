@@ -14,13 +14,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 {
     public class JsonSchemaDtoEmitter
     {
-        public string EmitDtoJson(string patchPath,params string[] assemblyFilePaths)
+        public string EmitDtoJson(string patchPath, XmlDocSource xmlDocSource)
         {
             var schemaObj = new JObject();
-            var assemblies = UtilityExtensions.GetAssemblies(assemblyFilePaths);
+            var assemblies = xmlDocSource.DtoAssemblies;
             
-
-
             var schemaProperties = new JObject();
             schemaObj["properties"] = schemaProperties;
 

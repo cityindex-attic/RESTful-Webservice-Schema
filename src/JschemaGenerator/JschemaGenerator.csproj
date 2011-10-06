@@ -78,7 +78,6 @@
     <Content Include="testAssemblies\TradingApi.CoreDTO.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="testAssemblies\app.config" />
     <None Include="testAssemblies\Web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

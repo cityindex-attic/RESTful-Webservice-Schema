@@ -32,37 +32,43 @@ namespace JsonSchemaGeneration.Tests
         [Test]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
+            var jsonSchema = "";
             try
             {
                 _dtoAssemblyBasePath = @"TestData\valid\";
-                var wcfConfig = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
+                var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
 
-                new Generator().GenerateJsonSchema(wcfConfig);
+                jsonSchema = new Generator().GenerateJsonSchema(xmlDocSource, null);
+                File.WriteAllText("Generated.Schema.json", jsonSchema);
             }
             catch (Exception e)
             {
                 Assert.Fail(string.Format("Json Schema generation should not have failed\n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
             }
-            Assert.IsTrue(true, "Json Schema generation should have completed without throwing an exception");
+
+            Assert.AreEqual(jsonSchema, File.ReadAllText(@"TestData\valid\CIAPI.Schema.json"));
         }
 
         [Test]
         public void ValidXmlShouldGenerateValidSMD()
         {
+            var smd = "";
             try
             {
                 _dtoAssemblyBasePath = @"TestData\valid\";
-                var wcfConfig = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
+                var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
 
                 var generator = new Generator();
-                var jsonSchema = generator.GenerateJsonSchema(wcfConfig);
-                generator.GenerateSmd(wcfConfig, jsonSchema, _patchJson, _smdPatchPath, _streamingJson);
+                var jsonSchema = generator.GenerateJsonSchema(xmlDocSource, null);
+                smd = generator.GenerateSmd(xmlDocSource, jsonSchema, _patchJson, _smdPatchPath, _streamingJson);
+                File.WriteAllText("Generated.SMD.json", smd);
             }
             catch (Exception e)
             {
                 Assert.Fail(string.Format("SMD generation should not have failed: \n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
             }
-            Assert.IsTrue(true, "SMD generation should have completed without throwing an exception");
+
+            Assert.AreEqual(smd, File.ReadAllText(@"TestData\valid\CIAPI.SMD.json"));
         }
     }
 }

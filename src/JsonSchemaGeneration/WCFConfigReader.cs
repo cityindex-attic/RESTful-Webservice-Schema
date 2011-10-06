@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using TradingApi.Configuration;
 
 namespace JsonSchemaGeneration
 {
-    public class WcfConfig
-    {
-        public List<UrlMapElement> Routes;
-        public string[] DTOAssemblyNames;
-    }
-
     public class WcfConfigReader
     {
-        public WcfConfig Read(string configPath)
+        public XmlDocSource Read(string configPath)
         {
-            var wcfConfig = new WcfConfig();
+            var wcfConfig = new XmlDocSource();
             var config = XDocument.Load(configPath);
             var apiNode = config.XPathSelectElement("configuration/tradingApi");
             var profile = apiNode.XPathSelectElement("profiles").Descendants("profile").First();
-            wcfConfig.DTOAssemblyNames = profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray();
+            
+            foreach(var dtoAssemblyName in profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray())
+            {
+                wcfConfig.DtoAssemblies.Add(Assembly.Load(dtoAssemblyName));
+            }
 
             var routeNodes = profile.XPathSelectElement("routes").XPathSelectElements("add").ToList();
             wcfConfig.Routes = new List<UrlMapElement>();
