@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using JsonSchemaGeneration.WcfSMD;
 using TradingApi.Configuration;
 
-namespace JschemaGenerator
+namespace JsonSchemaGeneration
 {
     public class WcfConfigReader
     {
-
         public List<UrlMapElement> Routes;
         public string[] DTOAssemblyNames;
 
         public void Read(string configPath)
         {
-            var config = XDocument.Load("web.config");
+            var config = XDocument.Load(configPath);
             var apiNode = config.XPathSelectElement("configuration/tradingApi");
             var profile = apiNode.XPathSelectElement("profiles").Descendants("profile").First();
             DTOAssemblyNames = profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray();

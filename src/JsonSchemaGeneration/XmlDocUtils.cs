@@ -113,26 +113,14 @@ namespace JsonSchemaGeneration
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static XDocument GetXmlDocs(this Type type,string patchPath)
+        public static XDocument GetXmlDocs(this Type type, string patchPath)
         {
-            string fileName = Path.GetFileNameWithoutExtension(type.Assembly.ManifestModule.Name) + ".xml";
+            var fileName = Path.GetFileNameWithoutExtension(type.Assembly.CodeBase) + ".xml";
+            var filePath = Path.Combine(Path.GetDirectoryName(type.Assembly.CodeBase), fileName);
 
-            string filePath = HttpContext.Current != null
-                                  ? HttpContext.Current.Server.MapPath(Path.Combine("~/bin", fileName))
-                                  : fileName;
-
-            try
-            {
-                XDocument doc = XDocument.Load(filePath);
-                doc.Patch(patchPath);
-                return doc;
-            }
-            catch
-            {
-
-                throw;
-            }
-
+            var doc = XDocument.Load(filePath);
+            doc.Patch(patchPath);
+            return doc;
         }
 
         public static void EnsureXmlDocsValid(this XDocument doc,string patchPath)

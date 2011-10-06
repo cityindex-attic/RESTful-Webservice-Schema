@@ -50,12 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generator.cs" />
     <Compile Include="JsonSchemaDTO\Auditor.cs" />
     <Compile Include="DefectException.cs" />
     <Compile Include="JsonSchemaDTO\JsonSchemaDTOEmitter.cs" />
     <Compile Include="JsonSchemaUtilities.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
     <Compile Include="UtilityExtensions.cs" />
+    <Compile Include="WCFConfigReader.cs" />
     <Compile Include="XmlDocUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WcfSMD\Emitter.cs" />

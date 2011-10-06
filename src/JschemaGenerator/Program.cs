@@ -16,6 +16,8 @@ namespace JschemaGenerator
     {
         static void Main(string[] args)
         {
+            var generator = new Generator();
+            WcfConfigReader reader = new WcfConfigReader();
 
             if (args.Length == 0)
             {
@@ -25,44 +27,26 @@ namespace JschemaGenerator
 
             try
             {
-                string intputFileName = args[0];
-                string jschemaOutputFileName = args[1];
-                string smdOutputFileName = args[2];
-
-
-                string smdPatchPath = "smd-patch.xml";
+                var intputFileName = args[0];
+                var jschemaOutputFileName = args[1];
+                var smdOutputFileName = args[2];
+                var smdPatchPath = "smd-patch.xml";
                 string schemaPatchPath = null;
 
+                var streaming = File.ReadAllText("streaming.json");
+
                 // todo parameterize
-                string patchJson = File.ReadAllText("patch.js");
-
-
-                WcfConfigReader reader = new WcfConfigReader();
-
+                var patchJson = File.ReadAllText("patch.js");
+                
                 reader.Read(intputFileName);
-
-                XmlDocUtils.EnsureXmlDocsAreValid(schemaPatchPath, reader.DTOAssemblyNames);
-
-                new Auditor().AuditTypes(schemaPatchPath,reader.DTOAssemblyNames);
-
-                var jsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(schemaPatchPath, reader.DTOAssemblyNames);
+                
+                var jsonSchema = generator.GenerateJsonSchema(reader, schemaPatchPath);
 
                 File.WriteAllText(jschemaOutputFileName, jsonSchema);
-
                 
+                var smd = generator.GenerateSmd(reader, jsonSchema, patchJson, smdPatchPath, streaming);
 
-                var smdEmitter = new JsonSchemaGeneration.WcfSMD.Emitter();
-
-                var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames, patchJson, smdPatchPath, (JObject) JsonConvert.DeserializeObject(jsonSchema));
-
-                JObject smdObj = (JObject) JsonConvert.DeserializeObject(smd);
-                var streaming = File.ReadAllText("streaming.json");
-                JObject streamingObj = (JObject) JsonConvert.DeserializeObject(streaming);
-                smdObj["services"]["streaming"] = streamingObj;
-                smd = smdObj.ToString(Formatting.Indented);
                 File.WriteAllText(smdOutputFileName, smd);
-
- 
             }
             catch (Exception e)
             {
@@ -81,4 +65,5 @@ namespace JschemaGenerator
             Console.WriteLine("JschemaGenerator Usage:\nJschemaGenerator config-input-file-path schema-output-file-path smd-output-file-path");
         }
     }
+
 }
