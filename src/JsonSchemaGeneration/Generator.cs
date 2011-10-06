@@ -6,7 +6,7 @@ namespace JsonSchemaGeneration
 {
     public class Generator
     {
-        public string GenerateSmd(WcfConfigReader reader, string jsonSchema, string patchJson, string smdPatchPath, string streaming)
+        public string GenerateSmd(WcfConfig reader, string jsonSchema, string patchJson, string smdPatchPath, string streaming)
         {
             var smdEmitter = new WcfSMD.Emitter();
             var smd = smdEmitter.EmitSmdJson(reader.Routes, true, reader.DTOAssemblyNames, patchJson, smdPatchPath, (JObject) JsonConvert.DeserializeObject(jsonSchema));
@@ -19,18 +19,18 @@ namespace JsonSchemaGeneration
             return smd;
         }
 
-        public string GenerateJsonSchema(WcfConfigReader wcfConfigReader)
+        public string GenerateJsonSchema(WcfConfig wcfConfig)
         {
-            return GenerateJsonSchema(wcfConfigReader, null);
+            return GenerateJsonSchema(wcfConfig, null);
         }
 
-        public string GenerateJsonSchema(WcfConfigReader wcfConfigReader, string schemaPatchPath)
+        public string GenerateJsonSchema(WcfConfig wcfConfig, string schemaPatchPath)
         {
-            XmlDocUtils.EnsureXmlDocsAreValid(schemaPatchPath, wcfConfigReader.DTOAssemblyNames);
+            XmlDocUtils.EnsureXmlDocsAreValid(schemaPatchPath, wcfConfig.DTOAssemblyNames);
 
-            new Auditor().AuditTypes(schemaPatchPath,wcfConfigReader.DTOAssemblyNames);
+            new Auditor().AuditTypes(schemaPatchPath,wcfConfig.DTOAssemblyNames);
 
-            return new JsonSchemaDtoEmitter().EmitDtoJson(schemaPatchPath, wcfConfigReader.DTOAssemblyNames);
+            return new JsonSchemaDtoEmitter().EmitDtoJson(schemaPatchPath, wcfConfig.DTOAssemblyNames);
         }
     }
 }

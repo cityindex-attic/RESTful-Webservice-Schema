@@ -12,6 +12,7 @@ namespace JsonSchemaGeneration.Tests
         private string _patchJson;
         private string _smdPatchPath;
         private string _streamingJson;
+        private WcfConfigReader _wcfConfigReader = new WcfConfigReader();
 
         public GeneratorTests()
         {
@@ -33,11 +34,10 @@ namespace JsonSchemaGeneration.Tests
         {
             try
             {
-                WcfConfigReader reader = new WcfConfigReader();
                 _dtoAssemblyBasePath = @"TestData\valid\";
-                reader.Read(@"TestData\valid\Web.Config");
+                var wcfConfig = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
 
-                new Generator().GenerateJsonSchema(reader);
+                new Generator().GenerateJsonSchema(wcfConfig);
             }
             catch (Exception e)
             {
@@ -51,13 +51,12 @@ namespace JsonSchemaGeneration.Tests
         {
             try
             {
-                WcfConfigReader reader = new WcfConfigReader();
                 _dtoAssemblyBasePath = @"TestData\valid\";
-                reader.Read(@"TestData\valid\Web.Config");
+                var wcfConfig = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
 
                 var generator = new Generator();
-                var jsonSchema = generator.GenerateJsonSchema(reader);
-                generator.GenerateSmd(reader, jsonSchema, _patchJson, _smdPatchPath, _streamingJson);
+                var jsonSchema = generator.GenerateJsonSchema(wcfConfig);
+                generator.GenerateSmd(wcfConfig, jsonSchema, _patchJson, _smdPatchPath, _streamingJson);
             }
             catch (Exception e)
             {
