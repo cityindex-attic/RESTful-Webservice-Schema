@@ -6,6 +6,15 @@ namespace JsonSchemaGeneration
 {
     public class Generator
     {
+        public string GenerateJsonSchema(XmlDocSource xmlDocSource)
+        {
+            XmlDocUtils.EnsureXmlDocsAreValid(xmlDocSource);
+
+            new Auditor().AuditTypes(xmlDocSource);
+
+            return new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource);
+        }
+
         public string GenerateSmd(XmlDocSource xmlDocSource, string jsonSchema)
         {
             var smdEmitter = new WcfSMD.Emitter();
@@ -17,15 +26,6 @@ namespace JsonSchemaGeneration
             smd = smdObj.ToString(Formatting.Indented);
             
             return smd;
-        }
-
-        public string GenerateJsonSchema(XmlDocSource xmlDocSource, string schemaPatchPath)
-        {
-            XmlDocUtils.EnsureXmlDocsAreValid(schemaPatchPath, xmlDocSource);
-
-            new Auditor().AuditTypes(schemaPatchPath,xmlDocSource);
-
-            return new JsonSchemaDtoEmitter().EmitDtoJson(schemaPatchPath, xmlDocSource);
         }
     }
 }

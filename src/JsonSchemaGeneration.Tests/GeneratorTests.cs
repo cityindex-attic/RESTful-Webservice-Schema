@@ -48,7 +48,7 @@ namespace JsonSchemaGeneration.Tests
 
             try
             {
-                jsonSchema = _generator.GenerateJsonSchema(xmlDocSource, null);
+                jsonSchema = _generator.GenerateJsonSchema(xmlDocSource);
             }
             catch (Exception e)
             {
@@ -67,7 +67,7 @@ namespace JsonSchemaGeneration.Tests
 
             try
             {
-                var jsonSchema = _generator.GenerateJsonSchema(xmlDocSource, null);
+                var jsonSchema = _generator.GenerateJsonSchema(xmlDocSource);
                 smd = _generator.GenerateSmd(xmlDocSource, jsonSchema);
             }
             catch (Exception e)

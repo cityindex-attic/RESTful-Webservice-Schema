@@ -188,9 +188,9 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         }
 
-        public void AuditTypes(string patchPath, XmlDocSource assemblyNames)
+        public void AuditTypes(XmlDocSource xmlDocSource)
         {
-            foreach (var assembly in assemblyNames.DtoAssemblies)
+            foreach (var assembly in xmlDocSource.Dtos.Select(a => a.Assembly))
             {
                 foreach (Type type in assembly.GetTypes())
                 {
@@ -201,7 +201,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                     }
                     else
                     {
-                        AuditType(type, false, patchPath);
+                        AuditType(type, false, xmlDocSource.SMDPatchPath);
                     }
                                         
                 }

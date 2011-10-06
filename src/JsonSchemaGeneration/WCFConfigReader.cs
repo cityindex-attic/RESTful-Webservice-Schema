@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -19,7 +20,12 @@ namespace JsonSchemaGeneration
             
             foreach(var dtoAssemblyName in profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray())
             {
-                wcfConfig.DtoAssemblies.Add(Assembly.Load(dtoAssemblyName));
+                var assembly = Assembly.Load(dtoAssemblyName);
+                wcfConfig.Dtos.Add(new DtoAssembly
+                                       {
+                                           Assembly = assembly, 
+                                           AssemblyXML = LoadXml(assembly, smdPatchPath)
+                                       });
             }
 
             var routeNodes = profile.XPathSelectElement("routes").XPathSelectElements("add").ToList();
@@ -37,5 +43,21 @@ namespace JsonSchemaGeneration
 
             return wcfConfig;
         }
+
+        private static XDocument LoadXml(Assembly assembly, string patchPath)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(assembly.CodeBase) + ".xml";
+            var filePath = Path.Combine(Path.GetDirectoryName(assembly.CodeBase), fileName);
+
+            var doc = XDocument.Load(filePath);
+            doc.Patch(patchPath);
+            return doc;
+        }
+    }
+
+    public class DtoAssembly
+    {
+        public Assembly Assembly { get; set; }
+        public XDocument AssemblyXML { get; set; }
     }
 }

@@ -95,14 +95,14 @@ namespace JsonSchemaGeneration
         {
             return type.GetXmlDocNodeJschema("P", type.FullName + "." + name,patchPath);
         }
-        public static void EnsureXmlDocsAreValid(string patchPath, XmlDocSource xmlDocSource)
+        public static void EnsureXmlDocsAreValid(XmlDocSource xmlDocSource)
         {
-            foreach (var assembly in xmlDocSource.DtoAssemblies)
+            foreach (var assembly in xmlDocSource.Dtos.Select(a => a.Assembly))
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    var doc = type.GetXmlDocs(patchPath);
-                    doc.EnsureXmlDocsValid(patchPath);
+                    var doc = type.GetXmlDocs(null);
+                    doc.EnsureXmlDocsValid();
                 }
             }
 
@@ -123,7 +123,7 @@ namespace JsonSchemaGeneration
             return doc;
         }
 
-        public static void EnsureXmlDocsValid(this XDocument doc,string patchPath)
+        public static void EnsureXmlDocsValid(this XDocument doc)
         {
             var badCommentRX = new Regex("<!-- Badly formed XML comment ignored for member (?<bad>\".*\") -->", RegexOptions.ExplicitCapture);
             var matches = badCommentRX.Matches(doc.ToString());
@@ -138,7 +138,7 @@ namespace JsonSchemaGeneration
             }
         }
 
-        private static XDocument Patch(this XDocument doc,string patchPath)
+        public static XDocument Patch(this XDocument doc,string patchPath)
         {
             if (patchPath != null)
             {

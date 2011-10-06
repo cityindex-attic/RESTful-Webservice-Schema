@@ -14,19 +14,19 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 {
     public class JsonSchemaDtoEmitter
     {
-        public string EmitDtoJson(string patchPath, XmlDocSource xmlDocSource)
+        public string EmitDtoJson(XmlDocSource xmlDocSource)
         {
             var schemaObj = new JObject();
-            var assemblies = xmlDocSource.DtoAssemblies;
+            var assemblies = xmlDocSource.Dtos.Select(a => a.Assembly);
             
             var schemaProperties = new JObject();
             schemaObj["properties"] = schemaProperties;
 
-            var types = UtilityExtensions.GetSchemaTypes(assemblies, patchPath);
+            var types = UtilityExtensions.GetSchemaTypes(assemblies, xmlDocSource.SMDPatchPath);
 
             foreach (Type type in types)
             {
-                var typeNode = type.GetXmlDocTypeNodeWithJSchema(patchPath);
+                var typeNode = type.GetXmlDocTypeNodeWithJSchema(xmlDocSource.SMDPatchPath);
                 var jSchemaNode = typeNode.XPathSelectElement("jschema");
 
                 var typeObj = new JObject();
@@ -34,11 +34,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 if (type.IsEnum)
                 {
-                    RenderEnum(type, typeObj,patchPath);
+                    RenderEnum(type, typeObj,xmlDocSource.SMDPatchPath);
                 }
                 else if (type.IsClass)
                 {
-                    RenderType(type, typeObj,patchPath);
+                    RenderType(type, typeObj,xmlDocSource.SMDPatchPath);
                 }
                 else
                 {
