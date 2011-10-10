@@ -188,8 +188,9 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         }
 
-        public void AuditTypes(XmlDocSource xmlDocSource)
+        public MetadataGenerationResult AuditTypes(XmlDocSource xmlDocSource)
         {
+            var results = new MetadataGenerationResult();
             foreach (var assembly in xmlDocSource.Dtos.Select(a => a.Assembly))
             {
                 foreach (Type type in assembly.GetTypes())
@@ -206,6 +207,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                                         
                 }
             }
+            return results;
         }
     }
 }
