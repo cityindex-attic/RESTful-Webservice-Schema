@@ -49,8 +49,7 @@ namespace JsonSchemaGeneration.WcfSMD
                 }
                 catch (Exception exc)
                 {
-                    string errorMessage = string.Format("Error Building the Service Mapping for Service . {0}: {1}", Type.GetType(route.Type), exc);
-                    throw new Exception(errorMessage);
+                    throw new Exception(string.Format("Error Building the Service Mapping for Service . {0}: {1}", Type.GetType(route.Type), exc),exc);
                 }
             }
 
@@ -82,7 +81,7 @@ namespace JsonSchemaGeneration.WcfSMD
             {
 
 
-                if (patch["smd"][method.Name] != null)
+                if (patch!=null && patch["smd"][method.Name] != null)
                 {
                     if (patch["smd"][method.Name].Type == JTokenType.String && patch["smd"][method.Name].Value<string>() == "exclude")
                     {
@@ -90,7 +89,11 @@ namespace JsonSchemaGeneration.WcfSMD
                     }
                 }
 
-                JObject methodPatch = (JObject)patch["smd"][method.Name];
+                JObject methodPatch = null;
+                if (patch!=null)
+                {
+                    methodPatch = (JObject)patch["smd"][method.Name];
+                }
 
                 var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name, smdPatchPath);
                 if (methodElement == null)
