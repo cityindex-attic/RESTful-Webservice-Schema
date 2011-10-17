@@ -1,19 +1,15 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using NUnit.Framework;
 
 namespace JsonSchemaGeneration.Tests
 {
     [TestFixture]
-    public class GeneratorTests
+    public class GeneratorTests : GeneratorTestsBase
     {
-        private string _dtoAssemblyBasePath;
         private string _patchJson;
         private string _smdPatchPath;
         private string _streamingJson;
-        private WcfConfigReader _wcfConfigReader = new WcfConfigReader();
-        private Generator _generator = new Generator();
         private string _validSMD;
         private string _validJsonSchema;
 
@@ -24,27 +20,6 @@ namespace JsonSchemaGeneration.Tests
             _smdPatchPath = @"TestData\valid\smd-patch.xml";
             _validJsonSchema = File.ReadAllText(@"TestData\valid\CIAPI.Schema.json");
             _validSMD = File.ReadAllText(@"TestData\valid\CIAPI.SMD.json");
-        }
-
-        [TestFixtureSetUp]
-        public void AddCustomAssemblyResolver()
-        {
-            //Ensure we also look for assemblies referenced in the Web.Config in the specified dtoAssemblyBasePath
-            AppDomain.CurrentDomain.AssemblyResolve += CustomAssemblyResolver;
-        }
-
-        private Assembly CustomAssemblyResolver(object o, ResolveEventArgs args)
-        {
-            var assemblyname = args.Name.Split(',')[0];
-            var assemblyFileName = Path.Combine(_dtoAssemblyBasePath, assemblyname + ".dll");
-            var assembly = Assembly.LoadFrom(assemblyFileName);
-            return assembly; 
-        }
-
-        [TestFixtureTearDown]
-        public void RemoveCustomAssemblyResolver()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve -= CustomAssemblyResolver;
         }
 
         private XmlDocSource SetupValidXmlDocSource()

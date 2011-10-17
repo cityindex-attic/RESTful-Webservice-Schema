@@ -44,9 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	<Compile Include="GeneratorExpectedFailuresTests.cs" />
+    <Compile Include="GeneratorExpectedFailuresTests.cs" />
     <Compile Include="AuditorTests.cs" />
     <Compile Include="GeneratorTests.cs" />
+    <Compile Include="GeneratorTestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

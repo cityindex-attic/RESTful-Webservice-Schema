@@ -6,33 +6,8 @@ using NUnit.Framework;
 namespace JsonSchemaGeneration.Tests
 {
     [TestFixture]
-    public class GeneratorExpectedFailuresTests
+    public class GeneratorExpectedFailuresTests : GeneratorTestsBase
     {
-        private string _dtoAssemblyBasePath;
-        private WcfConfigReader _wcfConfigReader = new WcfConfigReader();
-        private Generator _generator = new Generator();
-        
-        [TestFixtureSetUp]
-        public void AddCustomAssemblyResolver()
-        {
-            //Ensure we also look for assemblies referenced in the Web.Config in the specified dtoAssemblyBasePath
-            AppDomain.CurrentDomain.AssemblyResolve += CustomAssemblyResolver;
-        }
-
-        private Assembly CustomAssemblyResolver(object o, ResolveEventArgs args)
-        {
-            var assemblyname = args.Name.Split(',')[0];
-            var assemblyFileName = Path.Combine(_dtoAssemblyBasePath, assemblyname + ".dll");
-            var assembly = Assembly.LoadFrom(assemblyFileName);
-            return assembly;
-        }
-
-        [TestFixtureTearDown]
-        public void RemoveCustomAssemblyResolver()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve -= CustomAssemblyResolver;
-        }
-       
 //        [Test]
 //        public void ValidXmlShouldGenerateValidJsonSchema()
 //        {
