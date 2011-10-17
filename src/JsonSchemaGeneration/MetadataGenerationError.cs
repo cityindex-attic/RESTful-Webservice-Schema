@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using JsonSchemaGeneration.JsonSchemaDTO;
 
 namespace JsonSchemaGeneration
 {
-    public enum ErrorType
+    public enum MetadataType
     {
         JsonSchema,
         SMD
@@ -13,17 +11,27 @@ namespace JsonSchemaGeneration
 
     public class MetadataGenerationError
     {
-        public MetadataGenerationError(ErrorType errorType, Type type, string errorReason, string sugestionedSolution)
+        public MetadataGenerationError(MetadataType metadataType, Type type, string errorReason, string sugestionedSolution)
         {
-            ErrorType = errorType;
+            MetadataType = metadataType;
             Type = type;
             ErrorReason = errorReason;
-            SugestionedSolution = sugestionedSolution;
+            SuggestedSolution = sugestionedSolution;
         }
 
-        public ErrorType ErrorType { get; private set; }
+        public MetadataGenerationError(MetadataType metadataType, Type type, MetadataValidationException metadataValidationException):
+            this(metadataType, type, metadataValidationException.Message, metadataValidationException.SuggestedSolution)
+        {
+            
+        }
+
+        public MetadataType MetadataType { get; private set; }
         public Type Type { get; private set; }
         public string ErrorReason { get; private set; }
-        public string SugestionedSolution { get; private set; }
+        public string SuggestedSolution { get; private set; }
+        public override string ToString()
+        {
+            return string.Format("MetadataGenerationError: MetadataType={0}, Type={1}, ErrorReason={2}, SuggestedSolution={3}", MetadataType, Type, ErrorReason, SuggestedSolution);
+        }
     }
 }

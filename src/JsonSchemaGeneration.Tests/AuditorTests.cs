@@ -4,15 +4,17 @@ using NUnit.Framework;
 namespace JsonSchemaGeneration.Tests
 {
     [TestFixture]
-    public class AuditorTests
+    public class AuditorTests : GeneratorTestsBase
     {
-        [Test, Ignore("WIP")]
-        public void ShouldReturnCollectionOfErrors()
+        [Test]
+        public void ValidSourceShouldHaveCollectionOfSuccessesAndNoErrors()
         {
-            var xmlDocSource = new XmlDocSource();
+            _dtoAssemblyBasePath = @"TestData\valid\";
+            var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config", "", null, "");
+
             var result = new Auditor().AuditTypes(xmlDocSource);
-            Assert.IsTrue(result.HasErrors,"result should contain errors");
-            Assert.Greater(result.MetadataGenerationErrors.Count, 0, "error count should be > 0");
+            Assert.Greater(result.MetadataGenerationSuccesses.Count, 0, "success count should be > 0");
+            Assert.AreEqual(result.MetadataGenerationErrors.Count, 0, "error count should be 0");
         }
     }
 }

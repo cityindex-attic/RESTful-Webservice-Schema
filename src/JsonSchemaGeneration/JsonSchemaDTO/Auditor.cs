@@ -5,12 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization;
-namespace JsonSchemaGeneration
-{
-}
+
 namespace JsonSchemaGeneration.JsonSchemaDTO
 {
     /// <summary>
@@ -29,7 +24,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             {
                 if (failIfMetaMissing)
                 {
-                    throw new Exception("missing xmldocs for " + type.FullName);
+                    throw new MetadataValidationException("Missing xmldocs for " + type.FullName, "Ensure you have decorated every DTO property with the appropriate <jschema> XML comment - https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema");
                 }
 
                 return;
@@ -74,10 +69,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                         // ok, type and prop have jschema attribute. 
                         // need to verify that we have the capability of emitting
                         // a representation of the property typeNode
-                        if (!VerifyCanEmitType(pinfo.PropertyType))
-                        {
-                            throw new Exception("Cannot emit type " + pinfo.PropertyType.Name);
-                        }
+                        VerifyCanEmitType(pinfo.PropertyType);
                     }
                 }
 
@@ -174,13 +166,13 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                     if (baseType == null)
                     {
-                        throw new Exception(propertyType.Name + "on " + propertyType.Name + " has no accessible base type");
+                        throw new MetadataValidationException(propertyType.Name + "on " + propertyType.Name + " has no accessible base type", "Ensure that the base type also has XML comments");
                     }
                     return true;
 
                 case TypeCode.DBNull:
                 case TypeCode.Empty:
-                    throw new NotSupportedException("unsupported type " + typecode);
+                    throw new MetadataValidationException("unsupported type " + typecode, "Jschema metadata cannot be generated this type.  Please use another type");
 
                 default:
                     throw new DefectException("typecode from outerspace");
@@ -188,9 +180,9 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         }
 
-        public MetadataGenerationResult AuditTypes(XmlDocSource xmlDocSource)
+        public MetadataValidationResult AuditTypes(XmlDocSource xmlDocSource)
         {
-            var results = new MetadataGenerationResult();
+            var results = new MetadataValidationResult();
             foreach (var assembly in xmlDocSource.Dtos.Select(a => a.Assembly))
             {
                 foreach (Type type in assembly.GetTypes())
@@ -198,13 +190,18 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                     // we don't emit interfaces
                     if (type.IsInterface)
                     {
-
+                        continue;
                     }
-                    else
+
+                    try
                     {
                         AuditType(type, false, xmlDocSource.SMDPatchPath);
+                        results.AddMetadataGenerationSuccess(new MetadataGenerationSuccess(MetadataType.JsonSchema, type));
                     }
-                                        
+                    catch (MetadataValidationException e)
+                    {
+                        results.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.JsonSchema, type, e));
+                    }
                 }
             }
             return results;

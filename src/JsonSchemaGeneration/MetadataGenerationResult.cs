@@ -9,14 +9,18 @@ namespace JsonSchemaGeneration
             get { return _metadataGenerationErrors.Count > 0; }
         }
 
-        private readonly List<MetadataGenerationError> _metadataGenerationErrors = new List<MetadataGenerationError>();
+        private List<MetadataGenerationError> _metadataGenerationErrors = new List<MetadataGenerationError>();
         public List<MetadataGenerationError> MetadataGenerationErrors
         {
             get { return _metadataGenerationErrors; }
+            set { _metadataGenerationErrors = value; }
         }
-        public void AddMetadataGenerationError(MetadataGenerationError error)
+
+        private List<MetadataGenerationSuccess> _metadataGenerationSuccesses = new List<MetadataGenerationSuccess>();
+        public List<MetadataGenerationSuccess> MetadataGenerationSuccesses
         {
-           _metadataGenerationErrors.Add(error);
+            get { return _metadataGenerationSuccesses; }
+            set { _metadataGenerationSuccesses = value; }
         }
 
         public string JsonSchema { get; set; }

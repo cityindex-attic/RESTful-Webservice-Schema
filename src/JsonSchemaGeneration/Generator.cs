@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using JsonSchemaGeneration.JsonSchemaDTO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,7 +14,11 @@ namespace JsonSchemaGeneration
             XmlDocUtils.EnsureXmlDocsAreValid(xmlDocSource);
 
             //Checks that each DTO type can be documented
-            new Auditor().AuditTypes(xmlDocSource);
+            var results = new Auditor().AuditTypes(xmlDocSource);
+            if (results.MetadataGenerationErrors.Count > 0)
+            {
+                throw new Exception(string.Join(@"\n", results.MetadataGenerationErrors.Select(e => e.ToString())));
+            }
 
             //Creates Jschema for all DTO types where it can find XML docs
             //NB, Auditor errors if any of the DTOs don't have XML docs

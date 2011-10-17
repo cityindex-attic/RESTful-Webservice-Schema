@@ -54,9 +54,12 @@
     <Compile Include="JsonSchemaDTO\Auditor.cs" />
     <Compile Include="DefectException.cs" />
     <Compile Include="JsonSchemaDTO\JsonSchemaDTOEmitter.cs" />
+    <Compile Include="JsonSchemaDTO\MetadataValidationException.cs" />
     <Compile Include="JsonSchemaUtilities.cs" />
     <Compile Include="MetadataGenerationError.cs" />
     <Compile Include="MetadataGenerationResult.cs" />
+    <Compile Include="MetadataGenerationSuccess.cs" />
+    <Compile Include="MetadataValidationResult.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
     <Compile Include="UtilityExtensions.cs" />
     <Compile Include="WcfConfigReader.cs" />
