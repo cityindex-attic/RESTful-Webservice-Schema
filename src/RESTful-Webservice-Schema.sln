@@ -11,7 +11,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E20EDE46-C510-4CC1-93E9-CB3A7C2202B3}"
 	ProjectSection(SolutionItems) = preProject
 		build.xml = build.xml
-		Package.nuspec.xml = Package.nuspec.xml
 		PartCover4.settings.xml = PartCover4.settings.xml
 	EndProjectSection
 EndProject

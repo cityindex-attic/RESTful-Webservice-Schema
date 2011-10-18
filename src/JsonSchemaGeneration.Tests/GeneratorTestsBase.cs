@@ -20,9 +20,12 @@ namespace JsonSchemaGeneration.Tests
 
         private Assembly CustomAssemblyResolver(object o, ResolveEventArgs args)
         {
+            //System.Diagnostics.Debugger.Launch();
             var assemblyname = args.Name.Split(',')[0];
             var assemblyFileName = Path.Combine(_dtoAssemblyBasePath, assemblyname + ".dll");
-            var assemblyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assemblyFileName);
+            var thisAssemblyPath = Assembly.GetAssembly(GetType()).CodeBase.Replace("file:///", "").Replace("/", @"\");
+            var assemblyFilePath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), assemblyFileName);
+            Console.WriteLine(string.Format("Loading assembly: {0}", assemblyFilePath));
             var assembly = Assembly.LoadFile(assemblyFilePath);
             return assembly;
         }
