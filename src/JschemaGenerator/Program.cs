@@ -40,11 +40,16 @@ namespace JschemaGenerator
                 
                 var xmlDocSource = reader.Read(intputFileName, patchJson, smdPatchPath, streaming);
 
-                var jsonSchema = generator.GenerateJsonSchema(xmlDocSource);
+                var results = generator.GenerateJsonSchema(xmlDocSource);
 
-                File.WriteAllText(jschemaOutputFileName, jsonSchema);
+                if (results.MetadataGenerationErrors.Count > 0)
+                {
+                    throw new Exception(string.Join(@"\n", results.MetadataGenerationErrors.Select(e => e.ToString())));
+                }
 
-                var smd = generator.GenerateSmd(xmlDocSource, jsonSchema);
+                File.WriteAllText(jschemaOutputFileName, results.JsonSchema);
+
+                var smd = generator.GenerateSmd(xmlDocSource, results.JsonSchema);
 
                 File.WriteAllText(smdOutputFileName, smd);
             }

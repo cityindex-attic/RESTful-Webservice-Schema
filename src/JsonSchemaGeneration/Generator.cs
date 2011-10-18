@@ -8,21 +8,19 @@ namespace JsonSchemaGeneration
 {
     public class Generator
     {
-        public string GenerateJsonSchema(XmlDocSource xmlDocSource)
+        public MetadataGenerationResult GenerateJsonSchema(XmlDocSource xmlDocSource)
         {
+            var results = new MetadataGenerationResult();
             //Checks that DTOs all have valid XML comments
             XmlDocUtils.EnsureXmlDocsAreValid(xmlDocSource);
 
             //Checks that each DTO type can be documented
-            var results = new Auditor().AuditTypes(xmlDocSource);
-            if (results.MetadataGenerationErrors.Count > 0)
-            {
-                throw new Exception(string.Join(@"\n", results.MetadataGenerationErrors.Select(e => e.ToString())));
-            }
+            results.AddValidationResults(new Auditor().AuditTypes(xmlDocSource));
 
             //Creates Jschema for all DTO types where it can find XML docs
-            //NB, Auditor errors if any of the DTOs don't have XML docs
-            return new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource);
+            results.JsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource);
+
+            return results;
         }
 
         public string GenerateSmd(XmlDocSource xmlDocSource, string jsonSchema)

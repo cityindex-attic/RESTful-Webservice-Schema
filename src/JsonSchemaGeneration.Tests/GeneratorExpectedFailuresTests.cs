@@ -35,8 +35,8 @@ namespace JsonSchemaGeneration.Tests
 
             try
             {
-                var jsonSchema = _generator.GenerateJsonSchema(xmlDocSource);
-                _generator.GenerateSmd(xmlDocSource, jsonSchema);
+                var results = _generator.GenerateJsonSchema(xmlDocSource);
+                _generator.GenerateSmd(xmlDocSource, results.JsonSchema);
                 Assert.Fail("Exception should have been thrown");
             }
             catch (Exception e)

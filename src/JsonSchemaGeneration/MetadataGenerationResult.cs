@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JsonSchemaGeneration
 {
@@ -25,5 +27,19 @@ namespace JsonSchemaGeneration
 
         public string JsonSchema { get; set; }
         public string SMD { get; set; }
+
+        public void AddValidationResults(MetadataValidationResult metadataValidationResult)
+        {
+            _metadataGenerationErrors.AddRange(metadataValidationResult.MetadataGenerationErrors);
+            _metadataGenerationSuccesses.AddRange(metadataValidationResult.MetadataGenerationSuccesses);
+        }
+        public override string ToString()
+        {
+            var str = string.Format("HasErrors={0}\n", HasErrors);
+            if (HasErrors)
+                str += string.Format("Errors:\n{0}", MetadataGenerationErrors.Select(e => e.ToString()));
+            str += string.Format("Success:\n{0}", MetadataGenerationSuccesses.Select(e => e.ToString()));
+            return str;
+        }
     }
 }

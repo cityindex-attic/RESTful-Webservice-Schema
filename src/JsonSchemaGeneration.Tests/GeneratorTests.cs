@@ -31,20 +31,14 @@ namespace JsonSchemaGeneration.Tests
         [Test]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
-            var jsonSchema = "";
             var xmlDocSource = SetupValidXmlDocSource();
 
-            try
-            {
-                jsonSchema = _generator.GenerateJsonSchema(xmlDocSource);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail(string.Format("Json Schema generation should not have failed\n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
-            }
+            var results = _generator.GenerateJsonSchema(xmlDocSource);
+            
+            Assert.IsFalse(results.HasErrors,string.Format("Json Schema generation should not have failed\n\n{0}", results.ToString()));
 
-            File.WriteAllText("Generated.Schema.json", jsonSchema);
-            Assert.AreEqual(jsonSchema, _validJsonSchema);
+            File.WriteAllText("Generated.Schema.json", results.JsonSchema);
+            Assert.AreEqual(results.JsonSchema, _validJsonSchema);
         }
 
         [Test]
@@ -55,8 +49,8 @@ namespace JsonSchemaGeneration.Tests
 
             try
             {
-                var jsonSchema = _generator.GenerateJsonSchema(xmlDocSource);
-                smd = _generator.GenerateSmd(xmlDocSource, jsonSchema);
+                var results = _generator.GenerateJsonSchema(xmlDocSource);
+                smd = _generator.GenerateSmd(xmlDocSource, results.JsonSchema);
             }
             catch (Exception e)
             {
