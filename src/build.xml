@@ -16,8 +16,9 @@
 
   <Target Name="Go" DependsOnTargets="UpdateVersion; 
                                       Build; 
-                                      RunTests; 
+                                      
                                       Package">
+  <!--- RunTests; ommitted until PartCover upgraded to OpenCover -->
   <!--  CalculateMetrics target not used until a replacement for Reflector is integrated -->
   </Target>
 
