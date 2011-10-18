@@ -7,14 +7,17 @@
     <DropToolsDirectory>$(DropDirectory)\tools</DropToolsDirectory>
     <DropReportsDirectory>$(DropDirectory)\reports</DropReportsDirectory>
 
-    <NuGetEXE>$(RootDirectory)\tools\nuget\nuget.exe</NuGetEXE>
+    <NuGetEXE>$(ProgramFiles86)\nuget\nuget.exe</NuGetEXE>
   </PropertyGroup>
 
   <Target Name="Package" DependsOnTargets="CreateDropDirectories;CopyMSBuildOutputToDropDirectory;CopyLicenseToAllDirectories;CopyReportsToDropFolder">
     <Message Text="Packaging with NuGet" />
-    <Copy SourceFiles="$(RootDirectory)\src\Package.nuspec.xml" DestinationFolder="$(DropDirectory)"/>
-    <Exec Command='"$(NuGetEXE)" pack $(DropDirectory)\Package.nuspec.xml' ContinueOnError='false'
-          WorkingDirectory='$(DropDirectory)'/>
+    <Copy SourceFiles="$(RootDirectory)\src\Package.nuspec" DestinationFolder="$(DropDirectory)"/>
+    <Exec Command='"$(NuGetEXE)" pack $(DropDirectory)\Package.nuspec' ContinueOnError='false' WorkingDirectory='$(DropDirectory)'/>
+  </Target>
+
+  <Target Name="PublishToNugetOrg" DependsOnTargets="Package">
+     <Exec Command='"$(NuGetEXE)" push $(DropDirectory)\RESTful-Webservice-Schema.$(Major).$(Minor).$(Build).$(Revision).nupkg' ContinueOnError='false' WorkingDirectory='$(DropDirectory)'/>
   </Target>
   
   <Target Name="CreateDropDirectories">
