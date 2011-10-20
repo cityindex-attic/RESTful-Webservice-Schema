@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using NUnit.Framework;
@@ -31,7 +31,7 @@ namespace JsonSchemaGeneration.Tests
         public void InvalidXmlShouldPinpointError()
         {
             _dtoAssemblyBasePath = @"TestData\invalid\RESTWebservices.0.869\";
-            var xmlDocSource = _wcfConfigReader.Read(@"TestData\invalid\RESTWebservices.0.869\Web.Config", "", null, "");
+            var xmlDocSource = _wcfConfigReader.Read(@"TestData\invalid\RESTWebservices.0.869\Web.Config");
 
             try
             {
@@ -43,7 +43,7 @@ namespace JsonSchemaGeneration.Tests
             {
                 Console.WriteLine(e.ToString());
                 StringAssert.Contains("ILoginService", e.ToString());
-                StringAssert.Contains("Schema missing referenced return type ApiChangePasswordResponseDTO for method ChangePassword", e.ToString());
+                StringAssert.Contains("param element not found for ILoginService.LogOn", e.ToString());
             }
         }
     }

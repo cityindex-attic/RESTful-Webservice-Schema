@@ -232,6 +232,7 @@
             <summary>
              Get a list of current news headlines
             </summary>
+            <param name="source">UNKNOWN</param>
             <param name="category" demoValue="UK" minLength="2" maxLength="3">Filter headlines by category</param>
             <param name="maxResults" demoValue="10" default="25" minimum="1" maximum="500">Restrict the number of headlines returned</param>
              <smd group="News" cacheDuration="10000" throttleScope="data"/>
@@ -241,7 +242,8 @@
              Get the detail of a specific news story
             </summary>
             <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story Id</param>
-             <smd group="News" cacheDuration="10000" throttleScope="data"/>
+            <param name="source">UNKNOWN</param>
+          <smd group="News" cacheDuration="10000" throttleScope="data"/>
         </member>
         <member name="T:RESTWebServices.IFutureOptionService">
             <summary>
@@ -440,12 +442,14 @@
             <summary>
             &lt;p&gt;Get Market Information for the specified list of markets.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ListMarketInformationRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ListMarketInformationRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
             </summary>
+            <param name="listMarketInformationRequestDTO">UNKNOWN</param>
             <smd group="Market" throttleScope="data"/>
         </member>
         <member name="M:RESTWebServices.IMarketInformationService.SaveMarketInformation(RESTWebServicesDTO.Request.SaveMarketInformationRequestDTO)">
             <summary>
             Save Market Information for the specified list of markets.  
             </summary>
+            <param name="listMarketInformationRequestSaveDTO">UNKNOWN</param>
             <smd group="Market" throttleScope="data"/>
         </member>
         <member name="T:RESTWebServices.ILoginService">
@@ -457,6 +461,7 @@
             <summary>
              &lt;p&gt;Create a new session.  This is how you &quot;log on&quot; to the CIAPI.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ApiLogOnRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ApiLogOnRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
             </summary>
+             <param name="apiLogOnRequest"></param>
              <smd 
              group="Authentication" 
              throttleScope="data"

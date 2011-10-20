@@ -64,9 +64,6 @@
     <None Include="TestData\valid\CIAPI.SMD.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\valid\streaming.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="TestData\valid\Web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -76,12 +73,21 @@
       <Project>{AFA11025-ADE0-409A-B784-BD300940F3E3}</Project>
       <Name>JsonSchemaGeneration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestAssembly.BadDTO\TestAssembly.BadDTO.csproj">
+      <Project>{1AB05A9D-091A-404F-A546-61C000B24C7D}</Project>
+      <Name>TestAssembly.BadDTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestAssembly.DTO\TestAssembly.DTO.csproj">
+      <Project>{250BA86E-3C24-4768-9EC7-143D304F93A3}</Project>
+      <Name>TestAssembly.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestAssembly.Service\TestAssembly.Service.csproj">
+      <Project>{E4625F84-C980-4E06-B92C-6D7E7ABE945D}</Project>
+      <Name>TestAssembly.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestData\valid\GatewayCoreDTO.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\valid\patch.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\valid\RESTWebServices.dll">
@@ -94,9 +100,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\valid\RESTWebServicesDTO.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\valid\smd-patch.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\valid\TradingApi.CoreDTO.dll">

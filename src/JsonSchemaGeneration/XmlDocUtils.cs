@@ -12,9 +12,9 @@ namespace JsonSchemaGeneration
 {
     public static class XmlDocUtils
     {
-        public static XElement GetXmlDocTypeNodeWithJSchema(this Type type,string patchPath)
+        public static XElement GetXmlDocTypeNodeWithJSchema(this Type type)
         {
-            var typeNode = type.GetXmlDocTypeNode(patchPath);
+            var typeNode = type.GetXmlDocTypeNode();
 
             if (typeNode != null)
             {
@@ -26,9 +26,9 @@ namespace JsonSchemaGeneration
 
             return typeNode;
         }
-        public static XElement GetXmlDocTypeNodeWithSMD(this Type type, string patchPath)
+        public static XElement GetXmlDocTypeNodeWithSMD(this Type type)
         {
-            XDocument doc = type.GetXmlDocs(patchPath);
+            XDocument doc = type.GetXmlDocs();
             var node = doc.XPathSelectElement("/doc/members/member[@name = 'T:" + type.FullName + "']");
             if (node != null)
             {
@@ -40,10 +40,10 @@ namespace JsonSchemaGeneration
 
             return node;
         }
-        public static XElement GetXmlDocMemberNodeWithSMD(this Type type, string name, string patchPath)
+        public static XElement GetXmlDocMemberNodeWithSMD(this Type type, string name)
         {
             XElement node2 = null;
-            XDocument doc = type.GetXmlDocs(patchPath);
+            XDocument doc = type.GetXmlDocs();
 
             if (doc != null)
             {
@@ -60,9 +60,9 @@ namespace JsonSchemaGeneration
             }
             return node2;
         }
-        public static XElement GetXmlDocNodeJschema(this Type type, string typeName, string memberName, string patchPath)
+        public static XElement GetXmlDocNodeJschema(this Type type, string typeName, string memberName)
         {
-            XDocument doc = type.GetXmlDocs(patchPath);
+            XDocument doc = type.GetXmlDocs();
             var node = doc.XPathSelectElement("/doc/members/member[@name = '" + typeName + ":" + memberName + "']");
             if (node != null)
             {
@@ -75,25 +75,25 @@ namespace JsonSchemaGeneration
             return node;
         }
 
-        public static XElement GetXmlDocTypeNode(this Type type, string patchPath)
+        public static XElement GetXmlDocTypeNode(this Type type)
         {
-            return type.GetXmlDocNodeJschema("T", type.FullName,patchPath);
+            return type.GetXmlDocNodeJschema("T", type.FullName);
         }
 
 
-        public static XElement GetXmlDocMemberNode(this Type type, string name, string patchPath)
+        public static XElement GetXmlDocMemberNode(this Type type, string name)
         {
-            return type.GetXmlDocNodeJschema("M", type.FullName + "." + name,patchPath);
+            return type.GetXmlDocNodeJschema("M", type.FullName + "." + name);
         }
 
-        public static XElement GetXmlDocFieldNode(this Type type, string name, string patchPath)
+        public static XElement GetXmlDocFieldNode(this Type type, string name)
         {
-            return type.GetXmlDocNodeJschema("F", type.FullName + "." + name,patchPath);
+            return type.GetXmlDocNodeJschema("F", type.FullName + "." + name);
         }
 
-        public static XElement GetXmlDocPropertyNode(this Type type, string name, string patchPath)
+        public static XElement GetXmlDocPropertyNode(this Type type, string name)
         {
-            return type.GetXmlDocNodeJschema("P", type.FullName + "." + name,patchPath);
+            return type.GetXmlDocNodeJschema("P", type.FullName + "." + name);
         }
         public static void EnsureXmlDocsAreValid(XmlDocSource xmlDocSource)
         {
@@ -101,7 +101,7 @@ namespace JsonSchemaGeneration
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    var doc = type.GetXmlDocs(null);
+                    var doc = type.GetXmlDocs();
                     doc.EnsureXmlDocsValid();
                 }
             }
@@ -113,13 +113,12 @@ namespace JsonSchemaGeneration
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static XDocument GetXmlDocs(this Type type, string patchPath)
+        public static XDocument GetXmlDocs(this Type type)
         {
             var fileName = Path.GetFileNameWithoutExtension(type.Assembly.CodeBase) + ".xml";
             var filePath = Path.Combine(Path.GetDirectoryName(type.Assembly.CodeBase), fileName);
 
             var doc = XDocument.Load(filePath);
-            doc.Patch(patchPath);
             return doc;
         }
 
@@ -136,30 +135,6 @@ namespace JsonSchemaGeneration
                 }
                 throw new Exception("Badly formed XML comments for " + sb);
             }
-        }
-
-        public static XDocument Patch(this XDocument doc,string patchPath)
-        {
-            if (patchPath != null)
-            {
-                var patchDoc = XDocument.Load(patchPath);
-                var docMembers = doc.XPathSelectElement("doc/members");
-                var patchMembers = patchDoc.Descendants("member");
-                foreach (var patchMember in patchMembers)
-                {
-                    var existing = docMembers.XPathSelectElement("member[@name='" + patchMember.Attribute("name").Value + "']");
-                    if (existing != null)
-                    {
-                        existing.Remove();
-
-                    }
-
-                    docMembers.Add(patchMember);
-                    
-                }
-
-            }
-            return doc;
         }
     }
 }

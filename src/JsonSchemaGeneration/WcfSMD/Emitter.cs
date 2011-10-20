@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,7 +22,6 @@ namespace JsonSchemaGeneration.WcfSMD
 
         public string EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
         {
-            JObject patch = (JObject)JsonConvert.DeserializeObject(xmlDocSource.JsonSchemaPatch);
             JObject smd = new JObject
                               {
                                   {"SMDVersion","2.6"},
@@ -45,7 +44,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
                 try
                 {
-                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, patch, xmlDocSource.SMDPatchPath, schema);
+                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, schema);
                 }
                 catch (Exception exc)
                 {
@@ -58,7 +57,7 @@ namespace JsonSchemaGeneration.WcfSMD
             return result;
         }
 
-        private void BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject patch, string smdPatchPath, JObject schema)
+        private void BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
         {
             Type type = Assembly.Load(route.Type.Substring(route.Type.IndexOf(",") + 1).Trim()).GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
             if (seenTypes.Contains(type))
@@ -68,7 +67,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
             seenTypes.Add(type);
 
-            var typeElement = type.GetXmlDocTypeNodeWithSMD(smdPatchPath);
+            var typeElement = type.GetXmlDocTypeNodeWithSMD();
 
             if (typeElement == null)
             {
@@ -80,22 +79,7 @@ namespace JsonSchemaGeneration.WcfSMD
             foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {
 
-
-                if (patch!=null && patch["smd"][method.Name] != null)
-                {
-                    if (patch["smd"][method.Name].Type == JTokenType.String && patch["smd"][method.Name].Value<string>() == "exclude")
-                    {
-                        continue;
-                    }
-                }
-
-                JObject methodPatch = null;
-                if (patch!=null)
-                {
-                    methodPatch = (JObject)patch["smd"][method.Name];
-                }
-
-                var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name, smdPatchPath);
+                var methodElement = type.GetXmlDocMemberNodeWithSMD(type.FullName + "." + method.Name);
                 if (methodElement == null)
                 {
                     continue;
@@ -160,14 +144,7 @@ namespace JsonSchemaGeneration.WcfSMD
                     {
                         JsonSchemaUtilities.ApplyDescription(service, methodElement);
                         service.Add("target", methodTarget.TrimEnd('/'));
-                        if (methodPatch != null)
-                        {
-                            if (methodPatch["uriTemplate"] != null)
-                            {
-                                methodUriTemplate = methodPatch["uriTemplate"].Value<string>();
 
-                            }
-                        }
                         if (!string.IsNullOrWhiteSpace(methodUriTemplate))
                         {
                             service.Add("uriTemplate", methodUriTemplate);
@@ -225,20 +202,16 @@ namespace JsonSchemaGeneration.WcfSMD
                         SetIntAttribute(methodSmdElement, service, "cacheDuration");
                         SetStringAttribute(methodSmdElement, service, "throttleScope");
 
-                        AddParameters(xmlDocSource, type, method, methodElement, service, includeDemoValue, methodPatch);
+                        AddParameters(xmlDocSource, type, method, methodElement, service, includeDemoValue);
                     }
 
                 }
 
             }
 
-
-
         }
 
-
-
-        private static void AddParameters(XmlDocSource xmlDocSource, Type type, MethodInfo method, XElement methodElement, JObject service, bool includeDemoValue, JObject methodPatch)
+        private static void AddParameters(XmlDocSource xmlDocSource, Type type, MethodInfo method, XElement methodElement, JObject service, bool includeDemoValue)
         {
             var parameters = new JArray();
             service.Add("parameters", parameters);
@@ -250,20 +223,9 @@ namespace JsonSchemaGeneration.WcfSMD
                         FirstOrDefault();
                 if (metaElement == null)
                 {
-                    if (methodPatch!=null)
-                    {
-                        // check patch
-                        if (methodPatch["parameters"][parameter.Name] != null)
-                        {
-                            parameters.Add(methodPatch["parameters"][parameter.Name]);
-                        }
-                        else
-                        {
+                    
                             string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
                             throw new Exception(message);
-                        }
-                        
-                    }
                 }
                 else
                 {

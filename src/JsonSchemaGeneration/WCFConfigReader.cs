@@ -11,9 +11,9 @@ namespace JsonSchemaGeneration
 {
     public class WcfConfigReader
     {
-        public XmlDocSource Read(string configPath, string patchJson, string smdPatchPath, string streamingJson)
+        public XmlDocSource Read(string configPath)
         {
-            var wcfConfig = new XmlDocSource { JsonSchemaPatch = patchJson, StreamingJsonPatch = streamingJson, SMDPatchPath = smdPatchPath };
+            var wcfConfig = new XmlDocSource();
             var config = XDocument.Load(configPath);
             var apiNode = config.XPathSelectElement("configuration/tradingApi");
             var profile = apiNode.XPathSelectElement("profiles").Descendants("profile").First();
@@ -24,7 +24,7 @@ namespace JsonSchemaGeneration
                 wcfConfig.Dtos.Add(new DtoAssembly
                                        {
                                            Assembly = assembly, 
-                                           AssemblyXML = LoadXml(assembly, smdPatchPath)
+                                           AssemblyXML = LoadXml(assembly)
                                        });
             }
 
@@ -44,13 +44,12 @@ namespace JsonSchemaGeneration
             return wcfConfig;
         }
 
-        private static XDocument LoadXml(Assembly assembly, string patchPath)
+        private static XDocument LoadXml(Assembly assembly)
         {
             var fileName = Path.GetFileNameWithoutExtension(assembly.CodeBase) + ".xml";
             var filePath = Path.Combine(Path.GetDirectoryName(assembly.CodeBase), fileName);
 
             var doc = XDocument.Load(filePath);
-            doc.Patch(patchPath);
             return doc;
         }
     }

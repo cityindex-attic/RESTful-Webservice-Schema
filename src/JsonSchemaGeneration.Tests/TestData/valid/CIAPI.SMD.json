@@ -23,7 +23,7 @@
             {
               "$ref": "#/ApiLogOnRequestDTO",
               "name": "apiLogOnRequest",
-              "description": ""
+              "description": "<p>Create a new session.  This is how you \"log on\" to the CIAPI.  Post a <a onclick=\"dojo.hash('#type.ApiLogOnRequestDTO'); return false;\" class=\"json-link\" href=\"#\">ApiLogOnRequestDTO</a> to the uri specified below</p>"
             }
           ]
         },
@@ -155,7 +155,7 @@
         "ListMarketInformationSearch": {
           "description": "<p>Queries for market information.</p>",
           "target": "market",
-          "uriTemplate": "/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}",
+          "uriTemplate": "/market/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -223,7 +223,16 @@
           },
           "group": "Market",
           "throttleScope": "data",
-          "parameters": []
+          "parameters": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/ListMarketInformationRequestDTO"
+              },
+              "name": "listMarketInformationRequestDTO",
+              "description": "UNKNOWN"
+            }
+          ]
         },
         "SaveMarketInformation": {
           "description": "Save Market Information for the specified list of markets.",
@@ -238,7 +247,13 @@
           },
           "group": "Market",
           "throttleScope": "data",
-          "parameters": []
+          "parameters": [
+            {
+              "$ref": "#/SaveMarketInformationRequestDTO",
+              "name": "listMarketInformationRequestSaveDTO",
+              "description": "UNKNOWN"
+            }
+          ]
         },
         "ListNewsHeadlines": {
           "description": "Get a list of current news headlines",
@@ -255,6 +270,11 @@
           "cacheDuration": 10000,
           "throttleScope": "data",
           "parameters": [
+            {
+              "type": "string",
+              "name": "source",
+              "description": "UNKNOWN"
+            },
             {
               "type": "string",
               "name": "category",
@@ -289,6 +309,11 @@
           "cacheDuration": 10000,
           "throttleScope": "data",
           "parameters": [
+            {
+              "type": "string",
+              "name": "source",
+              "description": "UNKNOWN"
+            },
             {
               "type": "string",
               "name": "storyId",
@@ -463,7 +488,7 @@
         "ListOpenPositions": {
           "description": "<p>Queries for a specified trading account's trades / open positions.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetOpenPosition'); return false;\" class=\"json-link\" href=\"#\">GetOpenPosition</a> when you get updates on the order stream to get the updated data in this format.</p>",
           "target": "order",
-          "uriTemplate": "/openpositions?TradingAccountId={tradingAccountId}",
+          "uriTemplate": "/order/openpositions?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -483,7 +508,7 @@
         "ListActiveStopLimitOrders": {
           "description": "<p>Queries for a specified trading account's active stop / limit orders.</p> <p>This uri is intended to be used to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetActiveStopLimitOrder'); return false;\" class=\"json-link\" href=\"#\">GetActiveStopLimitOrder</a> when you get updates on the order stream to get the updated data in this format.</p>",
           "target": "order",
-          "uriTemplate": "/activestoplimitorders?TradingAccountId={tradingAccountId}",
+          "uriTemplate": "/order/activestoplimitorders?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -543,7 +568,7 @@
         "ListTradeHistory": {
           "description": "<p>Queries for a specified trading account's trade history. The result set will contain orders with a status of <b>(3 - Open, 9 - Closed)</b>, and includes <b>orders that were a trade / stop / limit order</b>.</p> <p>There's currently no corresponding GetTradeHistory (as with ListOpenPositions).</p>",
           "target": "order",
-          "uriTemplate": "/tradehistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
+          "uriTemplate": "/order/tradehistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -568,7 +593,7 @@
         "ListStopLimitOrderHistory": {
           "description": "<p>Queries for a specified trading account's stop / limit order history. The result set will include <b>only orders that were originally stop / limit orders</b> that currently have one of the following statuses <b>(3 - Open, 4 - Cancelled, 5 - Rejected, 9 - Closed, 10 - Red Card)</b> </p> <p>There's currently no corresponding GetStopLimitOrderHistory (as with ListActiveStopLimitOrders).</p>",
           "target": "order",
-          "uriTemplate": "/stoplimitorderhistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
+          "uriTemplate": "/order/stoplimitorderhistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -649,6 +674,27 @@
               "$ref": "#/UpdateTradeOrderRequestDTO",
               "name": "update",
               "description": "The trade request"
+            }
+          ]
+        },
+        "GetChartingEnabled": {
+          "description": "Whether a User is allowed to see Charting Data.",
+          "target": "useraccount",
+          "uriTemplate": "/UserAccount/{id}/ChartingEnabled",
+          "contentType": "application/json",
+          "responseContentType": "application/json",
+          "transport": "GET",
+          "envelope": "URL",
+          "returns": {
+            "type": "boolean"
+          },
+          "group": "AccountInformation",
+          "throttleScope": "data",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "id",
+              "description": "Whether a User is allowed to see Charting Data."
             }
           ]
         },
@@ -870,78 +916,6 @@
               "demoValue": 4000
             }
           ]
-        }
-      }
-    },
-    "streaming": {
-      "target": "",
-      "services": {
-        "NewsHeadlines": {
-          "description": "Stream of current news headlines.  Try NEWS.HEADLINES.UK for a mock stream",
-          "target": "CITYINDEXSTREAMING",
-          "channel": "NEWS.HEADLINES.{category}",
-          "transport": "HTTP",
-          "protocol": "lightstreamer-3.6",
-          "returns": {
-            "$ref": "NewsDTO"
-          },
-          "group": "Streaming API",
-          "parameters": [
-            {
-              "type": "string",
-              "name": "category",
-              "description": "A news category",
-              "minLength": 1,
-              "maxLength": 100,
-              "demoValue": "UK"
-            }
-          ]
-        },
-        "Prices": {
-          "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs",
-          "target": "CITYINDEXSTREAMING",
-          "channel": "PRICES.PRICE.{marketIds}",
-          "transport": "HTTP",
-          "protocol": "lightstreamer-3.6",
-          "returns": {
-            "$ref": "PriceDTO"
-          },
-          "group": "Streaming API",
-          "parameters": [
-            {
-              "type": "array",
-              "items": [
-                {
-                  "type": "integer"
-                }
-              ],
-              "name": "marketIds",
-              "description": "The marketIds",
-              "demoValue": "[\"71442\", \"71443\"]"
-            }
-          ]
-        },
-        "ClientAccountMargin": {
-          "description": "Stream of clients current margin",
-          "target": "CLIENTACCOUNT",
-          "channel": "ALL",
-          "transport": "HTTP",
-          "protocol": "lightstreamer-3.6",
-          "returns": {
-            "$ref": "#.ClientAccountMarginDTO"
-          },
-          "group": "Streaming API"
-        },
-        "Quotes": {
-          "description": "Stream of quotes",
-          "target": "TRADINGACCOUNT",
-          "channel": "QUOTE.ALL",
-          "transport": "HTTP",
-          "protocol": "lightstreamer-3.6",
-          "returns": {
-            "$ref": "#.QuoteDTO"
-          },
-          "group": "Streaming API"
         }
       }
     }

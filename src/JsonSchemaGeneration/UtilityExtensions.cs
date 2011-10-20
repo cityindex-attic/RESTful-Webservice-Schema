@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,12 +8,12 @@ namespace JsonSchemaGeneration
 {
     public static class UtilityExtensions
     {
-        public static IEnumerable<Type> GetSchemaTypes(IEnumerable<Assembly> assemblies,string patchPath)
+        public static IEnumerable<Type> GetSchemaTypes(IEnumerable<Assembly> assemblies)
         {
             var schemaTypes = new List<Type>();
             foreach (Assembly assembly in assemblies)
             {
-                schemaTypes.AddRange(assembly.GetTypes().Where(type => type.GetXmlDocTypeNodeWithJSchema(patchPath) != null));
+                schemaTypes.AddRange(assembly.GetTypes().Where(type => type.GetXmlDocTypeNodeWithJSchema() != null));
             }
 
             return schemaTypes;

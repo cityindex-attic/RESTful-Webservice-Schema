@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -22,11 +22,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             var schemaProperties = new JObject();
             schemaObj["properties"] = schemaProperties;
 
-            var types = UtilityExtensions.GetSchemaTypes(assemblies, xmlDocSource.SMDPatchPath);
+            var types = UtilityExtensions.GetSchemaTypes(assemblies);
 
             foreach (Type type in types)
             {
-                var typeNode = type.GetXmlDocTypeNodeWithJSchema(xmlDocSource.SMDPatchPath);
+                var typeNode = type.GetXmlDocTypeNodeWithJSchema();
                 var jSchemaNode = typeNode.XPathSelectElement("jschema");
 
                 var typeObj = new JObject();
@@ -34,11 +34,11 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 if (type.IsEnum)
                 {
-                    RenderEnum(type, typeObj,xmlDocSource.SMDPatchPath);
+                    RenderEnum(type, typeObj);
                 }
                 else if (type.IsClass)
                 {
-                    RenderType(type, typeObj,xmlDocSource.SMDPatchPath);
+                    RenderType(type, typeObj);
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             }
         }
         
-        private static void RenderEnum(Type type, JObject typeObj,string patchPath)
+        private static void RenderEnum(Type type, JObject typeObj)
         {
             typeObj["type"] = "integer";
 
@@ -91,7 +91,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
                 string description = "";
 
-                var fieldNode = type.GetXmlDocFieldNode(fieldName, patchPath);
+                var fieldNode = type.GetXmlDocFieldNode(fieldName);
                 if (fieldNode != null)
                 {
                     // TODO: may have to do some re-encoding
@@ -123,7 +123,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             }
             return name;
         }
-        private static void RenderType(Type type, JObject typeObj, string patchPath)
+        private static void RenderType(Type type, JObject typeObj)
         {
             string typeName = type.Name;
 
@@ -144,7 +144,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             foreach (var propertyInfo in type.GetProperties())
             {
                 string memberName = propertyInfo.Name;
-                var pnode = type.GetXmlDocPropertyNode(memberName, patchPath);
+                var pnode = type.GetXmlDocPropertyNode(memberName);
                 if (pnode != null)
                 {
                     var pobj = new JObject();
@@ -166,7 +166,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             foreach (var fieldInfo in type.GetFields())
             {
                 string memberName = fieldInfo.Name;
-                var pnode = type.GetXmlDocPropertyNode(memberName, patchPath);
+                var pnode = type.GetXmlDocPropertyNode(memberName);
                 if (pnode != null)
                 {
                     // TODO: should we emit a warning?

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,12 +33,10 @@ namespace JschemaGenerator
                 var smdPatchPath = "smd-patch.xml";
                 string schemaPatchPath = null;
 
-                var streaming = File.ReadAllText("streaming.json");
-
                 // todo parameterize
                 var patchJson = File.ReadAllText("patch.js");
                 
-                var xmlDocSource = reader.Read(intputFileName, patchJson, smdPatchPath, streaming);
+                var xmlDocSource = reader.Read(intputFileName);
 
                 var results = generator.GenerateJsonSchema(xmlDocSource);
 
@@ -50,6 +48,9 @@ namespace JschemaGenerator
                 File.WriteAllText(jschemaOutputFileName, results.JsonSchema);
 
                 var smd = generator.GenerateSmd(xmlDocSource, results.JsonSchema);
+
+                var streaming = File.ReadAllText("streaming.json");
+                smd = generator.AddStreamingSMD(smd, streaming);
 
                 File.WriteAllText(smdOutputFileName, smd);
             }

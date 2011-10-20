@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using NUnit.Framework;
 
@@ -15,9 +15,6 @@ namespace JsonSchemaGeneration.Tests
 
         public GeneratorTests()
         {
-            _patchJson = File.ReadAllText(@"TestData\valid\patch.js");
-            _streamingJson = File.ReadAllText(@"TestData\valid\streaming.json");
-            _smdPatchPath = @"TestData\valid\smd-patch.xml";
             _validJsonSchema = File.ReadAllText(@"TestData\valid\CIAPI.Schema.json");
             _validSMD = File.ReadAllText(@"TestData\valid\CIAPI.SMD.json");
         }
@@ -25,7 +22,7 @@ namespace JsonSchemaGeneration.Tests
         private XmlDocSource SetupValidXmlDocSource()
         {
             _dtoAssemblyBasePath = @"TestData\valid\";
-            return _wcfConfigReader.Read(@"TestData\valid\Web.Config", _patchJson, _smdPatchPath, _streamingJson);
+            return _wcfConfigReader.Read(@"TestData\valid\Web.Config");
         }
 
         [Test]

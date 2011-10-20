@@ -28,11 +28,15 @@ namespace JsonSchemaGeneration
             var smdEmitter = new WcfSMD.Emitter();
             var smd = smdEmitter.EmitSmdJson(xmlDocSource, true, (JObject) JsonConvert.DeserializeObject(jsonSchema));
             
+            return smd;
+        }
+
+        public string AddStreamingSMD(string smd, string streamingJsonPatch)
+        {
             JObject smdObj = (JObject) JsonConvert.DeserializeObject(smd);
-            JObject streamingObj = (JObject) JsonConvert.DeserializeObject(xmlDocSource.StreamingJsonPatch);
+            JObject streamingObj = (JObject) JsonConvert.DeserializeObject(streamingJsonPatch);
             smdObj["services"]["streaming"] = streamingObj;
             smd = smdObj.ToString(Formatting.Indented);
-            
             return smd;
         }
     }
