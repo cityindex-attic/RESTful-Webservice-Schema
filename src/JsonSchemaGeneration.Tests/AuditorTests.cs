@@ -19,19 +19,16 @@ namespace JsonSchemaGeneration.Tests
             Assert.AreEqual(result.MetadataGenerationErrors.Count, 0, "error count should be 0");
         }
 
-//        [Test]
-//        public void InvalidCollectionTypesShouldBeReportedAsErrors()
-//        {
-//            var xmlDocSource = new XmlDocSource();
-//            xmlDocSource.Dtos.Add(new DtoAssembly
-//            {
-//                Assembly = Assembly.Load(dtoAssemblyName),
-//                AssemblyXML = LoadXml(Assembly.Load(dtoAssemblyName))
-//            });
-//
-//            var result = new Auditor().AuditTypes(xmlDocSource);
-//
-//            Assert.Greater(result.MetadataGenerationErrors.Count, 0, "Errors should have been reported");
-//        }
+        [Test, Ignore("WIP")]
+        public void InvalidCollectionTypesShouldBeReportedAsErrors()
+        {
+            var xmlDocSource = new XmlDocSource();
+            xmlDocSource.Dtos.Add(DtoAssembly.CreateFromName("TestAssembly.BadDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"));
+
+            var result = new Auditor().AuditTypes(xmlDocSource);
+
+            Assert.Greater(result.MetadataGenerationErrors.Count, 0, "Errors should have been reported");
+            Assert.AreEqual("IEnumerable are not supported. Use IList", result.MetadataGenerationErrors[0].ErrorReason);
+        }
     }
 }

@@ -20,12 +20,7 @@ namespace JsonSchemaGeneration
             
             foreach(var dtoAssemblyName in profile.Descendants("dtoAssemblies").Descendants("add").Select(n => n.Attribute("assembly").Value).ToArray())
             {
-                var assembly = Assembly.Load(dtoAssemblyName);
-                wcfConfig.Dtos.Add(new DtoAssembly
-                                       {
-                                           Assembly = assembly, 
-                                           AssemblyXML = LoadXml(assembly)
-                                       });
+                wcfConfig.Dtos.Add(DtoAssembly.CreateFromName(dtoAssemblyName));
             }
 
             var routeNodes = profile.XPathSelectElement("routes").XPathSelectElements("add").ToList();
@@ -44,6 +39,25 @@ namespace JsonSchemaGeneration
             return wcfConfig;
         }
 
+       
+    }
+
+    public class DtoAssembly
+    {
+        public Assembly Assembly { get; set; }
+        public XDocument AssemblyXML { get; set; }
+
+        public static DtoAssembly CreateFromName(string dtoAssemblyName)
+        {
+             var assembly = Assembly.Load(dtoAssemblyName);
+             var assemblyXml = LoadXml(assembly);
+             return new DtoAssembly
+                                       {
+                                           Assembly = assembly, 
+                                           AssemblyXML = assemblyXml
+                                       };
+        }
+
         private static XDocument LoadXml(Assembly assembly)
         {
             var fileName = Path.GetFileNameWithoutExtension(assembly.CodeBase) + ".xml";
@@ -52,11 +66,5 @@ namespace JsonSchemaGeneration
             var doc = XDocument.Load(filePath);
             return doc;
         }
-    }
-
-    public class DtoAssembly
-    {
-        public Assembly Assembly { get; set; }
-        public XDocument AssemblyXML { get; set; }
     }
 }

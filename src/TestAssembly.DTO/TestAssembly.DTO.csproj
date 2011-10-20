@@ -8,8 +8,8 @@
     <ProjectGuid>{250BA86E-3C24-4768-9EC7-143D304F93A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetadataProcessor.DTOTestAssembly</RootNamespace>
-    <AssemblyName>MetadataProcessor.DTOTestAssembly</AssemblyName>
+    <RootNamespace>TestAssembly.DTO</RootNamespace>
+    <AssemblyName>TestAssembly.DTO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\MetadataProcessor.DTOTestAssembly.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\TestAssembly.DTO.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

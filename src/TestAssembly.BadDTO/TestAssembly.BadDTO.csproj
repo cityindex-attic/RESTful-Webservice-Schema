@@ -8,8 +8,8 @@
     <ProjectGuid>{1AB05A9D-091A-404F-A546-61C000B24C7D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetadataProcessor.BadDTOTestAssembly</RootNamespace>
-    <AssemblyName>MetadataProcessor.BadDTOTestAssembly</AssemblyName>
+    <RootNamespace>TestAssembly.BadDTO</RootNamespace>
+    <AssemblyName>TestAssembly.BadDTO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\MetadataProcessor.BadDTOTestAssembly.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\TestAssembly.BadDTO.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
