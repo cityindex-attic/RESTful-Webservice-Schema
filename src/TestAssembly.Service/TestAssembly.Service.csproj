@@ -46,7 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetadataProcessor.DTOTestAssembly\MetadataProcessor.DTOTestAssembly.csproj">
+    <ProjectReference Include="..\TestAssembly.DTO\TestAssembly.DTO.csproj">
       <Project>{250BA86E-3C24-4768-9EC7-143D304F93A3}</Project>
       <Name>MetadataProcessor.DTOTestAssembly</Name>
     </ProjectReference>
