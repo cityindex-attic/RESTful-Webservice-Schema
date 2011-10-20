@@ -4,13 +4,13 @@
     <ReportsDirectory>$(RootDirectory)\reports</ReportsDirectory>
     
     <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console-x86.exe</NunitEXE>
-    <NUnitArgs>/process=Single /domain=Single /nothread /framework=4.0.30319</NUnitArgs>
+    <NUnitArgs>$(SrcDirectory)\RESTful-Webservice-Schema.nunit /exclude:DependsOnExternalResource /noshadow /config:Debug /framework:4.0.30319 /xml:NUnitResults.xml</NUnitArgs>
 
     <PartCover4Directory>$(ProgramFiles86)\PartCover\PartCover .NET 4.0</PartCover4Directory>
   </PropertyGroup>
   
   <!-- Runs unit tests through PartCover to calculate unit test covereage-->
-  <Target Name="RunTests" DependsOnTargets="CreateReportDirectories; UpdatePartCover4Settings">
+  <Target Name="RunTestsPartCover" DependsOnTargets="CreateReportDirectories; UpdatePartCover4Settings">
 
     <Exec Command="&quot;$(PartCover4Directory)\PartCover.exe&quot; --settings $(SrcDirectory)\PartCover4.settings.xml --output $(ReportsDirectory)\PartCover-results.xml"
       ContinueOnError="true"
@@ -25,6 +25,17 @@
     <Error Text="Test error occurred" Condition="'%(ExitCodes.Identity)'>0"/>
   </Target>
 
+   <Target Name="RunTests" DependsOnTargets="CreateReportDirectories">
+
+    <Exec Command="&quot;$(NunitEXE)&quot; $(NUnitArgs)"
+      ContinueOnError="true"
+      WorkingDirectory="$(ReportsDirectory)">
+      <Output TaskParameter="ExitCode" ItemName="ExitCodes"/>
+    </Exec>
+
+    <Error Text="Test error occurred" Condition="'%(ExitCodes.Identity)'>0"/>
+  </Target>
+  
   <Target Name="CreateReportDirectories">
     <Message Text="Making the report directories at '$(ReportsDirectory)'." />
     <RemoveDir Directories="$(ReportsDirectory)" Condition="Exists('$(ReportsDirectory)')" ContinueOnError="True" />

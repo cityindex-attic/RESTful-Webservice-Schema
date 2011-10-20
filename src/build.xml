@@ -8,17 +8,13 @@
   <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\DropsAndPackaging.targets.xml" />
 
   <ItemGroup>
-    <Assemblies     Include="$(SrcDirectory)\MetadataProcessor\bin\$(Configuration)\MetadataProcessor.dll;
-                             $(SrcDirectory)\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll"/>
-    
-    <TestAssemblies Include="$(SrcDirectory)\MetadataProcessor.Tests\bin\$(Configuration)\MetadataProcessor.Tests.dll"/>
+    <Assemblies     Include="$(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\*.*"/>
   </ItemGroup>
 
   <Target Name="Go" DependsOnTargets="UpdateVersion; 
                                       Build; 
-                                      
+                                      RunTests;
                                       Package">
-  <!--- RunTests; ommitted until PartCover upgraded to OpenCover -->
   <!--  CalculateMetrics target not used until a replacement for Reflector is integrated -->
   </Target>
 
