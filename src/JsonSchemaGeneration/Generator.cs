@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using JsonSchemaGeneration.JsonSchemaDTO;
+using JsonSchemaGeneration.WcfSMD;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -23,21 +24,15 @@ namespace JsonSchemaGeneration
             return results;
         }
 
-        public JObject GenerateSmd(XmlDocSource xmlDocSource, JObject jsonSchema)
+        public MetadataGenerationResult GenerateSmd(XmlDocSource xmlDocSource, JObject jsonSchema)
         {
-            var smdEmitter = new WcfSMD.Emitter();
-            var smd = smdEmitter.EmitSmdJson(xmlDocSource, true, jsonSchema);
-            
-            return smd;
+            var result = new Emitter().EmitSmdJson(xmlDocSource, true, jsonSchema);
+            return result;
         }
 
-        public string AddStreamingSMD(string smd, string streamingJsonPatch)
+        public void AddStreamingSMD(JObject smd, string streamingJsonPatch)
         {
-            JObject smdObj = (JObject) JsonConvert.DeserializeObject(smd);
-            JObject streamingObj = (JObject) JsonConvert.DeserializeObject(streamingJsonPatch);
-            smdObj["services"]["streaming"] = streamingObj;
-            smd = smdObj.ToString(Formatting.Indented);
-            return smd;
+            smd["services"]["streaming"] = (JObject) JsonConvert.DeserializeObject(streamingJsonPatch);
         }
     }
 }

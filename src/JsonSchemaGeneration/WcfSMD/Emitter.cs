@@ -20,8 +20,9 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public JObject EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
+        public MetadataGenerationResult EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
         {
+            var result = new MetadataGenerationResult();
             JObject smd = new JObject
                               {
                                   {"SMDVersion","2.6"},
@@ -40,28 +41,21 @@ namespace JsonSchemaGeneration.WcfSMD
 
             foreach (UrlMapElement route in xmlDocSource.Routes)
             {
-
-
-                try
-                {
-                    BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, schema);
-                }
-                catch (Exception exc)
-                {
-                    throw new Exception(string.Format("Error Building the Service Mapping for Service . {0}: {1}", Type.GetType(route.Type), exc),exc);
-                }
+                var serviceResult = BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, schema);
+                result.AddValidationResults(serviceResult);
             }
 
-
-            return smd;
+            result.SMD = smd;
+            return result;
         }
 
-        private void BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
+        private MetadataValidationResult BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
         {
+            var result = new MetadataValidationResult();
             Type type = Assembly.Load(route.Type.Substring(route.Type.IndexOf(",") + 1).Trim()).GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
             if (seenTypes.Contains(type))
             {
-                return;
+                return result;
             }
 
             seenTypes.Add(type);
@@ -70,7 +64,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
             if (typeElement == null)
             {
-                return;
+                return result;
             }
 
             var methodTarget = route.Endpoint.Trim('/');
@@ -87,7 +81,7 @@ namespace JsonSchemaGeneration.WcfSMD
 
                 if (methodSmdElement == null)
                 {
-                    throw new DefectException("should not have gotten a method element without smd");
+                    result.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.SMD, type, "should not have gotten a method element without smd", "All services that have XML comments must have a <smd> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-SMD for details"));
                 }
 
                 JObject service = null;
@@ -152,7 +146,15 @@ namespace JsonSchemaGeneration.WcfSMD
                         service.Add("responseContentType", "application/json");// TODO: declare this in meta or get from WebGet/WebInvoke
                         service.Add("transport", methodTransport);
 
-                        smdBase.Add(methodName, service);
+                        try
+                        {
+                            smdBase.Add(methodName, service);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            result.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.SMD, type, string.Format("A service with the method name {0} already exists", methodName), "Ensure that methods names are unique across services"));
+                            return result;
+                        }
 
                         // this is not accurate/valid SMD for GET but dojox.io.services is not, yet, a very good 
                         // implementation of the SMD spec, which is funny as they were both written by the same person.
@@ -167,7 +169,7 @@ namespace JsonSchemaGeneration.WcfSMD
                                 string methodReturnTypeName = method.ReturnType.Name;
                                 if (schema["properties"][methodReturnTypeName] == null)
                                 {
-                                    throw new Exception("Schema missing referenced return type " + methodReturnTypeName + " for method " + method.Name);
+                                    result.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.SMD, type, "Schema missing referenced return type " + methodReturnTypeName + " for method " + method.Name, "All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema"));
                                 }
                                 returnType = new JObject(new JProperty("$ref", methodReturnTypeName));
                             }
@@ -192,26 +194,27 @@ namespace JsonSchemaGeneration.WcfSMD
                             service.Add("returns", returnType);
                         }
                         
-
-
-
-
-
                         SetStringAttribute(methodSmdElement, service, "group");
                         SetIntAttribute(methodSmdElement, service, "cacheDuration");
                         SetStringAttribute(methodSmdElement, service, "throttleScope");
 
-                        AddParameters(xmlDocSource, type, method, methodElement, service, includeDemoValue);
+                        var paramResult = AddParameters(type, method, methodElement, service, includeDemoValue);
+                        if (paramResult.HasErrors)
+                            result.AddMetadataGenerationErrors(paramResult.MetadataGenerationErrors);
                     }
 
                 }
-
+                if (!result.HasErrors)
+                    result.AddMetadataGenerationSuccess(new MetadataGenerationSuccess(MetadataType.SMD, type));
             }
+
+            return result;
 
         }
 
-        private static void AddParameters(XmlDocSource xmlDocSource, Type type, MethodInfo method, XElement methodElement, JObject service, bool includeDemoValue)
+        private static MetadataValidationResult AddParameters(Type type, MethodInfo method, XElement methodElement, JObject service, bool includeDemoValue)
         {
+            var result = new MetadataValidationResult();
             var parameters = new JArray();
             service.Add("parameters", parameters);
 
@@ -222,9 +225,8 @@ namespace JsonSchemaGeneration.WcfSMD
                         FirstOrDefault();
                 if (metaElement == null)
                 {
-                    
-                            string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
-                            throw new Exception(message);
+                    string message = string.Format("param element not found for {0}.{1} - {2}", type.Name, method.Name, parameter.Name);
+                    result.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.SMD, type, message, "Every service parameter must have an associated <param> tag in the XML comments. See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-SMD"));
                 }
                 else
                 {
@@ -233,6 +235,7 @@ namespace JsonSchemaGeneration.WcfSMD
                 }
 
             }
+            return result;
         }
 
         public static JObject BuildParameterSchema(XElement docElement, XElement metaElement, bool includeDemoValue, JArray metaContainer, string propertyName, Type propertyType, string parentName)

@@ -45,14 +45,19 @@ namespace JschemaGenerator
                     throw new Exception(string.Join(@"\n", results.MetadataGenerationErrors.Select(e => e.ToString())));
                 }
 
-                File.WriteAllText(jschemaOutputFileName, results.JsonSchema);
+                File.WriteAllText(jschemaOutputFileName, results.JsonSchema.ToString());
 
-                var smd = generator.GenerateSmd(xmlDocSource, results.JsonSchema);
+                var smdResults = generator.GenerateSmd(xmlDocSource, results.JsonSchema);
+
+                if (smdResults.MetadataGenerationErrors.Count > 0)
+                {
+                    throw new Exception(string.Join(@"\n", smdResults.MetadataGenerationErrors.Select(e => e.ToString())));
+                }
 
                 var streaming = File.ReadAllText("streaming.json");
-                smd = generator.AddStreamingSMD(smd, streaming);
+                generator.AddStreamingSMD(smdResults.SMD, streaming);
 
-                File.WriteAllText(smdOutputFileName, smd);
+                File.WriteAllText(smdOutputFileName, smdResults.SMD.ToString());
             }
             catch (Exception e)
             {

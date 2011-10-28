@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace JsonSchemaGeneration
@@ -19,9 +20,17 @@ namespace JsonSchemaGeneration
         {
             get { return _metadataGenerationErrors; }
         }
+
+        public bool HasErrors { get { return _metadataGenerationErrors.Count > 0; }}
+
         public void AddMetadataGenerationError(MetadataGenerationError error)
         {
             _metadataGenerationErrors.Add(error);
+        }
+
+        public void AddMetadataGenerationErrors(List<MetadataGenerationError> metadataGenerationErrors)
+        {
+            _metadataGenerationErrors.AddRange(metadataGenerationErrors);
         }
     }
 }

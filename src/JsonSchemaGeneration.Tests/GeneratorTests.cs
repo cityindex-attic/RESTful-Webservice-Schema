@@ -42,21 +42,15 @@ namespace JsonSchemaGeneration.Tests
         [Test]
         public void ValidXmlShouldGenerateValidSMD()
         {
-            JObject smd = new JObject();
             var xmlDocSource = SetupValidXmlDocSource();
+            var jsonSchemaResults = _generator.GenerateJsonSchema(xmlDocSource);
+            var smdResults = _generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
+                
+            Assert.That(jsonSchemaResults.HasErrors,Is.False,"SMD generation should not have failed");
+            Assert.That(smdResults.HasErrors,Is.False,"SMD generation should not have failed");
 
-            try
-            {
-                var results = _generator.GenerateJsonSchema(xmlDocSource);
-                smd = _generator.GenerateSmd(xmlDocSource, results.JsonSchema);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail(string.Format("SMD generation should not have failed: \n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
-            }
-
-            File.WriteAllText("Generated.SMD.json", smd.ToString());
-            Assert.AreEqual(smd.ToString(), _validSMD);
+            File.WriteAllText("Generated.SMD.json", smdResults.SMD.ToString());
+            Assert.AreEqual(smdResults.SMD.ToString(), _validSMD);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using NUnit.Framework;
+using System.Linq;
 
 namespace JsonSchemaGeneration.Tests
 {
@@ -33,18 +34,15 @@ namespace JsonSchemaGeneration.Tests
             _dtoAssemblyBasePath = @"TestData\invalid\RESTWebservices.0.869\";
             var xmlDocSource = _wcfConfigReader.Read(@"TestData\invalid\RESTWebservices.0.869\Web.Config");
 
-            try
-            {
-                var results = _generator.GenerateJsonSchema(xmlDocSource);
-                _generator.GenerateSmd(xmlDocSource, results.JsonSchema);
-                Assert.Fail("Exception should have been thrown");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                StringAssert.Contains("ILoginService", e.ToString());
-                StringAssert.Contains("param element not found for ILoginService.LogOn", e.ToString());
-            }
+            var jsonSchemaResults = _generator.GenerateJsonSchema(xmlDocSource);
+            var smdResults = _generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
+
+            Assert.That(smdResults.HasErrors, Is.True, "SMD generation should not have failed");
+
+            var allErrors = string.Join("\n", smdResults.MetadataGenerationErrors.Select(e => e.ToString()));
+            Console.WriteLine(allErrors);
+            StringAssert.Contains("ILoginService", allErrors);
+            StringAssert.Contains("param element not found for ILoginService.LogOn", allErrors);
         }
     }
 }
