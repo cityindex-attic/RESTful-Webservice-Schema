@@ -14,7 +14,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 {
     public class JsonSchemaDtoEmitter
     {
-        public string EmitDtoJson(XmlDocSource xmlDocSource)
+        public JObject EmitDtoJson(XmlDocSource xmlDocSource)
         {
             var schemaObj = new JObject();
             var assemblies = xmlDocSource.Dtos.Select(a => a.Assembly);
@@ -53,7 +53,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                 
             }
 
-            return schemaObj.ToString();
+            return schemaObj;
 
         }
 
@@ -421,7 +421,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                 isArray = true;
                 type = type.GetElementType();
             }
-            else if (type.IsListType())
+            else if (type.IsArrayType())
             {
                 isArray = true;
                 type = type.GetGenericArguments()[0];

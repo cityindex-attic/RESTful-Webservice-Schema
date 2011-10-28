@@ -1,11 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-
-namespace MetadataProcessor.BadDTOTestAssembly
+﻿namespace TestAssembly.BadDTO
 {
     /// <summary>
-    /// 
+    /// A class
     /// </summary>
     /// <jschema/>
     public class Class1

@@ -24,9 +24,13 @@ namespace JsonSchemaGeneration
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
-        public static bool IsListType(this Type type)
+        public static bool IsArrayType(this Type type)
         {
-            return type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(List<>) || type.GetGenericTypeDefinition() == typeof(IList<>));
+            return type.IsGenericType 
+                && (  type.GetGenericTypeDefinition() == typeof(List<>) 
+                   || type.GetGenericTypeDefinition() == typeof(IList<>)
+                   || type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
+                   );
         }
     }
 }

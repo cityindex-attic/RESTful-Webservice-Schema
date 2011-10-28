@@ -18,7 +18,7 @@ namespace JsonSchemaGeneration
             results.AddValidationResults(new Auditor().AuditTypes(xmlDocSource));
 
             //Creates Jschema for all DTO types where it can find XML docs
-            results.JsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource);
+            results.JsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource).ToString();
 
             return results;
         }

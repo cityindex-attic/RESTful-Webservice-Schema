@@ -48,7 +48,7 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
             {
                 throw new Exception("missing jschema for " + type.FullName);
             }
-            Console.WriteLine(type.Name);
+
             foreach (PropertyInfo pinfo in type.GetProperties())
             {
 
@@ -80,21 +80,16 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
 
         private static bool VerifyCanEmitType(Type propertyType)
         {
-
-
             // check for lists and arrays and just set the property type to the element type
             // because we know we can emit arrays
-
             if (propertyType.IsArray)
             {
                 propertyType = propertyType.GetElementType();
             }
-            else if (UtilityExtensions.IsListType(propertyType))
+            else if (UtilityExtensions.IsArrayType(propertyType))
             {
                 propertyType = propertyType.GetGenericArguments()[0];
             }
-
-            
             
             // if it is nullable set the property type to the type argument because
             // we know we can emit nullable e.g. type: [null, "integer"]
@@ -110,8 +105,6 @@ namespace JsonSchemaGeneration.JsonSchemaDTO
                 case TypeCode.Boolean:
                     // type: "boolean"
                     return true;
-
-                    break;
                 case TypeCode.Byte:
                     // type: "integer" minValue:0,maxValue:255
                     return true;

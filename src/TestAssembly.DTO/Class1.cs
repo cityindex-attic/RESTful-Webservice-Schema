@@ -34,8 +34,6 @@ namespace MetadataProcessor.DTOTestAssembly
         /// <jschema/>
         public DerivedClass2 DerivedClass2Prop { get; set; }
 
- 
-
         ///<summary>
         ///</summary>
         /// <jschema/>
