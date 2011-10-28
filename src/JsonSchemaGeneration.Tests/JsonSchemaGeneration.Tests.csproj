@@ -49,6 +49,7 @@
     <Compile Include="AuditorTests.cs" />
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="GeneratorTestsBase.cs" />
+    <Compile Include="JsonSchemaDtoEmitterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

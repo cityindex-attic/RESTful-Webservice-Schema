@@ -20,7 +20,7 @@ namespace JsonSchemaGeneration.WcfSMD
     public class Emitter
     {
 
-        public string EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
+        public JObject EmitSmdJson(XmlDocSource xmlDocSource, bool includeDemoValue, JObject schema)
         {
             JObject smd = new JObject
                               {
@@ -53,8 +53,7 @@ namespace JsonSchemaGeneration.WcfSMD
             }
 
 
-            string result = smd.ToString();
-            return result;
+            return smd;
         }
 
         private void BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)

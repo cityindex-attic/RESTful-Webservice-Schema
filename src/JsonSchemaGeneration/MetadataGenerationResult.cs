@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace JsonSchemaGeneration
 {
@@ -25,8 +26,8 @@ namespace JsonSchemaGeneration
             set { _metadataGenerationSuccesses = value; }
         }
 
-        public string JsonSchema { get; set; }
-        public string SMD { get; set; }
+        public JObject JsonSchema { get; set; }
+        public JObject SMD { get; set; }
 
         public void AddValidationResults(MetadataValidationResult metadataValidationResult)
         {

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace JsonSchemaGeneration.Tests
@@ -34,14 +35,14 @@ namespace JsonSchemaGeneration.Tests
             
             Assert.IsFalse(results.HasErrors,string.Format("Json Schema generation should not have failed\n\n{0}", results.ToString()));
 
-            File.WriteAllText("Generated.Schema.json", results.JsonSchema);
-            Assert.AreEqual(results.JsonSchema, _validJsonSchema);
+            File.WriteAllText("Generated.Schema.json", results.JsonSchema.ToString());
+            Assert.AreEqual(results.JsonSchema.ToString(), _validJsonSchema);
         }
 
         [Test]
         public void ValidXmlShouldGenerateValidSMD()
         {
-            var smd = "";
+            JObject smd = new JObject();
             var xmlDocSource = SetupValidXmlDocSource();
 
             try
@@ -54,8 +55,8 @@ namespace JsonSchemaGeneration.Tests
                 Assert.Fail(string.Format("SMD generation should not have failed: \n\nMessage:\n{0}\n\nStackTrace:\n{1}", e.Message, e.StackTrace));
             }
 
-            File.WriteAllText("Generated.SMD.json", smd);
-            Assert.AreEqual(smd, _validSMD);
+            File.WriteAllText("Generated.SMD.json", smd.ToString());
+            Assert.AreEqual(smd.ToString(), _validSMD);
         }
     }
 }
