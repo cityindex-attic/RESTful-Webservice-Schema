@@ -8,9 +8,7 @@
   <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\DropsAndPackaging.targets.xml" />
 
   <ItemGroup>
-	  <ForDropLibDirectory Include="$(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\JschemaGenerator.???;
-						   $(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\JschemaGenerator.exe.config;
-						   $(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\JsonSchemaGeneration.???;
+	  <ForDropLibDirectory Include="$(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\JsonSchemaGeneration.???;
 						   $(SrcDirectory)\JschemaGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>
   </ItemGroup>
 
