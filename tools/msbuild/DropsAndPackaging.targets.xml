@@ -33,7 +33,7 @@
   
   <Target Name="CopyMSBuildOutputToDropDirectory">
     <Message Text="Copying dll output to $(DropLibDirectory)" />
-    <Copy ContinueOnError="false" SourceFiles="@(Assemblies)" DestinationFolder="$(DropLibDirectory)" />
+    <Copy ContinueOnError="false" SourceFiles="@(ForDropLibDirectory)" DestinationFolder="$(DropLibDirectory)" />
   </Target>
 
   <Target Name="CopyLicenseToAllDirectories">
