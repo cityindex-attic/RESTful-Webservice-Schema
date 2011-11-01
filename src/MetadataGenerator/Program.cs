@@ -46,12 +46,24 @@ namespace MetadataGenerator
 
             if (jsonSchemaResults.HasErrors || smdResults.HasErrors)
             {
+                Console.WriteLine("ERROR");
                 Console.WriteLine(string.Join(@"\r\n", jsonSchemaResults.MetadataGenerationErrors.Select(e => e.ToString())));
-                Console.WriteLine(string.Join(@"\r\n", jsonSchemaResults.MetadataGenerationErrors.Select(e => e.ToString())));
+                Console.WriteLine(string.Join(@"\r\n", smdResults.MetadataGenerationErrors.Select(e => e.ToString())));
+                
+                PauseIfDebugBuild();
                 return (int)ExitCode.Failure;
             }
 
+            Console.WriteLine("OK");
+            PauseIfDebugBuild();
             return (int)ExitCode.Success;
+        }
+
+        private static void PauseIfDebugBuild()
+        {
+            #if DEBUG
+            Console.ReadKey();
+            #endif
         }
 
         private static string ExtractArg(IEnumerable<string> args, string paramName)
