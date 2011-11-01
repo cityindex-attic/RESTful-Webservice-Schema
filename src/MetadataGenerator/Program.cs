@@ -16,46 +16,55 @@ namespace MetadataGenerator
 
         static int Main(string[] args)
         {
-            var generator = new Generator();
-            var reader = new WcfConfigReader();
-
-            if (args.Length == 0)
+            try
             {
-                DisplayUsage();
-                return (int)ExitCode.Failure;
-            }
+                var generator = new Generator();
+                var reader = new WcfConfigReader();
 
-            var configFile = ExtractArg(args,"--ConfigFile");
-            var assemblySearchPath = ExtractArg(args, "--AssemblySearchPath");
-            var jschemaOutputFileName = ExtractArg(args, "--JschemaOutput");
-            var smdOutputFileName = ExtractArg(args, "--SMDOutput");
-            var streamingSMD = ExtractArg(args, "--StreamingSMD");
+                if (args.Length == 0)
+                {
+                    DisplayUsage();
+                    return (int)ExitCode.Failure;
+                }
+
+                var configFile = ExtractArg(args,"--ConfigFile");
+                var assemblySearchPath = ExtractArg(args, "--AssemblySearchPath");
+                var jschemaOutputFileName = ExtractArg(args, "--JschemaOutput");
+                var smdOutputFileName = ExtractArg(args, "--SMDOutput");
+                var streamingSMD = ExtractArg(args, "--StreamingSMD");
                 
-            var xmlDocSource = reader.Read(configFile, assemblySearchPath);
+                var xmlDocSource = reader.Read(configFile, assemblySearchPath);
 
-            var jsonSchemaResults = generator.GenerateJsonSchema(xmlDocSource);
-            File.WriteAllText(jschemaOutputFileName, jsonSchemaResults.JsonSchema.ToString());
+                var jsonSchemaResults = generator.GenerateJsonSchema(xmlDocSource);
+                File.WriteAllText(jschemaOutputFileName, jsonSchemaResults.JsonSchema.ToString());
 
-            var smdResults = generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
+                var smdResults = generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
 
-            var streaming = File.ReadAllText(streamingSMD);
-            generator.AddStreamingSMD(smdResults.SMD, streaming);
+                var streaming = File.ReadAllText(streamingSMD);
+                generator.AddStreamingSMD(smdResults.SMD, streaming);
 
-            File.WriteAllText(smdOutputFileName, smdResults.SMD.ToString());
+                File.WriteAllText(smdOutputFileName, smdResults.SMD.ToString());
 
-            if (jsonSchemaResults.HasErrors || smdResults.HasErrors)
+                if (jsonSchemaResults.HasErrors || smdResults.HasErrors)
+                {
+                    Console.WriteLine("ERROR");
+                    jsonSchemaResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
+                    smdResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
+                
+                    PauseIfDebugBuild();
+                    return (int)ExitCode.Failure;
+                }
+
+                Console.WriteLine("OK");
+                PauseIfDebugBuild();
+                return (int)ExitCode.Success;
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("ERROR");
-                jsonSchemaResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
-                smdResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
-                
-                PauseIfDebugBuild();
+                Console.WriteLine(e);
                 return (int)ExitCode.Failure;
             }
-
-            Console.WriteLine("OK");
-            PauseIfDebugBuild();
-            return (int)ExitCode.Success;
         }
 
         private static void PauseIfDebugBuild()
