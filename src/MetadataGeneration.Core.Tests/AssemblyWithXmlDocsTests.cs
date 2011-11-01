@@ -1,11 +1,9 @@
-﻿using System;
-using MetadataGeneration.Core.JsonSchemaDTO;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace MetadataGeneration.Core.Tests
 {
     [TestFixture]
-    public class DtoAssemblyTests
+    public class AssemblyWithXmlDocsTests
     {
         [Test]
         public void ShouldLoadAssembliesFromReferencedPath()
