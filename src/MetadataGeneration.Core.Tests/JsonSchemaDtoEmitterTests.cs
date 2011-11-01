@@ -11,7 +11,7 @@ namespace MetadataGeneration.Core.Tests
         public void AllArrayTypesShouldBeDescribedAsArray()
         {
             var xmlDocSource = new XmlDocSource();
-            xmlDocSource.Dtos.Add(DtoAssembly.CreateFromName("TestAssembly.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"));
+            xmlDocSource.Dtos.Add(AssemblyWithXmlDocs.CreateFromName("TestAssembly.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", @"TestData\valid"));
 
             var jsonSchema = new JsonSchemaDtoEmitter().EmitDtoJson(xmlDocSource);
 

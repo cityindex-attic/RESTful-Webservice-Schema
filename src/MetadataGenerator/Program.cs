@@ -26,11 +26,13 @@ namespace MetadataGenerator
             }
 
             var configFile = ExtractArg(args,"--ConfigFile");
+            var assemblySearchPath = ExtractArg(args, "--AssemblySearchPath");
             var jschemaOutputFileName = ExtractArg(args, "--JschemaOutput");
             var smdOutputFileName = ExtractArg(args, "--SMDOutput");
             var streamingSMD = ExtractArg(args, "--StreamingSMD");
+
                 
-            var xmlDocSource = reader.Read(configFile);
+            var xmlDocSource = reader.Read(configFile, assemblySearchPath);
 
             var jsonSchemaResults = generator.GenerateJsonSchema(xmlDocSource);
             File.WriteAllText(jschemaOutputFileName, jsonSchemaResults.JsonSchema.ToString());
@@ -62,6 +64,7 @@ namespace MetadataGenerator
         {
             Console.WriteLine(@"MetadataGenerator Usage:\r\n" 
                 + @"MetadataGenerator --ConfigFile={config-input-file-path} "
+                + @"--AssemblySearchPath={folder-in-which-dlls-referenced-in-config-file-are-located} "
                 + @"--StreamingSMD={location-of-streaming-smd} " 
                 + @"--JschemaOutput={jschema-output-file-path} " 
                 + @"--SMDOutput={smd-output-file-path}");

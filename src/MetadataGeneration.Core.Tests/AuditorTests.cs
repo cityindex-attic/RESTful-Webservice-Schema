@@ -11,7 +11,7 @@ namespace MetadataGeneration.Core.Tests
         public void ValidSourceShouldHaveCollectionOfSuccessesAndNoErrors()
         {
             _dtoAssemblyBasePath = @"TestData\valid\";
-            var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config");
+            var xmlDocSource = _wcfConfigReader.Read(@"TestData\valid\Web.Config", _dtoAssemblyBasePath);
 
             var result = new Auditor().AuditTypes(xmlDocSource);
             Assert.Greater(result.MetadataGenerationSuccesses.Count, 0, "success count should be > 0");
@@ -22,7 +22,7 @@ namespace MetadataGeneration.Core.Tests
         public void AllArrayTypesShouldValidate()
         {
             var xmlDocSource = new XmlDocSource();
-            xmlDocSource.Dtos.Add(DtoAssembly.CreateFromName("TestAssembly.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"));
+            xmlDocSource.Dtos.Add(AssemblyWithXmlDocs.CreateFromName("TestAssembly.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", @"TestData\valid"));
 
             var result = new Auditor().AuditTypes(xmlDocSource);
 

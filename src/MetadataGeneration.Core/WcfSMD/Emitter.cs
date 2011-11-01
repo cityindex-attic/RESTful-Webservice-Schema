@@ -35,7 +35,7 @@ namespace MetadataGeneration.Core.WcfSMD
 
             foreach (UrlMapElement route in xmlDocSource.Routes)
             {
-                var serviceResult = BuildServiceMapping(route, seenTypes, rpcServices, includeDemoValue, schema);
+                var serviceResult = BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, schema);
                 result.AddValidationResults(serviceResult);
             }
 
@@ -43,10 +43,11 @@ namespace MetadataGeneration.Core.WcfSMD
             return result;
         }
 
-        private MetadataValidationResult BuildServiceMapping(UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
+        private MetadataValidationResult BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
         {
             var result = new MetadataValidationResult();
-            Type type = Assembly.Load(route.Type.Substring(route.Type.IndexOf(",") + 1).Trim()).GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
+
+            Type type = xmlDocSource.RouteAssembly.Assembly.GetType(route.Type.Substring(0, route.Type.IndexOf(",")));
             if (seenTypes.Contains(type))
             {
                 return result;

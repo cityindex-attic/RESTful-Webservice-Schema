@@ -6,6 +6,7 @@ namespace MetadataGeneration.Core
     public class XmlDocSource
     {
         public List<UrlMapElement> Routes;
-        public List<DtoAssembly> Dtos = new List<DtoAssembly>();
+        public AssemblyWithXmlDocs RouteAssembly { get; set; }
+        public List<AssemblyWithXmlDocs> Dtos = new List<AssemblyWithXmlDocs>();
     }
 }

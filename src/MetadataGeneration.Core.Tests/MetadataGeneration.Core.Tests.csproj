@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoAssemblyTests.cs" />
     <Compile Include="GeneratorExpectedFailuresTests.cs" />
     <Compile Include="AuditorTests.cs" />
     <Compile Include="GeneratorTests.cs" />

@@ -21,7 +21,7 @@ namespace MetadataGeneration.Core.Tests
         private XmlDocSource SetupValidXmlDocSource()
         {
             _dtoAssemblyBasePath = @"TestData\valid\";
-            return _wcfConfigReader.Read(@"TestData\valid\Web.Config");
+            return _wcfConfigReader.Read(@"TestData\valid\Web.Config", _dtoAssemblyBasePath);
         }
 
         [Test]

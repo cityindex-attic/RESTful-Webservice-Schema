@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyWithXmlDocs.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="JsonSchemaDTO\Auditor.cs" />
     <Compile Include="DefectException.cs" />

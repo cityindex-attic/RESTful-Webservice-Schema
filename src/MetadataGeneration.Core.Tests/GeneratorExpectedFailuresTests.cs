@@ -30,7 +30,7 @@ namespace MetadataGeneration.Core.Tests
         public void InvalidXmlShouldPinpointError()
         {
             _dtoAssemblyBasePath = @"TestData\invalid\RESTWebservices.0.869\";
-            var xmlDocSource = _wcfConfigReader.Read(@"TestData\invalid\RESTWebservices.0.869\Web.Config");
+            var xmlDocSource = _wcfConfigReader.Read(@"TestData\invalid\RESTWebservices.0.869\Web.Config", _dtoAssemblyBasePath);
 
             var jsonSchemaResults = _generator.GenerateJsonSchema(xmlDocSource);
             var smdResults = _generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
