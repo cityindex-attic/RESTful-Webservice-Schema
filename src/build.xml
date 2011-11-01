@@ -9,10 +9,12 @@
 
   <ItemGroup>
 	  <ForDropLibDirectory Include="$(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\MetadataGeneration.Core.dll;
+									$(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\RESTWebServices.Configuration.dll;
 						            $(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\Newtonsoft.Json.dll"/>
 	  <ForDropToolsDirectory Include="$(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGenerator.exe;
 									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGenerator.exe.config;
 									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGeneration.Core.dll;
+									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\RESTWebServices.Configuration.dll;
 									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>						   
   </ItemGroup>
 
