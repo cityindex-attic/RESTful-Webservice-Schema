@@ -1,4 +1,0 @@
-﻿{
-  "type": "string",
-  "demoValue": "D2FF3E4D-01EA-4741-86F0-437C919B5559"
-}

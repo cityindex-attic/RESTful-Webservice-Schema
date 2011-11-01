@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E20EDE46
 		PartCover4.settings.xml = PartCover4.settings.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSchemaGeneration", "JsonSchemaGeneration\JsonSchemaGeneration.csproj", "{AFA11025-ADE0-409A-B784-BD300940F3E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataGeneration.Core", "MetadataGeneration.Core\MetadataGeneration.Core.csproj", "{AFA11025-ADE0-409A-B784-BD300940F3E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JschemaGenerator", "JschemaGenerator\JschemaGenerator.csproj", "{1F0CF509-5ED7-45DF-8C93-444AD2729FC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataGenerator", "MetadataGenerator\MetadataGenerator.csproj", "{1F0CF509-5ED7-45DF-8C93-444AD2729FC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example Output", "Example Output", "{09565F15-9AA7-4563-8367-4A1875040FE8}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example Output", "Example O
 		Artifacts\CIAPI.SMD.json = Artifacts\CIAPI.SMD.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSchemaGeneration.Tests", "JsonSchemaGeneration.Tests\JsonSchemaGeneration.Tests.csproj", "{39845228-05A9-4434-A7CB-35D516712907}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataGeneration.Core.Tests", "MetadataGeneration.Core.Tests\MetadataGeneration.Core.Tests.csproj", "{39845228-05A9-4434-A7CB-35D516712907}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly.Service", "TestAssembly.Service\TestAssembly.Service.csproj", "{E4625F84-C980-4E06-B92C-6D7E7ABE945D}"
 EndProject

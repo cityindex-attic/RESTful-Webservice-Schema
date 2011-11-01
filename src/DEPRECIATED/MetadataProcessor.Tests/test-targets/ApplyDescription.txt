@@ -1,4 +1,0 @@
-﻿{
-  "type": "string",
-  "description": "this is a description of JSchemaDTO.StringProperty"
-}
