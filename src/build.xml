@@ -7,6 +7,11 @@
   <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\TestsAndMetrics.targets.xml" />
   <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\DropsAndPackaging.targets.xml" />
 
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+  
   <ItemGroup>
 	  <ForDropLibDirectory Include="$(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\MetadataGeneration.Core.dll;
 									$(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\RESTWebServices.Configuration.dll;
@@ -27,6 +32,6 @@
 
   <Target Name="Build">
     <MSBuild Projects="$(SrcDirectory)\RESTful-Webservice-Schema.sln" Targets="Rebuild" 
-             Properties="EnableCodeAnalysis=true;GenerateDocumentation=true" />
+             Properties="Configuration=$(Configuration);Platform=$(Platform);EnableCodeAnalysis=true;GenerateDocumentation=true" />
   </Target>
 </Project>
