@@ -46,8 +46,8 @@ namespace MetadataGenerator
             if (jsonSchemaResults.HasErrors || smdResults.HasErrors)
             {
                 Console.WriteLine("ERROR");
-                Console.WriteLine(string.Join(@"\r\n", jsonSchemaResults.MetadataGenerationErrors.Select(e => e.ToString())));
-                Console.WriteLine(string.Join(@"\r\n", smdResults.MetadataGenerationErrors.Select(e => e.ToString())));
+                jsonSchemaResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
+                smdResults.MetadataGenerationErrors.ForEach(e => Console.WriteLine(e.ToString()));
                 
                 PauseIfDebugBuild();
                 return (int)ExitCode.Failure;
