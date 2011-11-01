@@ -30,7 +30,6 @@ namespace MetadataGenerator
             var jschemaOutputFileName = ExtractArg(args, "--JschemaOutput");
             var smdOutputFileName = ExtractArg(args, "--SMDOutput");
             var streamingSMD = ExtractArg(args, "--StreamingSMD");
-
                 
             var xmlDocSource = reader.Read(configFile, assemblySearchPath);
 

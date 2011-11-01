@@ -44,7 +44,7 @@ namespace MetadataGeneration.Core
         /// <param name="extraAssemblySearchPath"></param>
         private static void AddCustomAssemblyResolver(string extraAssemblySearchPath)
         {
-            _extraAssemblySearchPath = extraAssemblySearchPath;
+            _extraAssemblySearchPath = Path.GetFullPath(extraAssemblySearchPath);
             AppDomain.CurrentDomain.AssemblyResolve += CustomAssemblyResolver;
         }
 
@@ -52,10 +52,7 @@ namespace MetadataGeneration.Core
         {
             //System.Diagnostics.Debugger.Launch();
             var assemblyname = args.Name.Split(',')[0];
-            var assemblyFileName = Path.Combine(_extraAssemblySearchPath, assemblyname + ".dll");
-            var thisAssemblyPath = Assembly.GetAssembly(typeof(AssemblyWithXmlDocs)).CodeBase.Replace("file:///", "").Replace("/", @"\");
-            var assemblyFilePath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), assemblyFileName);
-            Console.WriteLine("Loading: " + assemblyFilePath);
+            var assemblyFilePath = Path.Combine(_extraAssemblySearchPath, assemblyname + ".dll");
             var assembly = Assembly.LoadFile(assemblyFilePath);
             return assembly;
         }
