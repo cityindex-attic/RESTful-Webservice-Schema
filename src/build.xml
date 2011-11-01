@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <Configuration>Release</Configuration>
-    <Platform>Any CPU</Platform>
+    <Platform>Mixed Platforms</Platform>
   </PropertyGroup>
   
   <ItemGroup>
