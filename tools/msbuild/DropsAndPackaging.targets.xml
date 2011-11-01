@@ -32,8 +32,10 @@
   </Target>
   
   <Target Name="CopyMSBuildOutputToDropDirectory">
-    <Message Text="Copying dll output to $(DropLibDirectory)" />
+    <Message Text="Copying selected MSBuild output to $(DropLibDirectory)" />
     <Copy ContinueOnError="false" SourceFiles="@(ForDropLibDirectory)" DestinationFolder="$(DropLibDirectory)" />
+    <Message Text="Copying selected MSBuild output to $(DropToolsDirectory)" />
+    <Copy ContinueOnError="false" SourceFiles="@(ForDropToolsDirectory)" DestinationFolder="$(DropToolsDirectory)" />
   </Target>
 
   <Target Name="CopyLicenseToAllDirectories">
