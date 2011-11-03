@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
 using MetadataProcessor.DTOTestAssembly;
 
-namespace MetadataProcessor.ServiceTestAssembly
+namespace TestAssembly.Service
 {
         /// <summary>
         /// TODO: flesh this out with all the trimmings and edge cases 
