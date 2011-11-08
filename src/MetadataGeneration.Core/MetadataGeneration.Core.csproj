@@ -34,9 +34,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RESTWebServices.Configuration">
-      <HintPath>..\packages\RESTWebServices.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -62,8 +59,10 @@
     <Compile Include="MetadataGenerationSuccess.cs" />
     <Compile Include="MetadataValidationResult.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
+    <Compile Include="RouteElement.cs" />
     <Compile Include="UtilityExtensions.cs" />
     <Compile Include="WcfConfigReader.cs" />
+    <Compile Include="WcfSMD\SmdXmlComment.cs" />
     <Compile Include="XmlDocSource.cs" />
     <Compile Include="XmlDocUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

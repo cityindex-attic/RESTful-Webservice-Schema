@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using TradingApi.Configuration;
 
 namespace MetadataGeneration.Core
 {
@@ -21,10 +21,10 @@ namespace MetadataGeneration.Core
             }
 
             var routeNodes = profile.XPathSelectElement("routes").XPathSelectElements("add").ToList();
-            xmlDocSource.Routes = new List<UrlMapElement>();
+            xmlDocSource.Routes = new List<RouteElement>();
             foreach (var item in routeNodes)
             {
-                UrlMapElement map = new UrlMapElement()
+                RouteElement map = new RouteElement()
                 {
                     Endpoint = item.Attribute("endpoint").Value /*+ item.Attribute("pathInfo").Value*/,
                     Name = item.Attribute("name").Value,

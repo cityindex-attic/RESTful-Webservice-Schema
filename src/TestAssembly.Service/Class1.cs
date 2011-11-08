@@ -22,8 +22,6 @@ namespace TestAssembly.Service
                 ResponseFormat = WebMessageFormat.Json,
                 RequestFormat = WebMessageFormat.Json)]
             Class1 CreateSession();
-
-
            
             ///<summary>
             ///</summary>
@@ -36,6 +34,18 @@ namespace TestAssembly.Service
             [OperationContract]
             [WebInvoke(Method = "POST", UriTemplate = "/deleteSession?userName={userName}&session={session}", ResponseFormat = WebMessageFormat.Json)]
             Class2 LogoutFromQueryString(string userName, string session);
+
+            ///<summary>
+            ///A simple WebInvoke(Method="GET") example
+            ///</summary>
+            ///<returns></returns>
+            /// <smd />
+            [OperationContract]
+            [WebInvoke(Method = "GET",
+                UriTemplate = "/WebInvokeMethodGet",
+                ResponseFormat = WebMessageFormat.Json,
+                RequestFormat = WebMessageFormat.Json)]
+            Class1 WebInvokeMethodGet();
         }
 
 }

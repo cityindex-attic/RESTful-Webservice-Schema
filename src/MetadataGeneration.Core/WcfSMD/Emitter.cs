@@ -7,7 +7,6 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Newtonsoft.Json.Linq;
-using TradingApi.Configuration;
 
 namespace MetadataGeneration.Core.WcfSMD
 {
@@ -33,7 +32,7 @@ namespace MetadataGeneration.Core.WcfSMD
 
             var seenTypes = new List<Type>(); // just to keep track of types so we don't map twice
 
-            foreach (UrlMapElement route in xmlDocSource.Routes)
+            foreach (RouteElement route in xmlDocSource.Routes)
             {
                 var serviceResult = BuildServiceMapping(xmlDocSource, route, seenTypes, rpcServices, includeDemoValue, schema);
                 result.AddValidationResults(serviceResult);
@@ -43,7 +42,7 @@ namespace MetadataGeneration.Core.WcfSMD
             return result;
         }
 
-        private MetadataValidationResult BuildServiceMapping(XmlDocSource xmlDocSource, UrlMapElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
+        private MetadataValidationResult BuildServiceMapping(XmlDocSource xmlDocSource, RouteElement route, List<Type> seenTypes, JObject smdBase, bool includeDemoValue, JObject schema)
         {
             var result = new MetadataValidationResult();
 
@@ -72,28 +71,30 @@ namespace MetadataGeneration.Core.WcfSMD
                 {
                     continue;
                 }
-                var methodSmdElement = methodElement.XPathSelectElement("smd");
 
+                // get smd xml, if present
+                var methodSmdElement = methodElement.XPathSelectElement("smd");
                 if (methodSmdElement == null)
                 {
                     result.AddMetadataGenerationError(new MetadataGenerationError(MetadataType.SMD, type, "should not have gotten a method element without smd", "All services that have XML comments must have a <smd> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-SMD for details"));
+                    continue;
                 }
+
+                var smdXmlComment = SmdXmlComment.CreateFromXml(methodSmdElement);
+                
+                //Don't document methods that are market
+                if (smdXmlComment.Excluded)
+                    continue;
 
                 JObject service = null;
                 var opContract = ReflectionUtils.GetAttribute<OperationContractAttribute>(method);
 
                 if (opContract != null)
                 {
-                    // get smd xml, if present
-
                     var webGet = ReflectionUtils.GetAttribute<WebGetAttribute>(method);
-                    string methodName = method.Name;
-                    XAttribute methodSmdElementMethodAttribute = methodSmdElement.Attributes("method").FirstOrDefault();
-                    if (methodSmdElementMethodAttribute != null)
-                    {
-                        methodName = methodSmdElementMethodAttribute.Value;
-                    }
-
+                    var methodName = method.Name;
+                    if (!string.IsNullOrEmpty(smdXmlComment.MethodName))
+                        methodName = smdXmlComment.MethodName;
 
                     string methodTransport = null;
                     string methodEnvelope = null;
