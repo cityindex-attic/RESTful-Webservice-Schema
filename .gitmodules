@@ -1,3 +1,3 @@
-[submodule "webservice-schema"]
-	path = webservice-schema
+[submodule "src/lib/webservice-schema"]
+	path = src/lib/webservice-schema
 	url = git://github.com/mrdavidlaing/webservice-schema.git
