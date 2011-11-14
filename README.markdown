@@ -8,12 +8,13 @@ Contains a C# implementation of a SMD and Jschema generator.
 
 * Alternately, after cloning be sure to 
 
-      git submodule init
-      get submodule update
+    git submodule init
+    
+    get submodule update
 
 * After pulling, be sure to 
-  
-      git submodule update
+
+    git submodule update
 
 ## License: Apache 2
 
