@@ -1,6 +1,13 @@
 Contains a C# implementation of a SMD and Jschema generator.
+==Getting started
+* This project contains submodules under src/lib, so make sure you clone using the recursive option (git > 1.6.5)
+  git clone --recursive git://github.com/foo/bar.git
+  
+  Alternately, after cloning be sure to 
+    git submodule init
+	get submodule update
 
-==License: Apache 2==
+==License: Apache 2
 
        Licensed to the CityIndex Ltd. under one
        or more contributor license agreements.  See the NOTICE.txt file
