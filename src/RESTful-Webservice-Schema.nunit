@@ -1,5 +1,5 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
+  <Settings activeconfig="Release" />
   <Config name="Debug" binpathtype="Auto">
     <assembly path="CIAPI.MetadataGenerator.Tests\bin\Debug\CIAPI.MetadataGenerator.Tests.dll" />
   </Config>
