@@ -4,7 +4,7 @@
     <ReportsDirectory>$(RootDirectory)\reports</ReportsDirectory>
     
     <NunitEXE>$(RootDirectory)\tools\nunit-runner\nunit-console-x86.exe</NunitEXE>
-    <NUnitArgs>$(SrcDirectory)\RESTful-Webservice-Schema.nunit /exclude:DependsOnExternalResource /noshadow /config:Debug /framework:4.0.30319 /xml:NUnitResults.xml</NUnitArgs>
+    <NUnitArgs>$(SrcDirectory)\RESTful-Webservice-Schema.nunit /exclude:DependsOnExternalResource /noshadow /config:$(Configuration) /framework:4.0.30319 /xml:NUnitResults.xml</NUnitArgs>
 
     <PartCover4Directory>$(ProgramFiles86)\PartCover\PartCover .NET 4.0</PartCover4Directory>
   </PropertyGroup>
