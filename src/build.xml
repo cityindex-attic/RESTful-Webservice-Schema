@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Go" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
-  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\CommonProperties.targets.xml" />
-  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\Versioning.targets.xml" />
-  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\TestsAndMetrics.targets.xml" />
-  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\DropsAndPackaging.targets.xml" />
-
   <PropertyGroup>
     <Configuration>Release</Configuration>
     <Platform>Mixed Platforms</Platform>
@@ -21,6 +14,13 @@
 									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>						   
   </ItemGroup>
 
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\CommonProperties.targets.xml" />
+  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\Versioning.targets.xml" />
+  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\TestsAndMetrics.targets.xml" />
+  <Import Project="$(MSBuildProjectDirectory)\..\tools\msbuild\DropsAndPackaging.targets.xml" />
+
+  
   <Target Name="Go" DependsOnTargets="UpdateVersion; 
                                       Build; 
                                       RunTests;
