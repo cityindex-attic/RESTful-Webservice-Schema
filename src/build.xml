@@ -6,12 +6,12 @@
   </PropertyGroup>
   
   <ItemGroup>
-	  <ForDropLibDirectory Include="$(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\MetadataGeneration.Core.dll;
-						            $(SrcDirectory)\MetadataGeneration.Core\bin\$(Configuration)\Newtonsoft.Json.dll"/>
-	  <ForDropToolsDirectory Include="$(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGenerator.exe;
-									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGenerator.exe.config;
-									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\MetadataGeneration.Core.dll;
-									  $(SrcDirectory)\MetadataGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>						   
+	  <ForDropLibDirectory Include="$(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\MetadataGeneration.Core.dll;
+						            $(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>
+	  <ForDropToolsDirectory Include="$(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\CIAPI.MetadataGenerator.exe;
+									  $(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\CIAPI.MetadataGenerator.exe.config;
+									  $(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\MetadataGeneration.Core.dll;
+									  $(SrcDirectory)\CIAPI.MetadataGenerator\bin\$(Configuration)\Newtonsoft.Json.dll"/>						   
   </ItemGroup>
 
   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
