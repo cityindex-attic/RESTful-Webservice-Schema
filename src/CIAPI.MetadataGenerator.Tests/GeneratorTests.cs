@@ -16,14 +16,14 @@ namespace MetadataGeneration.Core.Tests
 
         public GeneratorTests()
         {
-            _validJsonSchema = File.ReadAllText(@"TestData\valid\RESTWebServices.20111111\Metadata\schema.json");
-            _validSMD = File.ReadAllText(@"TestData\valid\RESTWebServices.20111111\Metadata\smd.json");
+            _validJsonSchema = File.ReadAllText(@"TestData\valid\RESTWebServices.20111115\Metadata\schema.json");
+            _validSMD = File.ReadAllText(@"TestData\valid\RESTWebServices.20111115\Metadata\smd.json");
         }
 
         private XmlDocSource SetupValidXmlDocSource()
         {
-            _dtoAssemblyBasePath = @"TestData\valid\RESTWebServices.20111111\";
-            return _wcfConfigReader.Read(@"TestData\valid\RESTWebServices.20111111\Web.Config", _dtoAssemblyBasePath);
+            _dtoAssemblyBasePath = @"TestData\valid\RESTWebServices.20111115\";
+            return _wcfConfigReader.Read(@"TestData\valid\RESTWebServices.20111115\Web.Config", _dtoAssemblyBasePath);
         }
 
         [Test]
