@@ -16,9 +16,10 @@ namespace MetadataGeneration.Core.Tests
             var jsonSchemaResults = _generator.GenerateJsonSchema(xmlDocSource);
             var smdResults = _generator.GenerateSmd(xmlDocSource, jsonSchemaResults.JsonSchema);
 
-            Assert.That(smdResults.HasErrors, Is.True, "SMD generation should not have failed");
+            Assert.That(smdResults.HasErrors, Is.True, "SMD generation should have failed");
 
             var allErrors = string.Join("\n", smdResults.MetadataGenerationErrors.Select(e => e.ToString()));
+            Console.WriteLine(allErrors);
             StringAssert.Contains("ILoginService", allErrors);
             StringAssert.Contains("param element not found for ILoginService.LogOn", allErrors);
         }

@@ -26,7 +26,7 @@ namespace MetadataGeneration.Core.Tests
             return _wcfConfigReader.Read(@"TestData\valid\RESTWebServices.20111115\Web.Config", _dtoAssemblyBasePath);
         }
 
-        [Test]
+        [Test, Ignore("Don't have valid test data yet")]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
             var xmlDocSource = SetupValidXmlDocSource();
@@ -36,10 +36,10 @@ namespace MetadataGeneration.Core.Tests
             Assert.IsFalse(results.HasErrors,string.Format("Json Schema generation should not have failed\n\n{0}", results.ToString()));
 
             File.WriteAllText("Generated.Schema.json", results.JsonSchema.ToString());
-            Assert.AreEqual(results.JsonSchema.ToString(), _validJsonSchema);
+            Assert.AreEqual(_validJsonSchema, results.JsonSchema.ToString());
         }
 
-        [Test]
+        [Test, Ignore("Don't have valid test data yet")]
         public void ValidXmlShouldGenerateValidSMD()
         {
             var xmlDocSource = SetupValidXmlDocSource();
@@ -52,7 +52,7 @@ namespace MetadataGeneration.Core.Tests
             Assert.That(smdResults.HasErrors,Is.False,"SMD generation should not have failed");
 
             File.WriteAllText("Generated.SMD.json", smdResults.SMD.ToString());
-            Assert.AreEqual(smdResults.SMD.ToString(), _validSMD);
+            Assert.AreEqual(_validSMD, smdResults.SMD.ToString());
         }
     }
 }
