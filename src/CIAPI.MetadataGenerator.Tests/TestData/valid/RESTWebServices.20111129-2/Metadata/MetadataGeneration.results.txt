@@ -1,0 +1,109 @@
+ERROR
+MetadataGenerationError: MetadataType=JsonSchema, Type=System.Object,
+	ErrorReason=Method does not have <jschema> element. All DTO properties must have a jschema element,
+	SuggestedSolution=All DTO properties must have <jschema> element. If you wish to exclude the property use the exclude='true' in jschema
+MetadataGenerationError: MetadataType=JsonSchema, Type=System.Object,
+	ErrorReason=Method does not have <jschema> element. All DTO properties must have a jschema element,
+	SuggestedSolution=All DTO properties must have <jschema> element. If you wish to exclude the property use the exclude='true' in jschema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ILoginService,
+	ErrorReason=Schema missing referenced return type ApiLogOnResponseDTO for method LogOn,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ILoginService,
+	ErrorReason=Schema missing referenced return type ApiLogOffResponseDTO for method LogOffFromQueryString,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ILoginService,
+	ErrorReason=Schema missing referenced return type ApiChangePasswordResponseDTO for method ChangePassword,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketPriceHistoryService,
+	ErrorReason=Schema missing referenced return type GetPriceTickResponseDTO for method GetPriceTicks,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.INews,
+	ErrorReason=Schema missing referenced return type ListNewsHeadlinesResponseDTO for method ListNewsHeadlinesWithSource,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ICfdMarkets,
+	ErrorReason=Schema missing referenced return type ListCfdMarketsResponseDTO for method ListCfdMarkets,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ISpreadMarkets,
+	ErrorReason=Schema missing referenced return type ListSpreadMarketsResponseDTO for method ListSpreadMarkets,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type GetMarketInformationResponseDTO for method GetMarketInformation,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type ListMarketInformationSearchResponseDTO for method ListMarketInformationSearch,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type MarketInformationSearchWithTagsResponseDTO for method SearchWithTags,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type MarketInformationTagLookupResponseDTO for method TagLookup,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type ListMarketInformationResponseDTO for method ListMarketInformation,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IMarketInformationService,
+	ErrorReason=Schema missing referenced return type ApiSaveMarketInformationResponseDTO for method SaveMarketInformation,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ApiTradeOrderResponseDTO for method Order,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ApiTradeOrderResponseDTO for method CancelOrder,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ApiTradeOrderResponseDTO for method UpdateOrder,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ListOpenPositionsResponseDTO for method ListOpenPositions,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ListActiveStopLimitOrderResponseDTO for method ListActiveStopLimitOrders,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type GetActiveStopLimitOrderResponseDTO for method GetActiveStopLimitOrder,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type GetOpenPositionResponseDTO for method GetOpenPosition,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ListTradeHistoryResponseDTO for method ListTradeHistory,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type ListStopLimitOrderHistoryResponseDTO for method ListStopLimitOrderHistory,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IOrderService,
+	ErrorReason=Schema missing referenced return type GetOrderResponseDTO for method GetOrder,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ITradeService,
+	ErrorReason=Schema missing referenced return type ApiTradeOrderResponseDTO for method Trade,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.ITradeService,
+	ErrorReason=Schema missing referenced return type ApiTradeOrderResponseDTO for method UpdateTrade,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IAccountInformationService,
+	ErrorReason=Schema missing referenced return type AccountInformationResponseDTO for method GetClientAndTradingAccount,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IAccountInformationService,
+	ErrorReason=Schema missing referenced return type ApiSaveAccountInformationResponseDTO for method SaveAccountInformation,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IApiMessagesService,
+	ErrorReason=Schema missing referenced return type GetMessagePopupResponseDTO for method GetMessagePopup,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IApiMessagesService,
+	ErrorReason=Schema missing referenced return type ApiLookupResponseDTO for method GetSystemLookup,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IApiMessagesService,
+	ErrorReason=Schema missing referenced return type ApiClientApplicationMessageTranslationResponseDTO for method GetClientApplicationMessageTranslation,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IWatchlistService,
+	ErrorReason=Schema missing referenced return type ListWatchlistResponseDTO for method GetWatchlists,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IWatchlistService,
+	ErrorReason=Schema missing referenced return type ApiSaveWatchlistResponseDTO for method SaveWatchlist,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IWatchlistService,
+	ErrorReason=Schema missing referenced return type ApiDeleteWatchlistResponseDTO for method DeleteWatchlist,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
+MetadataGenerationError: MetadataType=SMD, Type=RESTWebServices.IErrors,
+	ErrorReason=Schema missing referenced return type ApiErrorResponseDTO for method GenerateException,
+	SuggestedSolution=All types used by services must be decorated with the <jschema> tag.  See https://github.com/cityindex/RESTful-Webservice-Schema/wiki/Howto-write-XML-comments-for-JSchema
