@@ -33,8 +33,9 @@ namespace MetadataGeneration.Core.Tests
             var xmlDocSource = SetupValidXmlDocSource();
 
             MetadataGenerationResult results = _generator.GenerateJsonSchema(xmlDocSource);
-            
-            Assert.IsFalse(results.HasErrors,string.Format("Json Schema generation should not have failed\n\n{0}", results.ToString()));
+
+            string resultsToString = results.ToString();
+            Assert.IsFalse(results.HasErrors, string.Format("Json Schema generation should not have failed\n\n{0}", resultsToString));
 
             File.WriteAllText("Generated.Schema.json", results.JsonSchema.ToString());
             Assert.AreEqual(_validJsonSchema, results.JsonSchema.ToString());
