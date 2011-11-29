@@ -16,14 +16,15 @@ namespace MetadataGeneration.Core.Tests
 
         public GeneratorTests()
         {
-            _validJsonSchema = File.ReadAllText(@"TestData\valid\RESTWebServices.20111115\Metadata\schema.json");
-            _validSMD = File.ReadAllText(@"TestData\valid\RESTWebServices.20111115\Metadata\smd.json");
+            //.\TestData\valid\RESTWebServices.20111129\
+            //_validJsonSchema = File.ReadAllText(@"TestData\valid\RESTWebServices.20111129\Metadata\schema.json");
+            //_validSMD = File.ReadAllText(@"TestData\valid\RESTWebServices.20111129\Metadata\smd.json");
         }
 
         private XmlDocSource SetupValidXmlDocSource()
         {
-            _dtoAssemblyBasePath = @"TestData\valid\RESTWebServices.20111115\";
-            return _wcfConfigReader.Read(@"TestData\valid\RESTWebServices.20111115\Web.Config", _dtoAssemblyBasePath);
+            _dtoAssemblyBasePath = @".\TestData\valid\RESTWebServices.20111129-3\";
+            return _wcfConfigReader.Read(_dtoAssemblyBasePath + @"\Web.Config", _dtoAssemblyBasePath);
         }
 
         [Test, Ignore("Don't have valid test data yet")]
@@ -31,7 +32,7 @@ namespace MetadataGeneration.Core.Tests
         {
             var xmlDocSource = SetupValidXmlDocSource();
 
-            var results = _generator.GenerateJsonSchema(xmlDocSource);
+            MetadataGenerationResult results = _generator.GenerateJsonSchema(xmlDocSource);
             
             Assert.IsFalse(results.HasErrors,string.Format("Json Schema generation should not have failed\n\n{0}", results.ToString()));
 
