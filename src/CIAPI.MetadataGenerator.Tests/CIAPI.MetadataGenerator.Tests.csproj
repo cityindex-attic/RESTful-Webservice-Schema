@@ -193,9 +193,6 @@
     <Content Include="TestData\valid\RESTWebServices.20111129-3\NewsGatewayDTO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\ObjectPooling.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
