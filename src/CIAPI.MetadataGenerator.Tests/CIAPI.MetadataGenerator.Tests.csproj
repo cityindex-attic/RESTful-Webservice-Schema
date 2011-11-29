@@ -63,12 +63,6 @@
     <None Include="TestData\invalid\RESTWebservices.0.869\Web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\valid\RESTWebServices.20111129-3\flex.properties">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\valid\RESTWebServices.20111129-3\log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="TestData\valid\RESTWebServices.20111129-3\Metadata\schema.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -130,82 +124,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\AccountInformationGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\ActiveMQPubSub.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Apache.NMS.ActiveMQ.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Apache.NMS.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\AuthenticationGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\GatewayCoreDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Handlers.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\HedgeGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\IPGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\log4net.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\log4net.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\MarketSearchGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\MessageGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\MetadataGeneration.Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\MetadataProcessor.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\Metadata\MetadataGeneration.results.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Microsoft.Http.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Microsoft.Http.Extensions.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\Microsoft.ServiceModel.Web.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\MockRequest.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\NewsGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\ObjectPooling.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\OrderGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\PriceHistoryGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.ActiveMQPubSubWrapper.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.Configuration.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.dll">
@@ -214,10 +133,7 @@
     <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.dll.CodeAnalysisLog.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.Messaging.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.XDRSupport.dll">
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.XML">
@@ -226,25 +142,19 @@
     <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServicesDTO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServicesDTO.xml">
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServicesDTO.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\SimulationGatewayDTO.dll">
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServicesDTO.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\TradingApi.CoreDTO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\TradingApi.CoreDTO.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\TradingApi.CoreDTO.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\UTPMessaging.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\WatchlistGatewayDTO.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111129-3\WCFRequestContextFacade.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

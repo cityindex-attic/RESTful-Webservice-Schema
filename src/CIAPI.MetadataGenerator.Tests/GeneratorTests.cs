@@ -27,7 +27,7 @@ namespace MetadataGeneration.Core.Tests
             return _wcfConfigReader.Read(_dtoAssemblyBasePath + @"\Web.Config", _dtoAssemblyBasePath);
         }
 
-        [Test, Ignore("Don't have valid test data yet")]
+        [Test]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
             var xmlDocSource = SetupValidXmlDocSource();
@@ -41,7 +41,7 @@ namespace MetadataGeneration.Core.Tests
             Assert.AreEqual(_validJsonSchema, results.JsonSchema.ToString());
         }
 
-        [Test, Ignore("Don't have valid test data yet")]
+        [Test]
         public void ValidXmlShouldGenerateValidSMD()
         {
             var xmlDocSource = SetupValidXmlDocSource();

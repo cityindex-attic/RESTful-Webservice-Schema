@@ -1099,6 +1099,12 @@
             </summary>
              <jschema />
         </member>
+        <member name="P:RESTWebServicesDTO.Response.ApiLookupResponseDTO.ApiCultureLookupDTOList">
+            <summary>
+            TODO: document me!
+            </summary>
+            <jschema />
+        </member>
         <member name="T:RESTWebServicesDTO.Response.ApiIfDoneResponseDTO">
             <summary>
             Response to an If/Done order request.
@@ -1252,15 +1258,15 @@
             </summary>
              <jschema />
         </member>
-        <member name="F:RESTWebServicesDTO.Response.ListWatchlistResponseDTO.ClientAccountWatchlists">
-            <summary>
-             List of client account watchlists. 
-            </summary>
-             <jschema />
-        </member>
         <member name="P:RESTWebServicesDTO.Response.ListWatchlistResponseDTO.ClientAccountId">
             <summary>
              Client account ID.
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:RESTWebServicesDTO.Response.ListWatchlistResponseDTO.ClientAccountWatchlists">
+            <summary>
+             List of client account watchlists. 
             </summary>
              <jschema />
         </member>
@@ -1286,6 +1292,7 @@
             <summary>
              The requested list of market tags.
             </summary>
+            <jschema />
         </member>
         <member name="T:RESTWebServicesDTO.Response.ApiErrorResponseDTO">
             <summary>
