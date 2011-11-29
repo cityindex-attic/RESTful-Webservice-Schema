@@ -1,13 +1,1 @@
-ERROR
-System.IO.FileNotFoundException: Could not find file 'C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.xml'.
-File name: 'C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.xml'
-   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
-   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
-   at System.Xml.XmlReaderSettings.CreateReader(String inputUri, XmlParserContext inputContext)
-   at System.Xml.Linq.XDocument.Load(String uri, LoadOptions options)
-   at MetadataGeneration.Core.AssemblyWithXmlDocs.CreateFromName(String dtoAssemblyName, String extraAssemblySearchPath)
-   at MetadataGeneration.Core.WcfConfigReader.Read(String configPath, String assemblySearchPath)
-   at MetadataGenerator.Program.Main(String[] args)
+OK
