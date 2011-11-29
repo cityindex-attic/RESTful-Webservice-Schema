@@ -984,7 +984,7 @@
             <summary>
              The response from the simulated trade request.
             </summary>
-             <jschema/>
+             <jschema exclude="true"/>
         </member>
         <member name="P:RESTWebServicesDTO.Response.ApiSimulateTradeOrderResponseDTO.Status">
             <summary>
