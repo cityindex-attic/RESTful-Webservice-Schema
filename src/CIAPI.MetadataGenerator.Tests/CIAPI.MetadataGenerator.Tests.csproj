@@ -63,12 +63,6 @@
     <None Include="TestData\invalid\RESTWebservices.0.869\Web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\valid\RESTWebServices.20111129-3\Metadata\schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\valid\RESTWebServices.20111129-3\Metadata\smd.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="TestData\valid\RESTWebServices.20111129-3\Metadata\streaming.fragment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -125,6 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\Metadata\MetadataGeneration.results.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\Metadata\schema.json.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\valid\RESTWebServices.20111129-3\Metadata\smd.json.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\valid\RESTWebServices.20111129-3\RESTWebServices.dll">
