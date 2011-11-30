@@ -8,7 +8,7 @@
             "transport": "HTTP",
             "protocol": "lightstreamer-3.6",
             "returns": {
-                "$ref": "NewsDTO"
+                "$ref": "#.NewsDTO"
             },
             "group": "Streaming API",
             "parameters": [
@@ -30,7 +30,7 @@
             "transport": "HTTP",
             "protocol": "lightstreamer-3.6",
             "returns": {
-                "$ref": "PriceDTO"
+                "$ref": "#.PriceDTO"
             },
             "group": "Streaming API",
             "parameters": [

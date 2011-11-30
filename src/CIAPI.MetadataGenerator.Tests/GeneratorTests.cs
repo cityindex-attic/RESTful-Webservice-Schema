@@ -1,5 +1,9 @@
 using System;
 using System.IO;
+using MetadataGeneration.Core.JsonSchemaDTO;
+using MetadataGeneration.Core.Streaming;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 
@@ -26,7 +30,29 @@ namespace MetadataGeneration.Core.Tests
             _dtoAssemblyBasePath = @".\TestData\valid\RESTWebServices.20111129-3\";
             return _wcfConfigReader.Read(_dtoAssemblyBasePath + @"\Web.Config", _dtoAssemblyBasePath);
         }
+        [Test]
+        public void StreamingReturnTypesShouldBePresent()
+        {
+            var ssmdText = File.ReadAllText(@"TestData\valid\RESTWebServices.20111129-3\Metadata\streaming.fragment.json");
+            JObject smd = JObject.Parse(ssmdText);
+            var xmlDocSource = SetupValidXmlDocSource();
+            
+            MetadataGenerationResult results = _generator.GenerateJsonSchema(xmlDocSource);
+  
 
+            var validator = new StreamingValidator();
+            try
+            {
+                validator.ValidateStreamingFragment(smd, results.JsonSchema);
+            }
+            catch (MetadataValidationException ex)
+            {
+                
+                Assert.Fail(ex.ToString());
+            }
+
+            
+        }
         [Test]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
