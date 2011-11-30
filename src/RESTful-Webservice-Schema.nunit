@@ -2,8 +2,10 @@
   <Settings activeconfig="Release" />
   <Config name="Debug" binpathtype="Auto">
     <assembly path="CIAPI.MetadataGenerator.Tests\bin\Debug\CIAPI.MetadataGenerator.Tests.dll" />
+    <assembly path="lib\webservice-schema\src\MetadataGeneration.Core.Tests\bin\Debug\MetadataGeneration.Core.Tests.dll" />
   </Config>
-  <Config name="Release" binpathtype="Auto" >
-	<assembly path="CIAPI.MetadataGenerator.Tests\bin\Release\CIAPI.MetadataGenerator.Tests.dll" />
+  <Config name="Release" binpathtype="Auto">
+    <assembly path="CIAPI.MetadataGenerator.Tests\bin\Release\CIAPI.MetadataGenerator.Tests.dll" />
+    <assembly path="lib\webservice-schema\src\MetadataGeneration.Core.Tests\bin\Release\MetadataGeneration.Core.Tests.dll" />
   </Config>
 </NUnitProject>
