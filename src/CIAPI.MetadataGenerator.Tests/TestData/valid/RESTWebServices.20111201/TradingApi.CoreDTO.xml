@@ -691,15 +691,111 @@
              <jschema
              />
         </member>
+        <member name="T:TradingApi.CoreDTO.Streaming.TradeMarginDTO">
+            <summary>
+             The current margin requirement and open trade equity (OTE) of an order, used in the TradeMargin stream. 
+            </summary>
+             <jschema/>
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.ClientAccountId">
+            <summary>
+             The client account this message relates to.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.DirectionId">
+            <summary>
+             The order direction, 1 == Buy and 0 == Sell.  
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarginRequirementConverted">
+            <summary>
+             The margin requirement converted to the correct currency for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarginRequirementConvertedCurrencyId">
+            <summary>
+             The currency ID of the margin requirement for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarginRequirementConvertedCurrencyISOCode">
+            <summary>
+             The currency ISO code of the margin requirement for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarketId">
+            <summary>
+             The market ID the order is on.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarketTypeId">
+            <summary>
+             The market type ID. 1 = Option Market; 2 = Ordinary Market; 4 = Binary Market.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.Multiplier">
+            <summary>
+             The margin multiplier.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.OrderId">
+            <summary>
+             The Order ID.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.OTEConverted">
+            <summary>
+             The Open Trade Equity converted to the correct currency for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.OTEConvertedCurrencyId">
+            <summary>
+             The currency ID of the OTE for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.OTEConvertedCurrencyISOCode">
+            <summary>
+             The currency ISO code of the OTE for this order.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.PriceCalculatedAt">
+            <summary>
+             The price the calculation was performed at.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.PriceTakenAt">
+            <summary>
+             The price the order was taken at.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.Quantity">
+            <summary>
+             The quantity of the order.
+            </summary>
+            <jschema />
+        </member>
         <member name="T:TradingApi.CoreDTO.Streaming.QuoteDTO">
             <summary>
-             A quote for a specific order request
+             A quote for a specific order request.
             </summary>
              <jschema/>
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.QuoteId">
             <summary>
-             The uniqueId of the Quote
+             The unique ID of the Quote. 
             </summary>
              <jschema 
                demoValue="54198759874"
@@ -707,7 +803,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.OrderId">
             <summary>
-             The Order the Quote is related to
+             The ID of the Order that the Quote is related to. 
             </summary>
              <jschema 
                demoValue="8458418478"
@@ -715,7 +811,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.MarketId">
             <summary>
-             The Market the Quote is related to
+             The Market the Quote is related to.
             </summary>
              <jschema 
                demoValue="425748"
@@ -723,7 +819,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.BidPrice">
             <summary>
-             The Price of the original Order request for a Buy
+             The Price of the original Order request for a Buy.
             </summary>
              <jschema 
                 minimum="0" 
@@ -733,7 +829,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.BidAdjust">
             <summary>
-             The amount the bid price will be adjusted to become an order when the customer is buying (BidPrice + BidAdjust = BuyPrice)
+             The amount the bid price will be adjusted to become an order when the customer is buying (BidPrice + BidAdjust = BuyPrice). 
             </summary>
              <jschema 
                 minimum="-999999999" 
@@ -743,7 +839,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.OfferPrice">
             <summary>
-             The Price of the original Order request for a Sell
+             The Price of the original Order request for a Sell.
             </summary>
              <jschema 
                 minimum="0" 
@@ -753,7 +849,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.OfferAdjust">
             <summary>
-             The amount the offer price will be adjusted to become an order when the customer is selling (OfferPrice + OfferAdjust = OfferPrice)
+             The amount the offer price will be adjusted to become an order when the customer is selling (OfferPrice + OfferAdjust = OfferPrice).
             </summary>
              <jschema 
                 minimum="-999999999" 
@@ -771,7 +867,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.CurrencyId">
             <summary>
-             The system internal Id for the ISO Currency the equivalent ISO Code can be found using the API Call TODO Fill when the API call is available
+             The system internal ID for the ISO Currency. An API call will be available in the near future to look up the equivalent ISO Code.
             </summary>
              <jschema 
                demoValue="1"
@@ -779,7 +875,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.StatusId">
             <summary>
-             The Status id of the Quote. The list of different Status values can be found using the API call TODO Fill when call avaliable
+             The Status ID of the Quote. An API call will be available in the near future to look up the Status values.
             </summary>
              <jschema 
                demoValue="1"
@@ -787,7 +883,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.TypeId">
             <summary>
-             The quote type id.
+             The quote type ID.
             </summary>
              <jschema 
                demoValue="1"
@@ -795,7 +891,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.QuoteDTO.RequestDateTime">
             <summary>
-             The timestamp the quote was requested.  Always expressed in UTC
+             The timestamp the quote was requested. Always expressed in UTC. 
             </summary>
              <jschema
                demoValue="/Date(1289231327280)/"
@@ -809,13 +905,13 @@
         </member>
         <member name="T:TradingApi.CoreDTO.Streaming.OrderDTO">
             <summary>
-             An order for a specific Trading Account
+             An order for a specific Trading Account.
             </summary>
              <jschema/>
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.OrderId">
             <summary>
-             Order id
+             The Order identifier. 
             </summary>
              <jschema
                 demoValue="100"
@@ -823,7 +919,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.MarketId">
             <summary>
-             Market id.
+             The Market identifier.
             </summary>
              <jschema
                 demoValue="100"
@@ -831,7 +927,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.ClientAccountId">
             <summary>
-             Client account id.
+             Client account ID.
             </summary>
              <jschema
                 demoValue="100"
@@ -839,7 +935,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.TradingAccountId">
             <summary>
-             Trading account id.
+             Trading account ID.
             </summary>
              <jschema
                 demoValue="100"
@@ -847,7 +943,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.CurrencyId">
             <summary>
-             Trade currency id.
+             Trade currency ID.
             </summary>
              <jschema
                 minimum="0" 
@@ -865,7 +961,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.Direction">
             <summary>
-             direction of the order.
+             Direction of the order (1 == buy, 0 == sell). 
             </summary>
              <jschema
                 demoValue="1"
@@ -873,7 +969,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.AutoRollover">
             <summary>
-             Does the order automatically roll over.
+             Flag indicating whether the order automatically rolls over.
             </summary>
              <jschema
                 demoValue="true"
@@ -881,7 +977,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.ExecutionPrice">
             <summary>
-             the price the order was executed at.
+             The price the order was executed at.
             </summary>
              <jschema
                 minimum="0" 
@@ -891,7 +987,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.LastChangedTime">
             <summary>
-             The date time that the order was last changed.  Always expressed in UTC.
+             The date and time that the order was last changed. Always expressed in UTC.
             </summary>
              <jschema
                demoValue="/Date(1289231327280)/"
@@ -899,7 +995,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.OpenPrice">
             <summary>
-             the open price of the order.
+             The open price of the order.
             </summary>
              <jschema
                 minimum="0" 
@@ -909,7 +1005,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.OriginalLastChangedDateTime">
             <summary>
-             The date of the Order.  Always expressed in UTC
+             The date of the order. Always expressed in UTC.
             </summary>
              <jschema
                demoValue="/Date(1289231327280)/"
@@ -927,7 +1023,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.PositionMethodId">
             <summary>
-             The position method of the order.
+             The position method identifier of the order.
             </summary>
                demoValue="1"
              />
@@ -945,7 +1041,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.Type">
             <summary>
-             the type of the order (1 = Trade / 2 = Stop / 3 = Limit)
+             The type of the order (1 = Trade / 2 = Stop / 3 = Limit).
             </summary>
              <jschema
                demoValue="1"
@@ -953,7 +1049,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.Status">
             <summary>
-             The order status id.
+             The order status ID.
             </summary>
              <jschema
                 demoValue="1"
@@ -961,7 +1057,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.OrderDTO.ReasonId">
             <summary>
-             the order status reason is.
+             The order status reason identifier.
             </summary>
              <jschema
                demoValue="1"
@@ -1367,7 +1463,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.TickDate">
             <summary>
-             The date of the Price.  Always expressed in UTC.
+             The date of the Price. Always expressed in UTC.
             </summary>
              <jschema
                demoValue="/Date(1289231327280)/"
@@ -1385,7 +1481,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.Offer">
             <summary>
-             The current Offer price (price at which the customer can buy, some times referred to as Ask price).
+             The current Offer price (price at which the customer can buy, sometimes referred to as Ask price).
             </summary>
              <jschema
                 minimum="0" 
@@ -1415,7 +1511,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.Low">
             <summary>
-             The lowest price reached for the day
+             The lowest price reached for the day.
             </summary>
              <jschema
                 minimum="0" 
@@ -1425,7 +1521,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.Change">
             <summary>
-             The change since the last price (always positive.  See Direction for direction)
+             The change since the last price (always positive). See Direction for direction of the change. 
             </summary>
              <jschema
                 minimum="0" 
@@ -1435,7 +1531,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.Direction">
             <summary>
-             The direction of movement since the last price.  1 == up, 0 == down
+             The direction of movement since the last price. 1 == up, 0 == down. 
             </summary>
              <jschema
                 minimum="0" 
@@ -1445,7 +1541,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.PriceDTO.AuditId">
             <summary>
-             A unique id for this price.  Treat as a unique, but random string
+             A unique ID for this price. Treat as a unique, but random string. 
             </summary>
              <jschema
                 demoValue="o892nkl8hopin"

@@ -868,6 +868,7 @@
             <summary>
             Request to change account information.
             </summary>
+            <jschema />
         </member>
         <member name="P:RESTWebServicesDTO.Request.ApiSaveAccountInformationRequestDTO.PersonalEmailAddress">
             <summary>

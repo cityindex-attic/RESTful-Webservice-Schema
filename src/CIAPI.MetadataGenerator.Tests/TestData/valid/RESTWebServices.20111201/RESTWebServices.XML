@@ -294,7 +294,7 @@
         </member>
         <member name="M:RESTWebServices.ISimulateOrderService.Order(RESTWebServicesDTO.Request.NewStopLimitOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Place an order on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewStopLimitOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewStopLimitOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Place an order on a particular market.&lt;/p&gt;
             &lt;p&gt;Do not set any order id fields when requesting a new order, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="order">The order request</param>      
@@ -302,14 +302,14 @@
         </member>
         <member name="M:RESTWebServices.ISimulateOrderService.CancelOrder(RESTWebServicesDTO.Request.CancelOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Cancel an order.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.CancelOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;CancelOrderRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            &lt;p&gt;Cancel an order.  
             </summary>
             <param name="cancelOrder">The cancel order request</param>
             <smd exclude="true" />
         </member>
         <member name="M:RESTWebServices.ISimulateOrderService.UpdateOrder(RESTWebServicesDTO.Request.UpdateStopLimitOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Update an order (for adding a stop/limit or attaching an OCO relationship).  Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateStopLimitOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateStopLimitOrderRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            &lt;p&gt;Update an order (for adding a stop/limit or attaching an OCO relationship).  
             </summary>
             <param name="order"></param>
             <returns></returns>       
@@ -339,7 +339,7 @@
         </member>
         <member name="M:RESTWebServices.ISimulateTradeService.Trade(RESTWebServicesDTO.Request.NewTradeOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Simulate placing a trade on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewTradeOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Simulate placing a trade on a particular market.&lt;/p&gt;
             &lt;p&gt;Do not set any order id fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="trade">The trade request</param>
@@ -347,7 +347,7 @@
         </member>
         <member name="M:RESTWebServices.ISimulateTradeService.UpdateTrade(RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO)">
             <summary>
-            Simulate updating a trade (for adding a stop/limit etc).  Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateTradeOrderRequestDTO&lt;/a&gt; to the uri specified below&lt;/p&gt;
+            Simulate updating a trade (for adding a stop/limit etc).  
             </summary>
             <param name="update">The trade request</param> 
             <smd exclude="true" />     
@@ -374,7 +374,7 @@
         </member>
         <member name="M:RESTWebServices.IOrderService.Order(RESTWebServicesDTO.Request.NewStopLimitOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Place an order on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewStopLimitOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewStopLimitOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Place an order on a particular market.  
             &lt;p&gt;Do not set any order id fields when requesting a new order, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="order">The order request.</param>
@@ -382,14 +382,14 @@
         </member>
         <member name="M:RESTWebServices.IOrderService.CancelOrder(RESTWebServicesDTO.Request.CancelOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Cancel an order.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.CancelOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;CancelOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Cancel an order.  
             </summary>
             <param name="cancelOrder">The cancel order request.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.UpdateOrder(RESTWebServicesDTO.Request.UpdateStopLimitOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Update an order (for adding a stop/limit or attaching an OCO relationship). Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateStopLimitOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateStopLimitOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Update an order (for adding a stop/limit or attaching an OCO relationship). 
             </summary>
             <param name="order">The update order request.</param>
             <returns></returns>
@@ -407,7 +407,7 @@
         <member name="M:RESTWebServices.IOrderService.ListOpenPositions(System.Int32)">
             <summary>
             &lt;p&gt;Queries for a specified trading account's trades / open positions.&lt;/p&gt;
-            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call &lt;a onclick=&quot;dojo.hash(&#39;#service.GetOpenPosition&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;GetOpenPosition&lt;/a&gt; when you get updates on the order stream to get the updated data in this format.&lt;/p&gt; 
+            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetOpenPosition when you get updates on the order stream to get the updated data in this format.&lt;/p&gt; 
             </summary>
             <param name="tradingAccountId">The trading account to get orders for.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
@@ -415,7 +415,7 @@
         <member name="M:RESTWebServices.IOrderService.ListActiveStopLimitOrders(System.Int32)">
             <summary>
             &lt;p&gt;Queries for a specified trading account's active stop / limit orders.&lt;/p&gt;
-            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call &lt;a onclick=&quot;dojo.hash(&#39;#service.GetActiveStopLimitOrder&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;GetActiveStopLimitOrder&lt;/a&gt; when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
+            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetActiveStopLimitOrder when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
             </summary>
             <param name="tradingAccountId">The trading account to get orders for.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
@@ -423,8 +423,8 @@
         <member name="M:RESTWebServices.IOrderService.GetActiveStopLimitOrder(System.String)">
             <summary>
             &lt;p&gt;Queries for an active stop limit order with a specified order id. It returns a null value if the order doesn't exist, or is not an active stop limit order.&lt;p&gt;
-            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call &lt;a onclick=&quot;dojo.hash(&#39;#service.ListActiveStopLimitOrders&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ListActiveStopLimitOrders&lt;/a&gt; for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
-            &lt;p&gt;For a more comprehensive order response, see &lt;a onclick=&quot;dojo.hash(&#39;#service.GetOrder&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;GetOrder&lt;/a&gt;&lt;p&gt;
+            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
+            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder
             </summary>
             <param name="orderId">The requested order id.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
@@ -432,8 +432,8 @@
         <member name="M:RESTWebServices.IOrderService.GetOpenPosition(System.String)">
             <summary>
             &lt;p&gt;Queries for a trade / open position with a specified order id. It returns a null value if the order doesn't exist, or is not a trade / open position.&lt;/p&gt;
-            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call &lt;a onclick=&quot;dojo.hash(&#39;#service.ListOpenPositions&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ListOpenPositions&lt;/a&gt; for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
-            &lt;p&gt;For a more comprehensive order response, see &lt;a onclick=&quot;dojo.hash(&#39;#service.GetOrder&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;GetOrder&lt;/a&gt;&lt;p&gt;
+            &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
+            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder
             </summary>
             <param name="orderId">The requested order id.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
@@ -441,7 +441,7 @@
         <member name="M:RESTWebServices.IOrderService.ListTradeHistory(System.Int32,System.Int32)">
             <summary>
             &lt;p&gt;Queries for a specified trading account's trade history. The result set will contain orders with a status of &lt;b&gt;(3 - Open, 9 - Closed)&lt;/b&gt;, and includes &lt;b&gt;orders that were a trade / stop / limit order&lt;/b&gt;.&lt;/p&gt;
-            &lt;p&gt;There's currently no corresponding GetTradeHistory (as with ListOpenPositions).&lt;/p&gt;
+            &lt;p&gt;There's currently no corresponding GetTradeHistory (as with ListOpenPositions).
             </summary>
             <param name="tradingAccountId">The trading account to get orders for.</param>
             <param name="maxResults">The maximum number of results to return.</param>
@@ -469,7 +469,7 @@
         </member>
         <member name="M:RESTWebServices.ITradeService.Trade(RESTWebServicesDTO.Request.NewTradeOrderRequestDTO)">
             <summary>
-            &lt;p&gt;Place a trade on a particular market.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.NewTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;NewTradeOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            &lt;p&gt;Place a trade on a particular market.&lt;/p&gt;
             &lt;p&gt;Do not set any order id fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="trade">The trade request.</param>
@@ -477,7 +477,7 @@
         </member>
         <member name="M:RESTWebServices.ITradeService.UpdateTrade(RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO)">
             <summary>
-            Update a trade (for adding a stop/limit etc). Post an &lt;a onclick=&quot;dojo.hash(&#39;#type.UpdateTradeOrderRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;UpdateTradeOrderRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            Update a trade (for adding a stop/limit etc). 
             </summary>
             <param name="update">The update trade request.</param>
             <smd group="Trades and Orders" throttleScope="trading" cacheDuration="0"/>
@@ -489,7 +489,7 @@
         </member>
         <member name="M:RESTWebServices.ILoginService.LogOn(RESTWebServicesDTO.Request.ApiLogOnRequestDTO)">
             <summary>
-             &lt;p&gt;Create a new session.  This is how you &quot;log on&quot; to the CIAPI.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ApiLogOnRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ApiLogOnRequestDTO&lt;/a&gt; to the uri specified in the following Service Info.&lt;/p&gt;
+             Create a new session.  This is how you &quot;log on&quot; to the CIAPI.  
             </summary>
             <param name="apiLogOnRequest">The request to create a session (log on).</param>
              <smd 
@@ -680,7 +680,7 @@
         </member>
         <member name="M:RESTWebServices.IMarketInformationService.SearchWithTags(System.String,System.Int32,System.Int32)">
             <summary>
-            &lt;p&gt;Get market information and tags for the markets that meet the search criteria.&lt;/p&gt;
+            Get market information and tags for the markets that meet the search criteria.
             </summary>
             <param name="query" demoValue="UK 100">The text to search for. Matches part of market name / code from the start.</param>
             <param name="maxResults" demoValue="50">The maximum number of results to return.  Default is 20.</param>
@@ -697,7 +697,7 @@
         </member>
         <member name="M:RESTWebServices.IMarketInformationService.ListMarketInformation(RESTWebServicesDTO.Request.ListMarketInformationRequestDTO)">
             <summary>
-            &lt;p&gt;Get Market Information for the specified list of markets.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.ListMarketInformationRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;ListMarketInformationRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt;
+            Get Market Information for the specified list of markets.  
             </summary>
             <param name="listMarketInformationRequestDTO"></param>
             <returns></returns>
@@ -705,7 +705,7 @@
         </member>
         <member name="M:RESTWebServices.IMarketInformationService.SaveMarketInformation(RESTWebServicesDTO.Request.SaveMarketInformationRequestDTO)">
             <summary>
-            Save Market Information for the specified list of markets.  Post a &lt;a onclick=&quot;dojo.hash(&#39;#type.SaveMarketInformationRequestDTO&#39;); return false;&quot; class=&quot;json-link&quot; href=&quot;#&quot;&gt;SaveMarketInformationRequestDTO&lt;/a&gt; to the uri specified below.&lt;/p&gt; 
+            Save Market Information for the specified list of markets.   
             </summary>
             <param name="listMarketInformationRequestSaveDTO"></param>
             <smd group="Market" throttleScope="data" cacheDuration="0"/>

@@ -7,7 +7,7 @@
       "target": "",
       "services": {
         "LogOn": {
-          "description": "<p>Create a new session. This is how you \"log on\" to the CIAPI. Post a <a onclick=\"dojo.hash('#type.ApiLogOnRequestDTO'); return false;\" class=\"json-link\" href=\"#\">ApiLogOnRequestDTO</a> to the uri specified in the following Service Info.</p>",
+          "description": "Create a new session. This is how you \"log on\" to the CIAPI.",
           "target": "session",
           "uriTemplate": "/",
           "contentType": "application/json",
@@ -336,7 +336,7 @@
           ]
         },
         "SearchWithTags": {
-          "description": "<p>Get market information and tags for the markets that meet the search criteria.</p>",
+          "description": "Get market information and tags for the markets that meet the search criteria.",
           "target": "market",
           "uriTemplate": "/market/searchwithtags?Query={query}&TagId={tagId}&MaxResults={maxResults}",
           "contentType": "application/json",
@@ -387,7 +387,7 @@
           "parameters": []
         },
         "ListMarketInformation": {
-          "description": "<p>Get Market Information for the specified list of markets. Post a <a onclick=\"dojo.hash('#type.ListMarketInformationRequestDTO'); return false;\" class=\"json-link\" href=\"#\">ListMarketInformationRequestDTO</a> to the uri specified below.</p>",
+          "description": "Get Market Information for the specified list of markets.",
           "target": "market",
           "uriTemplate": "/market/information",
           "contentType": "application/json",
@@ -402,17 +402,14 @@
           "throttleScope": "data",
           "parameters": [
             {
-              "type": "array",
-              "items": {
-                "$ref": "#.ListMarketInformationRequestDTO"
-              },
+              "$ref": "#.ListMarketInformationRequestDTO",
               "name": "listMarketInformationRequestDTO",
-              "description": "<p>Get Market Information for the specified list of markets.  Post a <a onclick=\"dojo.hash('#type.ListMarketInformationRequestDTO'); return false;\" class=\"json-link\" href=\"#\">ListMarketInformationRequestDTO</a> to the uri specified below.</p>"
+              "description": "Get Market Information for the specified list of markets."
             }
           ]
         },
         "SaveMarketInformation": {
-          "description": "Save Market Information for the specified list of markets. Post a <a onclick=\"dojo.hash('#type.SaveMarketInformationRequestDTO'); return false;\" class=\"json-link\" href=\"#\">SaveMarketInformationRequestDTO</a> to the uri specified below.</p>",
+          "description": "Save Market Information for the specified list of markets.",
           "target": "market",
           "uriTemplate": "/market/information/save",
           "contentType": "application/json",
@@ -429,12 +426,12 @@
             {
               "$ref": "#.SaveMarketInformationRequestDTO",
               "name": "listMarketInformationRequestSaveDTO",
-              "description": "Save Market Information for the specified list of markets.  Post a <a onclick=\"dojo.hash('#type.SaveMarketInformationRequestDTO'); return false;\" class=\"json-link\" href=\"#\">SaveMarketInformationRequestDTO</a> to the uri specified below.</p>"
+              "description": "Save Market Information for the specified list of markets."
             }
           ]
         },
         "Order": {
-          "description": "<p>Place an order on a particular market. Post a <a onclick=\"dojo.hash('#type.NewStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">NewStopLimitOrderRequestDTO</a> to the uri specified below.</p> <p>Do not set any order id fields when requesting a new order, the platform will generate them.</p>",
+          "description": "<p>Place an order on a particular market. <p>Do not set any order id fields when requesting a new order, the platform will generate them.</p>",
           "target": "order",
           "uriTemplate": "/newstoplimitorder",
           "contentType": "application/json",
@@ -456,7 +453,7 @@
           ]
         },
         "CancelOrder": {
-          "description": "<p>Cancel an order. Post a <a onclick=\"dojo.hash('#type.CancelOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">CancelOrderRequestDTO</a> to the uri specified below.</p>",
+          "description": "<p>Cancel an order.",
           "target": "order",
           "uriTemplate": "/cancel",
           "contentType": "application/json",
@@ -477,7 +474,7 @@
           ]
         },
         "UpdateOrder": {
-          "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship). Post an <a onclick=\"dojo.hash('#type.UpdateStopLimitOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateStopLimitOrderRequestDTO</a> to the uri specified below.</p>",
+          "description": "<p>Update an order (for adding a stop/limit or attaching an OCO relationship).",
           "target": "order",
           "uriTemplate": "/updatestoplimitorder",
           "contentType": "application/json",
@@ -498,7 +495,7 @@
           ]
         },
         "ListOpenPositions": {
-          "description": "<p>Queries for a specified trading account's trades / open positions.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetOpenPosition'); return false;\" class=\"json-link\" href=\"#\">GetOpenPosition</a> when you get updates on the order stream to get the updated data in this format.</p>",
+          "description": "<p>Queries for a specified trading account's trades / open positions.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetOpenPosition when you get updates on the order stream to get the updated data in this format.</p>",
           "target": "order",
           "uriTemplate": "/order/openpositions?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
@@ -519,7 +516,7 @@
           ]
         },
         "ListActiveStopLimitOrders": {
-          "description": "<p>Queries for a specified trading account's active stop / limit orders.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call <a onclick=\"dojo.hash('#service.GetActiveStopLimitOrder'); return false;\" class=\"json-link\" href=\"#\">GetActiveStopLimitOrder</a> when you get updates on the order stream to get the updated data in this format.</p>",
+          "description": "<p>Queries for a specified trading account's active stop / limit orders.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetActiveStopLimitOrder when you get updates on the order stream to get the updated data in this format.</p>",
           "target": "order",
           "uriTemplate": "/order/activestoplimitorders?TradingAccountId={tradingAccountId}",
           "contentType": "application/json",
@@ -540,7 +537,7 @@
           ]
         },
         "GetActiveStopLimitOrder": {
-          "description": "<p>Queries for an active stop limit order with a specified order id. It returns a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call <a onclick=\"dojo.hash('#service.ListActiveStopLimitOrders'); return false;\" class=\"json-link\" href=\"#\">ListActiveStopLimitOrders</a> for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see <a onclick=\"dojo.hash('#service.GetOrder'); return false;\" class=\"json-link\" href=\"#\">GetOrder</a><p>",
+          "description": "<p>Queries for an active stop limit order with a specified order id. It returns a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder",
           "target": "order",
           "uriTemplate": "/{orderId}/activestoplimitorder",
           "contentType": "application/json",
@@ -561,7 +558,7 @@
           ]
         },
         "GetOpenPosition": {
-          "description": "<p>Queries for a trade / open position with a specified order id. It returns a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call <a onclick=\"dojo.hash('#service.ListOpenPositions'); return false;\" class=\"json-link\" href=\"#\">ListOpenPositions</a> for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see <a onclick=\"dojo.hash('#service.GetOrder'); return false;\" class=\"json-link\" href=\"#\">GetOrder</a><p>",
+          "description": "<p>Queries for a trade / open position with a specified order id. It returns a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder",
           "target": "order",
           "uriTemplate": "/{orderId}/openposition",
           "contentType": "application/json",
@@ -582,7 +579,7 @@
           ]
         },
         "ListTradeHistory": {
-          "description": "<p>Queries for a specified trading account's trade history. The result set will contain orders with a status of <b>(3 - Open, 9 - Closed)</b>, and includes <b>orders that were a trade / stop / limit order</b>.</p> <p>There's currently no corresponding GetTradeHistory (as with ListOpenPositions).</p>",
+          "description": "<p>Queries for a specified trading account's trade history. The result set will contain orders with a status of <b>(3 - Open, 9 - Closed)</b>, and includes <b>orders that were a trade / stop / limit order</b>.</p> <p>There's currently no corresponding GetTradeHistory (as with ListOpenPositions).",
           "target": "order",
           "uriTemplate": "/order/tradehistory?TradingAccountId={tradingAccountId}&MaxResults={maxResults}",
           "contentType": "application/json",
@@ -655,7 +652,7 @@
           ]
         },
         "Trade": {
-          "description": "<p>Place a trade on a particular market. Post a <a onclick=\"dojo.hash('#type.NewTradeOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">NewTradeOrderRequestDTO</a> to the uri specified below.</p> <p>Do not set any order id fields when requesting a new trade, the platform will generate them.</p>",
+          "description": "<p>Place a trade on a particular market.</p> <p>Do not set any order id fields when requesting a new trade, the platform will generate them.</p>",
           "target": "order",
           "uriTemplate": "/newtradeorder",
           "contentType": "application/json",
@@ -677,7 +674,7 @@
           ]
         },
         "UpdateTrade": {
-          "description": "Update a trade (for adding a stop/limit etc). Post an <a onclick=\"dojo.hash('#type.UpdateTradeOrderRequestDTO'); return false;\" class=\"json-link\" href=\"#\">UpdateTradeOrderRequestDTO</a> to the uri specified below.</p>",
+          "description": "Update a trade (for adding a stop/limit etc).",
           "target": "order",
           "uriTemplate": "/updatetradeorder",
           "contentType": "application/json",
@@ -707,7 +704,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "type": "#/boolean"
+            "type": "boolean"
           },
           "group": "AccountInformation",
           "cacheDuration": 0,
@@ -766,7 +763,7 @@
           "transport": "GET",
           "envelope": "URL",
           "returns": {
-            "type": "#/string"
+            "type": "string"
           },
           "group": "Messages",
           "cacheDuration": 3600000,

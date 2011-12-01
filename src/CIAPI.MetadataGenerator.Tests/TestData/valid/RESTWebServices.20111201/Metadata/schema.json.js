@@ -740,6 +740,105 @@
       },
       "description": "Information about a Trading Account."
     },
+    "TradeMarginDTO": {
+      "id": "TradeMarginDTO",
+      "type": "object",
+      "properties": {
+        "ClientAccountId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The client account this message relates to."
+        },
+        "DirectionId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The order direction, 1 == Buy and 0 == Sell."
+        },
+        "MarginRequirementConverted": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The margin requirement converted to the correct currency for this order."
+        },
+        "MarginRequirementConvertedCurrencyId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The currency ID of the margin requirement for this order."
+        },
+        "MarginRequirementConvertedCurrencyISOCode": {
+          "type": "string",
+          "description": "The currency ISO code of the margin requirement for this order."
+        },
+        "MarketId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The market ID the order is on."
+        },
+        "MarketTypeId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The market type ID. 1 = Option Market; 2 = Ordinary Market; 4 = Binary Market."
+        },
+        "Multiplier": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The margin multiplier."
+        },
+        "OrderId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The Order ID."
+        },
+        "OTEConverted": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The Open Trade Equity converted to the correct currency for this order."
+        },
+        "OTEConvertedCurrencyId": {
+          "type": "integer",
+          "minValue": -2147483648,
+          "maxValue": 2147483647,
+          "description": "The currency ID of the OTE for this order."
+        },
+        "OTEConvertedCurrencyISOCode": {
+          "type": "string",
+          "description": "The currency ISO code of the OTE for this order."
+        },
+        "PriceCalculatedAt": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The price the calculation was performed at."
+        },
+        "PriceTakenAt": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The price the order was taken at."
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "decimal",
+          "minValue": -7.9228162514264338E+28,
+          "maxValue": 7.9228162514264338E+28,
+          "description": "The quantity of the order."
+        }
+      },
+      "description": "The current margin requirement and open trade equity (OTE) of an order, used in the TradeMargin stream."
+    },
     "QuoteDTO": {
       "id": "QuoteDTO",
       "type": "object",
@@ -748,47 +847,47 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The uniqueId of the Quote"
+          "description": "The unique ID of the Quote."
         },
         "OrderId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The Order the Quote is related to"
+          "description": "The ID of the Order that the Quote is related to."
         },
         "MarketId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The Market the Quote is related to"
+          "description": "The Market the Quote is related to."
         },
         "BidPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The Price of the original Order request for a Buy"
+          "description": "The Price of the original Order request for a Buy."
         },
         "BidAdjust": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The amount the bid price will be adjusted to become an order when the customer is buying (BidPrice + BidAdjust = BuyPrice)"
+          "description": "The amount the bid price will be adjusted to become an order when the customer is buying (BidPrice + BidAdjust = BuyPrice)."
         },
         "OfferPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The Price of the original Order request for a Sell"
+          "description": "The Price of the original Order request for a Sell."
         },
         "OfferAdjust": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The amount the offer price will be adjusted to become an order when the customer is selling (OfferPrice + OfferAdjust = OfferPrice)"
+          "description": "The amount the offer price will be adjusted to become an order when the customer is selling (OfferPrice + OfferAdjust = OfferPrice)."
         },
         "Quantity": {
           "type": "number",
@@ -801,27 +900,27 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The system internal Id for the ISO Currency the equivalent ISO Code can be found using the API Call TODO Fill when the API call is available"
+          "description": "The system internal ID for the ISO Currency. An API call will be available in the near future to look up the equivalent ISO Code."
         },
         "StatusId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The Status id of the Quote. The list of different Status values can be found using the API call TODO Fill when call avaliable"
+          "description": "The Status ID of the Quote. An API call will be available in the near future to look up the Status values."
         },
         "TypeId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The quote type id."
+          "description": "The quote type ID."
         },
         "RequestDateTime": {
           "type": "string",
           "format": "wcf-date",
-          "description": "The timestamp the quote was requested. Always expressed in UTC"
+          "description": "The timestamp the quote was requested. Always expressed in UTC."
         }
       },
-      "description": "A quote for a specific order request"
+      "description": "A quote for a specific order request."
     },
     "ApiTradeOrderDTO": {
       "id": "ApiTradeOrderDTO",
@@ -911,31 +1010,31 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Order id"
+          "description": "The Order identifier."
         },
         "MarketId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Market id."
+          "description": "The Market identifier."
         },
         "ClientAccountId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Client account id."
+          "description": "Client account ID."
         },
         "TradingAccountId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Trading account id."
+          "description": "Trading account ID."
         },
         "CurrencyId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Trade currency id."
+          "description": "Trade currency ID."
         },
         "CurrencyISO": {
           "type": "string",
@@ -945,35 +1044,35 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "direction of the order."
+          "description": "Direction of the order (1 == buy, 0 == sell)."
         },
         "AutoRollover": {
           "type": "boolean",
-          "description": "Does the order automatically roll over."
+          "description": "Flag indicating whether the order automatically rolls over."
         },
         "ExecutionPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "the price the order was executed at."
+          "description": "The price the order was executed at."
         },
         "LastChangedTime": {
           "type": "string",
           "format": "wcf-date",
-          "description": "The date time that the order was last changed. Always expressed in UTC."
+          "description": "The date and time that the order was last changed. Always expressed in UTC."
         },
         "OpenPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "the open price of the order."
+          "description": "The open price of the order."
         },
         "OriginalLastChangedDateTime": {
           "type": "string",
           "format": "wcf-date",
-          "description": "The date of the Order. Always expressed in UTC"
+          "description": "The date of the order. Always expressed in UTC."
         },
         "OriginalQuantity": {
           "type": "number",
@@ -986,7 +1085,7 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The position method of the order."
+          "description": "The position method identifier of the order."
         },
         "Quantity": {
           "type": "number",
@@ -997,20 +1096,20 @@
         },
         "Type": {
           "type": "string",
-          "description": "the type of the order (1 = Trade / 2 = Stop / 3 = Limit)"
+          "description": "The type of the order (1 = Trade / 2 = Stop / 3 = Limit)."
         },
         "Status": {
           "type": "string",
-          "description": "The order status id."
+          "description": "The order status ID."
         },
         "ReasonId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "the order status reason is."
+          "description": "The order status reason identifier."
         }
       },
-      "description": "An order for a specific Trading Account"
+      "description": "An order for a specific Trading Account."
     },
     "PriceBarDTO": {
       "id": "PriceBarDTO",
@@ -1459,7 +1558,7 @@
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The current Offer price (price at which the customer can buy, some times referred to as Ask price)."
+          "description": "The current Offer price (price at which the customer can buy, sometimes referred to as Ask price)."
         },
         "Price": {
           "type": "number",
@@ -1480,24 +1579,24 @@
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The lowest price reached for the day"
+          "description": "The lowest price reached for the day."
         },
         "Change": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The change since the last price (always positive. See Direction for direction)"
+          "description": "The change since the last price (always positive). See Direction for direction of the change."
         },
         "Direction": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The direction of movement since the last price. 1 == up, 0 == down"
+          "description": "The direction of movement since the last price. 1 == up, 0 == down."
         },
         "AuditId": {
           "type": "string",
-          "description": "A unique id for this price. Treat as a unique, but random string"
+          "description": "A unique ID for this price. Treat as a unique, but random string."
         }
       },
       "description": "A Price for a specific Market."
@@ -2446,62 +2545,62 @@
         {
           "value": 0,
           "label": "NoError",
-          "description": "\n            No error has occured.\n            "
+          "description": "No error has occured."
         },
         {
           "value": 403,
           "label": "Forbidden",
-          "description": "\n            The server understood the request, but is refusing to fulfill it. \n            "
+          "description": "The server understood the request, but is refusing to fulfill it."
         },
         {
           "value": 500,
           "label": "InternalServerError",
-          "description": "\n            An unexpected condition was encountered by the server preventing it from fulfilling the request.  \n            "
+          "description": "An unexpected condition was encountered by the server preventing it from fulfilling the request."
         },
         {
           "value": 4000,
           "label": "InvalidParameterType",
-          "description": "\n            Server could not understand request due to an invalid parameter type. \n            "
+          "description": "Server could not understand request due to an invalid parameter type."
         },
         {
           "value": 4001,
           "label": "ParameterMissing",
-          "description": "\n            Server could not understand request due to a missing parameter.\n            "
+          "description": "Server could not understand request due to a missing parameter."
         },
         {
           "value": 4002,
           "label": "InvalidParameterValue",
-          "description": "\n            Server could not understand request due to an invalid parameter value. \n            "
+          "description": "Server could not understand request due to an invalid parameter value."
         },
         {
           "value": 4003,
           "label": "InvalidJsonRequest",
-          "description": "\n            Server could not understand request due to an invalid JSON request. \n            "
+          "description": "Server could not understand request due to an invalid JSON request."
         },
         {
           "value": 4004,
           "label": "InvalidJsonRequestCaseFormat",
-          "description": "\n            Server could not understand request due to an invalid JSON case format. \n            "
+          "description": "Server could not understand request due to an invalid JSON case format."
         },
         {
           "value": 4010,
           "label": "InvalidCredentials",
-          "description": "\n            The credentials used to authenticate are invalid. Either the username, password or both are incorrect.\n            "
+          "description": "The credentials used to authenticate are invalid. Either the username, password or both are incorrect."
         },
         {
           "value": 4011,
           "label": "InvalidSession",
-          "description": "\n            The session credentials supplied are invalid.\n            "
+          "description": "The session credentials supplied are invalid."
         },
         {
           "value": 5001,
           "label": "NoDataAvailable",
-          "description": "\n            There is no data available.\n            "
+          "description": "There is no data available."
         },
         {
           "value": 5002,
           "label": "Throttling",
-          "description": "\n            Request has been throttled.\n            "
+          "description": "Request has been throttled."
         }
       ],
       "description": "This is a description of the ErrorCode enum.",
@@ -2610,6 +2709,21 @@
         }
       },
       "description": "Response containing the order. Only one of the two fields will be populated depending upon the type of order (Trade or Stop / Limit)."
+    },
+    "ApiSaveAccountInformationRequestDTO": {
+      "id": "ApiSaveAccountInformationRequestDTO",
+      "type": "object",
+      "properties": {
+        "PersonalEmailAddress": {
+          "type": "string",
+          "description": "The personal email address for the user."
+        },
+        "PersonalEmailAddressIsDirty": {
+          "type": "boolean",
+          "description": "Setting to indicate if the personal email value has changed."
+        }
+      },
+      "description": "Request to change account information."
     },
     "ListTradeHistoryResponseDTO": {
       "id": "ListTradeHistoryResponseDTO",
