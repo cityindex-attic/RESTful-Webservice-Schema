@@ -53,13 +53,13 @@
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="GeneratorTestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="TestData\valid\RESTWebServices.20111201\RESTWebServices.dll.lastcodeanalysissucceeded">
+    <None Include="TestData\valid\RESTWebServices.dll.lastcodeanalysissucceeded">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\valid\RESTWebServices.20111201\Metadata\streaming.fragment.json">
+    <None Include="TestData\valid\Metadata\streaming.fragment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\valid\RESTWebServices.20111201\Web.config">
+    <None Include="TestData\valid\Web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -117,43 +117,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServices.dll">
+    <Content Include="TestData\valid\RESTWebServices.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServices.dll.CodeAnalysisLog.xml">
+    <Content Include="TestData\valid\RESTWebServices.dll.CodeAnalysisLog.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServices.pdb">
+    <Content Include="TestData\valid\RESTWebServices.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServices.XML">
+    <Content Include="TestData\valid\RESTWebServices.XML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServicesDTO.dll">
+    <Content Include="TestData\valid\RESTWebServicesDTO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServicesDTO.pdb">
+    <Content Include="TestData\valid\RESTWebServicesDTO.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\RESTWebServicesDTO.xml">
+    <Content Include="TestData\valid\RESTWebServicesDTO.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\TradingApi.CoreDTO.dll">
+    <Content Include="TestData\valid\TradingApi.CoreDTO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\TradingApi.CoreDTO.pdb">
+    <Content Include="TestData\valid\TradingApi.CoreDTO.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\TradingApi.CoreDTO.xml">
+    <Content Include="TestData\valid\TradingApi.CoreDTO.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\Metadata\MetadataGeneration.results.txt">
+    <Content Include="TestData\valid\Metadata\MetadataGeneration.results.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\Metadata\schema.json.js">
+    <Content Include="TestData\valid\Metadata\schema.json.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\valid\RESTWebServices.20111201\Metadata\smd.json.js">
+    <Content Include="TestData\valid\Metadata\smd.json.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

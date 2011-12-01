@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using System.Linq;
 
-namespace MetadataGeneration.Core.Tests
+namespace CIAPI.MetadataGenerator.Tests
 {
     [TestFixture]
     public class GeneratorExpectedFailuresTests : GeneratorTestsBase

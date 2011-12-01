@@ -1,4 +1,5 @@
 ﻿using System;
+using CIAPI.MetadataGenerator.Tests;
 using MetadataGeneration.Core.JsonSchemaDTO;
 using NUnit.Framework;
 

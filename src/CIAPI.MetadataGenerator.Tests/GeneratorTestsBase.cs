@@ -1,9 +1,6 @@
-using System;
-using System.IO;
-using System.Reflection;
-using NUnit.Framework;
+using MetadataGeneration.Core;
 
-namespace MetadataGeneration.Core.Tests
+namespace CIAPI.MetadataGenerator.Tests
 {
     public class GeneratorTestsBase
     {
