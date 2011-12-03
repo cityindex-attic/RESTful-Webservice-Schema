@@ -53,6 +53,18 @@
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="GeneratorTestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="TestData\invalid\RESTWebservices.0.448\Web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\invalid\RESTWebservices.0.869\Web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\invalid\RESTWebServices.0.975\Metadata\streaming.fragment.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\invalid\RESTWebServices.0.975\Web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\valid\RESTWebServices.dll.lastcodeanalysissucceeded">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -65,50 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\invalid\RESTWebservices.0.448\Web.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\Web.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TestData\invalid\RESTWebservices.0.448\RESTWebServices.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.448\RESTWebServices.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.448\RESTWebServicesDTO.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.448\RESTWebServicesDTO.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.448\TradingApi.CoreDTO.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.448\TradingApi.CoreDTO.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\RESTWebServices.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\RESTWebServices.XML">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\RESTWebServicesDTO.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\RESTWebServicesDTO.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\TradingApi.CoreDTO.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\invalid\RESTWebservices.0.869\TradingApi.CoreDTO.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lib\webservice-schema\src\MetadataGeneration.Core\MetadataGeneration.Core.csproj">
@@ -117,6 +85,60 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\invalid\RESTWebservices.0.448\RESTWebServices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.448\RESTWebServicesDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.448\TradingApi.CoreDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\RESTWebServices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\RESTWebServices.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\RESTWebServicesDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\RESTWebServicesDTO.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\TradingApi.CoreDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebservices.0.869\TradingApi.CoreDTO.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\Metadata\MetadataGeneration.results.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\Metadata\schema.json.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\Metadata\smd.json.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\RESTWebServices.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\RESTWebServices.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\RESTWebServicesDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\RESTWebServicesDTO.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\TradingApi.CoreDTO.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\invalid\RESTWebServices.0.975\TradingApi.CoreDTO.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\valid\RESTWebServices.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -157,6 +179,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
