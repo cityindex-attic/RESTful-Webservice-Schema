@@ -1,0 +1,16 @@
+attrib /S -R *.*
+xcopy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\Metadata 											C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\Metadata
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll							C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll											
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll.CodeAnalysisLog.xml        C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll.CodeAnalysisLog.xml
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll.lastcodeanalysissucceeded  C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll.lastcodeanalysissucceeded
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.pdb                            C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.pdb
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.XML                            C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.XML
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServicesDTO.dll                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServicesDTO.dll
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServicesDTO.pdb                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServicesDTO.pdb
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServicesDTO.xml                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServicesDTO.xml
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\TradingApi.CoreDTO.dll                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\TradingApi.CoreDTO.dll
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\TradingApi.CoreDTO.pdb                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\TradingApi.CoreDTO.pdb
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\TradingApi.CoreDTO.xml                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\TradingApi.CoreDTO.xml
+copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\Web.config                                         C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\Web.config
+
+pause

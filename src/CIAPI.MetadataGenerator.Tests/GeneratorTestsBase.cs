@@ -7,7 +7,5 @@ namespace CIAPI.MetadataGenerator.Tests
         protected string _dtoAssemblyBasePath;
         protected WcfConfigReader _wcfConfigReader = new WcfConfigReader();
         protected Generator _generator = new Generator();
-
-       
     }
 }

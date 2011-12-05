@@ -357,7 +357,14 @@
         <member name="M:RESTWebServices.INews.ListNewsHeadlinesWithoutCategory(System.String,System.Int32)">
             <smd exclude="true" />
         </member>
-        <!-- Badly formed XML comment ignored for member "M:RESTWebServices.INews.GetNewsDetail(System.String,System.String)" -->
+        <member name="M:RESTWebServices.INews.GetNewsDetail(System.String,System.String)">
+            <summary>
+             Get the detail of the specific news story matching the story Id in the parameter. 
+            </summary>
+            <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story Id.</param>
+            <param name="source" demoValue="dj">The news feed source provider. Valid options are dj|mni|ci.</param>
+             <smd group="News" cacheDuration="10000" throttleScope="data"/>
+        </member>
         <member name="M:RESTWebServices.INews.ListNewsHeadlines(System.String,System.Int32)">
             <smd exclude="true" />
         </member>
@@ -366,7 +373,12 @@
             
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:RESTWebServices.IReadAndReturn.GetDefaultResponse" -->
+	<member name="M:RESTWebServices.IReadAndReturn.GetDefaultResponse">
+            <summary>
+            sample Url:
+            </summary>
+            <smd exclude="true" />
+        </member>
         <member name="T:RESTWebServices.ServiceHostFactory.G2AuthenticatedServiceHostFactory">
             <summary>
             </summary>
@@ -554,7 +566,27 @@
             </summary>
             <smd/>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:RESTWebServices.IMarketPriceHistoryService.GetPriceBars(System.String,System.String,System.Int32,System.String)" -->
+<member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceBars(System.String,System.String,System.Int32,System.String)">
+            <summary>
+             Get historic price bars for the specified market in OHLC (open, high, low, close) format, suitable for plotting 
+             in candlestick charts. Returns price bars in ascending order up to the current time. When there are no prices for 
+             a particular time period, no price bar is returned. Thus, it can appear that the array of price bars 
+             has &quot;gaps&quot;, i.e. the gap between the date &amp; time of each price bar might not be equal to interval x span.
+             
+             Sample Urls:
+             &lt;ul&gt;
+                 &lt;li&gt;/market/1234/history?interval=MINUTE&amp;span=15&amp;pricebars=180&lt;/li&gt;
+                 &lt;li&gt;/market/735/history?interval=HOUR&amp;span=1&amp;pricebars=240&lt;/li&gt;
+                 &lt;li&gt;/market/1577/history?interval=DAY&amp;span=1&amp;pricebars=10&lt;/li&gt;
+             &lt;/ul&gt;
+             
+            </summary>
+            <param name="marketId" demoValue="71442">The marketId.</param>
+            <param name="interval" demoValue="MINUTE">The pricebar interval.</param>
+            <param name="span" demoValue="1">The number of each interval per pricebar.</param>
+            <param name="priceBars" demoValue="15">The total number of pricebars to return.</param>
+            <smd group="Price History"  cacheDuration="0" throttleScope="data"/>
+        </member>
         <member name="M:RESTWebServices.IMarketPriceHistoryService.GetPriceTicks(System.String,System.String)">
             <summary>
              Get historic price ticks for the specified market.  

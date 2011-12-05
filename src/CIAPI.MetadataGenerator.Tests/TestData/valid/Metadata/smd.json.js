@@ -83,6 +83,47 @@
             }
           ]
         },
+        "GetPriceBars": {
+          "description": "Get historic price bars for the specified market in OHLC (open, high, low, close) format, suitable for plotting in candlestick charts. Returns price bars in ascending order up to the current time. When there are no prices for a particular time period, no price bar is returned. Thus, it can appear that the array of price bars has \"gaps\", i.e. the gap between the date & time of each price bar might not be equal to interval x span. Sample Urls: <ul> <li>/market/1234/history?interval=MINUTE&span=15&pricebars=180</li> <li>/market/735/history?interval=HOUR&span=1&pricebars=240</li> <li>/market/1577/history?interval=DAY&span=1&pricebars=10</li> </ul>",
+          "target": "market",
+          "uriTemplate": "/{marketId}/barhistory?interval={interval}&span={span}&pricebars={priceBars}",
+          "contentType": "application/json",
+          "responseContentType": "application/json",
+          "transport": "GET",
+          "envelope": "URL",
+          "returns": {
+            "$ref": "#.GetPriceBarResponseDTO"
+          },
+          "group": "Price History",
+          "cacheDuration": 0,
+          "throttleScope": "data",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "marketId",
+              "description": "The marketId.",
+              "demoValue": "71442"
+            },
+            {
+              "type": "string",
+              "name": "interval",
+              "description": "The pricebar interval.",
+              "demoValue": "MINUTE"
+            },
+            {
+              "type": "integer",
+              "name": "span",
+              "description": "The number of each interval per pricebar.",
+              "demoValue": 1
+            },
+            {
+              "type": "string",
+              "name": "priceBars",
+              "description": "The total number of pricebars to return.",
+              "demoValue": "15"
+            }
+          ]
+        },
         "GetPriceTicks": {
           "description": "Get historic price ticks for the specified market. Returns price ticks in ascending order up to the current time. The length of time that elapses between each tick is usually different.",
           "target": "market",
@@ -149,6 +190,37 @@
               "default": 25,
               "minimum": 1,
               "maximum": 500
+            }
+          ]
+        },
+        "GetNewsDetail": {
+          "description": "Get the detail of the specific news story matching the story Id in the parameter.",
+          "target": "news",
+          "uriTemplate": "/detail/{source}/{storyId}",
+          "contentType": "application/json",
+          "responseContentType": "application/json",
+          "transport": "GET",
+          "envelope": "URL",
+          "returns": {
+            "$ref": "#.GetNewsDetailResponseDTO"
+          },
+          "group": "News",
+          "cacheDuration": 10000,
+          "throttleScope": "data",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "source",
+              "description": "The news feed source provider. Valid options are dj|mni|ci.",
+              "demoValue": "dj"
+            },
+            {
+              "type": "string",
+              "name": "storyId",
+              "description": "The news story Id.",
+              "demoValue": "12654",
+              "minLength": 1,
+              "maxLength": 9
             }
           ]
         },
