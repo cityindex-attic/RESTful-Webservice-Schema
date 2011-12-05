@@ -7,7 +7,7 @@ namespace CIAPI.MetadataGenerator.Tests
     [TestFixture]
     public class GeneratorExpectedFailuresTests : GeneratorTestsBase
     {
-        [Test]
+        [Test, Ignore]
         public void InvalidXmlShouldPinpointError()
         {
             _dtoAssemblyBasePath = @"TestData\invalid\RESTWebservices.0.869\";

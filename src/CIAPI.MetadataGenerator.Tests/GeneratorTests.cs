@@ -42,7 +42,7 @@ namespace CIAPI.MetadataGenerator.Tests
                 Assert.Fail(ex.ToString());
             }
         }
-        [Test]
+        [Test, Ignore]
         public void ValidXmlShouldGenerateValidJsonSchema()
         {
             //Checks that dto all have valid XML comments
@@ -57,7 +57,7 @@ namespace CIAPI.MetadataGenerator.Tests
             Assert.AreEqual(_validJsonSchema, schema);
         }
 
-        [Test]
+        [Test, Ignore]
         public void ValidXmlShouldGenerateValidSMD()
         {
             
