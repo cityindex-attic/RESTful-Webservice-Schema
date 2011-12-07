@@ -91,6 +91,7 @@
         </member>
         <member name="T:RESTWebServicesDTO.Response.ApiSaveMarketInformationResponseDTO">
             <summary>
+            An (empty) response to indicate that the save market information operation has completed. 
             </summary>
             <jschema />
         </member>
@@ -229,7 +230,7 @@
         </member>
         <member name="T:RESTWebServicesDTO.Request.UpdateStopLimitOrderRequestDTO">
             <summary>
-            A request for updating a stop/limit order
+            A request to update a stop/limit order. 
             </summary>
             <jschema/>
         </member>
@@ -362,13 +363,13 @@
         </member>
         <member name="T:RESTWebServicesDTO.Response.SystemStatusDTO">
             <summary>
-             system status
+             Response containing the system status. 
             </summary>
              <jschema />
         </member>
         <member name="P:RESTWebServicesDTO.Response.SystemStatusDTO.StatusMessage">
             <summary>
-             a status message
+             The status message. 
             </summary>
              <jschema />
         </member>
@@ -538,19 +539,19 @@
         </member>
         <member name="T:RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO">
             <summary>
-            A request for updating a trade order
+            A request to update a trade order. 
             </summary>
             <jschema/>
         </member>
         <member name="T:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO">
             <summary>
-            A request for a trade order
+            A request for a trade order.
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.MarketId">
             <summary>
-             A market&apos;s unique identifier
+             The unique identifier for a market. 
             </summary>
              <jschema
              minimum="1000000" 
@@ -560,20 +561,20 @@
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.Currency">
             <summary>
-            Currency to place order in
+            Currency to place order in.
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.AutoRollover">
             <summary>
             Flag to indicate whether the trade will automatically roll into the 
-            next market when the current market expires
+            next market interval when the current market interval expires. 
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.Direction">
             <summary>
-            Direction identifier for order/trade, values supported are buy or sell
+            Direction identifier for order/trade, values supported are buy or sell.
             </summary>
             <jschema
             demoValue="buy"
@@ -581,7 +582,7 @@
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.Quantity">
             <summary>
-            Size of the order/trade
+            Size of the order/trade. 
             </summary>
             <jschema
             demoValue="1"
@@ -589,14 +590,14 @@
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.QuoteId">
             <summary>
-            Quote Id 
+            The quote identifier.  
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.BidPrice">
             <summary>
             Market prices are quoted as a pair (buy/sell or bid/offer), 
-            the BidPrice is the lower of the two
+            the BidPrice is the lower value of the pair.
             </summary>
             <jschema
             demoValue="100"
@@ -605,7 +606,7 @@
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.OfferPrice">
             <summary>
             Market prices are quote as a pair (buy/sell or bid/offer),
-            the OfferPrice is the higher of the market price pair 
+            the OfferPrice is the higher value of the pair. 
             </summary>
             <jschema
             demoValue="110"
@@ -613,7 +614,7 @@
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.AuditId">
             <summary>
-            Unique identifier for a price tick
+            Unique identifier for a price tick.
             </summary>
             <jschema
             demoValue="5998CBE8-3594-4232-A57E-09EC3A4E7AA8"
@@ -621,27 +622,27 @@
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.TradingAccountId">
             <summary>
-            TradingAccount associated with the trade/order request
+            The ID of the TradingAccount associated with the trade/order request.
             </summary>
             <jschema demoValue="1"/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.IfDone">
             <summary>
-            List of IfDone Orders which will be filled when
-            the initial trade/order is triggered
+            List of If/Done Orders that will be filled when
+            the initial trade/order is triggered. 
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.NewTradeOrderRequestDTO.Close">
             <summary>
-            List of existing order id's that require part
-            or full closure
+            List of existing order ID's that require part
+            or full closure. 
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.UpdateTradeOrderRequestDTO.OrderId">
             <summary>
-            Order identifier of the order to update
+            The identifier of the order to update. 
             </summary>
             <jschema/>
         </member>
@@ -835,13 +836,13 @@
         </member>
         <member name="T:RESTWebServicesDTO.Request.SystemStatusRequestDTO">
             <summary>
-            system status request.
+            System status request.
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.SystemStatusRequestDTO.TestDepth">
             <summary>
-            depth to test.
+            Depth to test.
             </summary>
             <jschema />
         </member>
@@ -900,6 +901,7 @@
         </member>
         <member name="T:RESTWebServicesDTO.Response.ApiSaveWatchlistResponseDTO">
             <summary>
+            An (empty) response to indicate the save watchlist operation has completed.
             </summary>
             <jschema />
         </member>
@@ -917,13 +919,13 @@
         </member>
         <member name="T:RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO">
             <summary>
-            Get market information for a list of markets.
+            Request to update the display order of items in a watchlist. 
             </summary>
             <jschema/>
         </member>
         <member name="P:RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO.NewDisplayOrderIdSequence">
             <summary>
-            Represents the new client watchlist displayOrderId list sequence
+            Represents the new client watchlist displayOrderId list sequence. 
             </summary>
             <jschema />
         </member>

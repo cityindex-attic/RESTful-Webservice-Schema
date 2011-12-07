@@ -1065,13 +1065,13 @@
         </member>
         <member name="T:TradingApi.CoreDTO.PriceBarDTO">
             <summary>
-             The details of a specific price bar, useful for plotting candlestick charts
+             The details of a specific price bar, useful for plotting candlestick charts.
             </summary>
              <jschema />
         </member>
         <member name="P:TradingApi.CoreDTO.PriceBarDTO.BarDate">
             <summary>
-             The date of the start of the price bar interval
+             The starting date for the price bar interval. 
             </summary>
              <jschema
              format="wcf-date"
@@ -1080,7 +1080,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.PriceBarDTO.Open">
             <summary>
-             For the equities model of charting, this is the price at the start of the price bar interval.
+             The price at the start (open) of the price bar interval.
             </summary>
              <jschema
              demoValue="1.5"
@@ -1088,7 +1088,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.PriceBarDTO.High">
             <summary>
-             The highest price occurring during the interval of the price bar
+             The highest price occurring during the interval of the price bar.
             </summary>
              <jschema
              demoValue="2.343"
@@ -1096,7 +1096,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.PriceBarDTO.Low">
             <summary>
-             The lowest price occurring during the interval of the price bar
+             The lowest price occurring during the interval of the price bar. 
             </summary>
              <jschema
              demoValue="1.3423"
@@ -1104,7 +1104,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.PriceBarDTO.Close">
             <summary>
-             The price at the end of the price bar interval
+             The price at the end (close) of the price bar interval. 
             </summary>
              <jschema
              demoValue="2.42"
@@ -1549,13 +1549,13 @@
         </member>
         <member name="T:TradingApi.CoreDTO.PriceTickDTO">
             <summary>
-             The mid price at a particular point in time.
+             The mid price at the point in time of the price tick.
             </summary>
              <jschema />
         </member>
         <member name="P:TradingApi.CoreDTO.PriceTickDTO.TickDate">
             <summary>
-             The datetime at which a price tick occurred.  Accurate to the millisecond
+             The date time at which a price tick occurred. Accurate to the millisecond. 
             </summary>
              <jschema
                 format="wcf-date"
@@ -1564,7 +1564,7 @@
         </member>
         <member name="P:TradingApi.CoreDTO.PriceTickDTO.Price">
             <summary>
-             The mid price
+             The mid price. 
             </summary>
              <jschema
                 minimum="0"

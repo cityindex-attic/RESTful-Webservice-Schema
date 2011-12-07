@@ -790,7 +790,7 @@
           ]
         },
         "GetClientAndTradingAccount": {
-          "description": "Returns the Users ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.",
+          "description": "Returns the User's ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.",
           "target": "useraccount",
           "uriTemplate": "/UserAccount/ClientAndTradingAccount",
           "contentType": "application/json",
@@ -1086,6 +1086,25 @@
               "name": "marketIds",
               "description": "The marketIds",
               "demoValue": "[\"71442\", \"71443\"]"
+            }
+          ]
+        },
+        "DefaultPrices": {
+          "description": "Stream of default prices for the specified account operator.  This stream does not require authentication, so can be used on a public website.  NB:  This stream returns prices for a group of markets, so check the MarketId & Name field when displaying.",
+          "endpoint": "CITYINDEXSTREAMINGDEFAULTPRICES",
+          "channel": "{AccountOperatorId}",
+          "transport": "HTTP",
+          "protocol": "lightstreamer-4",
+          "returns": {
+            "$ref": "#.PriceDTO"
+          },
+          "group": "Streaming API",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "AccountOperatorId",
+              "description": "The account operator id whose default market prices are required.  Generally you want to hardcode this depending on the brand you are using.  See http://faq.labs.cityindex.com/questions/what-are-the-list-of-accountoperatorids",
+              "demoValue": "3347"
             }
           ]
         },

@@ -921,38 +921,38 @@
         "BarDate": {
           "type": "string",
           "format": "wcf-date",
-          "description": "The date of the start of the price bar interval"
+          "description": "The starting date for the price bar interval."
         },
         "Open": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "For the equities model of charting, this is the price at the start of the price bar interval."
+          "description": "The price at the start (open) of the price bar interval."
         },
         "High": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The highest price occurring during the interval of the price bar"
+          "description": "The highest price occurring during the interval of the price bar."
         },
         "Low": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The lowest price occurring during the interval of the price bar"
+          "description": "The lowest price occurring during the interval of the price bar."
         },
         "Close": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The price at the end of the price bar interval"
+          "description": "The price at the end (close) of the price bar interval."
         }
       },
-      "description": "The details of a specific price bar, useful for plotting candlestick charts"
+      "description": "The details of a specific price bar, useful for plotting candlestick charts."
     },
     "ApiPrimaryMarketTagDTO": {
       "id": "ApiPrimaryMarketTagDTO",
@@ -1391,17 +1391,17 @@
         "TickDate": {
           "type": "string",
           "format": "wcf-date",
-          "description": "The datetime at which a price tick occurred. Accurate to the millisecond"
+          "description": "The date time at which a price tick occurred. Accurate to the millisecond."
         },
         "Price": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "The mid price"
+          "description": "The mid price."
         }
       },
-      "description": "The mid price at a particular point in time."
+      "description": "The mid price at the point in time of the price tick."
     },
     "ApiIfDoneDTO": {
       "id": "ApiIfDoneDTO",
@@ -1577,7 +1577,7 @@
       "id": "ApiSaveMarketInformationResponseDTO",
       "type": "object",
       "properties": {},
-      "description": ""
+      "description": "An (empty) response to indicate that the save market information operation has completed."
     },
     "AccountInformationResponseDTO": {
       "id": "AccountInformationResponseDTO",
@@ -1757,7 +1757,7 @@
       "type": "object",
       "extends": "#/NewStopLimitOrderRequestDTO",
       "properties": {},
-      "description": "A request for updating a stop/limit order"
+      "description": "A request to update a stop/limit order."
     },
     "SystemStatusDTO": {
       "id": "SystemStatusDTO",
@@ -1765,10 +1765,10 @@
       "properties": {
         "StatusMessage": {
           "type": "string",
-          "description": "a status message"
+          "description": "The status message."
         }
       },
-      "description": "system status"
+      "description": "Response containing the system status."
     },
     "ApiSaveAccountInformationResponseDTO": {
       "id": "ApiSaveAccountInformationResponseDTO",
@@ -1949,26 +1949,26 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "A market's unique identifier"
+          "description": "The unique identifier for a market."
         },
         "Currency": {
           "type": "string",
-          "description": "Currency to place order in"
+          "description": "Currency to place order in."
         },
         "AutoRollover": {
           "type": "boolean",
-          "description": "Flag to indicate whether the trade will automatically roll into the next market when the current market expires"
+          "description": "Flag to indicate whether the trade will automatically roll into the next market interval when the current market interval expires."
         },
         "Direction": {
           "type": "string",
-          "description": "Direction identifier for order/trade, values supported are buy or sell"
+          "description": "Direction identifier for order/trade, values supported are buy or sell."
         },
         "Quantity": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "Size of the order/trade"
+          "description": "Size of the order/trade."
         },
         "QuoteId": {
           "type": [
@@ -1977,31 +1977,31 @@
           ],
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Quote Id"
+          "description": "The quote identifier."
         },
         "BidPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "Market prices are quoted as a pair (buy/sell or bid/offer), the BidPrice is the lower of the two"
+          "description": "Market prices are quoted as a pair (buy/sell or bid/offer), the BidPrice is the lower value of the pair."
         },
         "OfferPrice": {
           "type": "number",
           "format": "decimal",
           "minValue": -7.9228162514264338E+28,
           "maxValue": 7.9228162514264338E+28,
-          "description": "Market prices are quote as a pair (buy/sell or bid/offer), the OfferPrice is the higher of the market price pair"
+          "description": "Market prices are quote as a pair (buy/sell or bid/offer), the OfferPrice is the higher value of the pair."
         },
         "AuditId": {
           "type": "string",
-          "description": "Unique identifier for a price tick"
+          "description": "Unique identifier for a price tick."
         },
         "TradingAccountId": {
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "TradingAccount associated with the trade/order request"
+          "description": "The ID of the TradingAccount associated with the trade/order request."
         },
         "IfDone": {
           "type": "array",
@@ -2010,7 +2010,7 @@
               "$ref": "#.ApiIfDoneDTO"
             }
           ],
-          "description": "List of IfDone Orders which will be filled when the initial trade/order is triggered"
+          "description": "List of If/Done Orders that will be filled when the initial trade/order is triggered."
         },
         "Close": {
           "type": "array",
@@ -2019,10 +2019,10 @@
           ],
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "List of existing order id's that require part or full closure"
+          "description": "List of existing order ID's that require part or full closure."
         }
       },
-      "description": "A request for a trade order"
+      "description": "A request for a trade order."
     },
     "UpdateTradeOrderRequestDTO": {
       "id": "UpdateTradeOrderRequestDTO",
@@ -2033,10 +2033,10 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Order identifier of the order to update"
+          "description": "The identifier of the order to update."
         }
       },
-      "description": "A request for updating a trade order"
+      "description": "A request to update a trade order."
     },
     "GetPriceTickResponseDTO": {
       "id": "GetPriceTickResponseDTO",
@@ -2244,10 +2244,10 @@
       "properties": {
         "TestDepth": {
           "type": "string",
-          "description": "depth to test."
+          "description": "Depth to test."
         }
       },
-      "description": "system status request."
+      "description": "System status request."
     },
     "GetOrderResponseDTO": {
       "id": "GetOrderResponseDTO",
@@ -2303,7 +2303,7 @@
       "id": "ApiSaveWatchlistResponseDTO",
       "type": "object",
       "properties": {},
-      "description": ""
+      "description": "An (empty) response to indicate the save watchlist operation has completed."
     },
     "ApiDeleteWatchlistResponseDTO": {
       "id": "ApiDeleteWatchlistResponseDTO",
@@ -2327,10 +2327,10 @@
           ],
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "Represents the new client watchlist displayOrderId list sequence"
+          "description": "Represents the new client watchlist displayOrderId list sequence."
         }
       },
-      "description": "Get market information for a list of markets."
+      "description": "Request to update the display order of items in a watchlist."
     },
     "ListMarketInformationRequestDTO": {
       "id": "ListMarketInformationRequestDTO",

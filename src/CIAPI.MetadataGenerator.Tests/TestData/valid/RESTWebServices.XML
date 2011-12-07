@@ -260,7 +260,7 @@
         </member>
         <member name="M:RESTWebServices.IAccountInformationService.GetClientAndTradingAccount">
             <summary>
-            Returns the Users ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.
+            Returns the User's ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.
             </summary>
             <returns></returns>
             <smd group="AccountInformation" throttleScope="data" cacheDuration="0"/>
