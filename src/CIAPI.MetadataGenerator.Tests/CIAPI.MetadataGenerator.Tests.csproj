@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratorExpectedFailuresTests.cs" />
+    <None Include="App.Config" />
     <None Include="AuditorTests.cs" />
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="GeneratorTestsBase.cs" />
@@ -73,6 +74,7 @@
     </None>
     <None Include="TestData\valid\Web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
