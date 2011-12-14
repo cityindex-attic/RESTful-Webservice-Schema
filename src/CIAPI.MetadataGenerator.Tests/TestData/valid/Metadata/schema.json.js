@@ -171,7 +171,7 @@
     "ApiStopLimitOrderDTO": {
       "id": "ApiStopLimitOrderDTO",
       "type": "object",
-      "extends": "#/ApiOrderDTO",
+      "extends": "#.ApiOrderDTO",
       "properties": {
         "TriggerPrice": {
           "type": "number",
@@ -387,7 +387,7 @@
     "ApiCultureLookupDTO": {
       "id": "ApiCultureLookupDTO",
       "type": "object",
-      "extends": "#/ApiLookupDTO",
+      "extends": "#.ApiLookupDTO",
       "properties": {
         "Code": {
           "type": "string",
@@ -553,7 +553,7 @@
     "NewsDetailDTO": {
       "id": "NewsDetailDTO",
       "type": "object",
-      "extends": "#/NewsDTO",
+      "extends": "#.NewsDTO",
       "properties": {
         "Story": {
           "type": "string",
@@ -801,7 +801,7 @@
     "ApiTradeOrderDTO": {
       "id": "ApiTradeOrderDTO",
       "type": "object",
-      "extends": "#/ApiOrderDTO",
+      "extends": "#.ApiOrderDTO",
       "properties": {},
       "description": "Represents a trade order."
     },
@@ -957,7 +957,7 @@
     "ApiPrimaryMarketTagDTO": {
       "id": "ApiPrimaryMarketTagDTO",
       "type": "object",
-      "extends": "#/ApiMarketTagDTO",
+      "extends": "#.ApiMarketTagDTO",
       "properties": {
         "Children": {
           "type": "array",
@@ -1755,7 +1755,7 @@
     "UpdateStopLimitOrderRequestDTO": {
       "id": "UpdateStopLimitOrderRequestDTO",
       "type": "object",
-      "extends": "#/NewStopLimitOrderRequestDTO",
+      "extends": "#.NewStopLimitOrderRequestDTO",
       "properties": {},
       "description": "A request to update a stop/limit order."
     },
@@ -1840,7 +1840,7 @@
     "ApiStopLimitResponseDTO": {
       "id": "ApiStopLimitResponseDTO",
       "type": "object",
-      "extends": "#/ApiOrderResponseDTO",
+      "extends": "#.ApiOrderResponseDTO",
       "properties": {},
       "description": "The response from the stop limit order request"
     },
@@ -2027,7 +2027,7 @@
     "UpdateTradeOrderRequestDTO": {
       "id": "UpdateTradeOrderRequestDTO",
       "type": "object",
-      "extends": "#/NewTradeOrderRequestDTO",
+      "extends": "#.NewTradeOrderRequestDTO",
       "properties": {
         "OrderId": {
           "type": "integer",
