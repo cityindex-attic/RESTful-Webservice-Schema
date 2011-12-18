@@ -974,7 +974,7 @@
         },
         "SaveWatchlist": {
           "description": "Save watchlist.",
-          "target": "watchlists",
+          "target": "watchlist",
           "uriTemplate": "/Save",
           "contentType": "application/json",
           "responseContentType": "application/json",
@@ -996,7 +996,7 @@
         },
         "DeleteWatchlist": {
           "description": "Delete a watchlist.",
-          "target": "watchlists",
+          "target": "watchlist",
           "uriTemplate": "/delete",
           "contentType": "application/json",
           "responseContentType": "application/json",
