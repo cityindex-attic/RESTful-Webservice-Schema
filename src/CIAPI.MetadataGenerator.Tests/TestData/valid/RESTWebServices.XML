@@ -31,6 +31,7 @@
              group="Watchlist" 
              throttleScope="data"
              cacheDuration="0"
+             endpoint="watchlist"
              />
         </member>
         <member name="M:RESTWebServices.IWatchlistService.DeleteWatchlist(RESTWebServicesDTO.Request.ApiDeleteWatchlistRequestDTO)">
@@ -43,6 +44,7 @@
              group="Watchlist" 
              throttleScope="data"
              cacheDuration="0"
+             endpoint="watchlist"
              />
         </member>
         <member name="T:RESTWebServices.WatchlistService">
