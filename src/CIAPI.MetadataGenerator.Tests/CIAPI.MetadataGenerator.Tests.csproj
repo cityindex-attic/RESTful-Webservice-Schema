@@ -73,6 +73,7 @@
     </None>
     <None Include="TestData\valid\Web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

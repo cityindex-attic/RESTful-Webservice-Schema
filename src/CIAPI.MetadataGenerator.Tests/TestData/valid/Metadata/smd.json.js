@@ -1,6 +1,6 @@
 {
   "SMDVersion": "2.6",
-  "version": "1",
+  "version": "1.0.0.0",
   "description": "CIAPI SMD",
   "services": {
     "rpc": {
