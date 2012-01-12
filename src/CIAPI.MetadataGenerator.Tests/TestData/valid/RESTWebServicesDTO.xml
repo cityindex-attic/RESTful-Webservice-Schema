@@ -784,6 +784,24 @@
              demoValue="password"
              />
         </member>
+        <member name="P:RESTWebServicesDTO.Request.ApiLogOnRequestDTO.AppKey">
+            <summary>
+             A unique key use to identify the client application.
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:RESTWebServicesDTO.Request.ApiLogOnRequestDTO.AppVersion">
+            <summary>
+             The version of he client application.
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:RESTWebServicesDTO.Request.ApiLogOnRequestDTO.AppComments">
+            <summary>
+             Any comments the client applications what to associate with this session.  Optional.
+            </summary>
+             <jschema />
+        </member>
         <member name="T:RESTWebServicesDTO.Request.DeleteWatchlistItemRequestDTO">
             <summary>
              Delete watchlist item
@@ -1173,6 +1191,19 @@
                  minLength="36" 
                  maxLength="100" 
                  demoValue="D2FF3E4D-01EA-4741-86F0-437C919B5559"/>
+        </member>
+        <member name="P:RESTWebServicesDTO.Response.ApiLogOnResponseDTO.PasswordChangeRequired">
+            <summary>
+             Flag used it indicate if a password change is needed.  
+            </summary>
+             <jschema />
+        </member>
+        <member name="P:RESTWebServicesDTO.Response.ApiLogOnResponseDTO.AllowedAccountOperator">
+            <summary>
+             Flag used it indicate if the account operator to which this use is associated is allowed to 
+             access the application.  
+            </summary>
+             <jschema />
         </member>
         <member name="T:RESTWebServicesDTO.Response.ListOpenPositionsResponseDTO">
             <summary>

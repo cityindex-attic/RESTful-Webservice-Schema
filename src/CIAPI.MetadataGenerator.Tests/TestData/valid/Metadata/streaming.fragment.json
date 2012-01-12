@@ -2,7 +2,7 @@
     "target": "",
     "services": {
         "NewsHeadlines": {
-            "description": "Stream of current news headlines.  Try NEWS.HEADLINES.UK for a mock stream",
+            "description": "Stream of current news headlines. Try NEWS.HEADLINES.UK for a mock stream.",
             "target": "CITYINDEXSTREAMING",
             "channel": "NEWS.HEADLINES.{category}",
             "transport": "HTTP",
@@ -15,7 +15,7 @@
                 {
                     "type": "string",
                     "name": "category",
-                    "description": "A news category",
+                    "description": "A news category.",
                     "minLength": 1,
                     "maxLength": 100,
                     "demoValue": "UK"
@@ -23,7 +23,7 @@
             ]
         },
         "Prices": {
-            "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs",
+            "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs.",
             "target": "CITYINDEXSTREAMING",
             "channel": "PRICES.PRICE.{marketIds}",
             "transport": "HTTP",
@@ -42,7 +42,7 @@
                         }]
         },
 		"DefaultPrices": {
-                "description": "Stream of default prices for the specified account operator.  This stream does not require authentication, so can be used on a public website.  NB:  This stream returns prices for a group of markets, so check the MarketId & Name field when displaying.",
+                "description": "Stream of default prices for the specified account operator. This stream does not require authentication, so can be used on a public website.  NB:  This stream returns prices for a group of markets, so check the MarketId & Name field when displaying.",
                 "endpoint": "CITYINDEXSTREAMINGDEFAULTPRICES",
                 "channel": "{AccountOperatorId}",
                 "transport": "HTTP",
@@ -55,13 +55,13 @@
                {
                    "type": "string",
                    "name": "AccountOperatorId",
-                   "description": "The account operator id whose default market prices are required.  Generally you want to hardcode this depending on the brand you are using.  See http://faq.labs.cityindex.com/questions/what-are-the-list-of-accountoperatorids",
+                   "description": "The account operator ID whose default market prices are required. Generally you want to hardcode this depending on the brand you are using.  See http://faq.labs.cityindex.com/questions/what-are-the-list-of-accountoperatorids",
                    "demoValue": "3347"
                }
             ]
         },
 		"ClientAccountMargin": {
-            "description": "Stream of clients current margin",
+            "description": "Stream of clients current margin.",
             "target": "STREAMINGCLIENTACCOUNT", 
             "channel": "CLIENTACCOUNTMARGIN.ALL", 
             "transport": "HTTP", 
@@ -72,7 +72,7 @@
             "group": "Streaming API"
         },
 		"TradeMargin": {
-            "description": "Stream of trade margin",
+            "description": "Stream of trade margin.",
             "target": "STREAMINGCLIENTACCOUNT", 
             "channel": "TRADEMARGIN.All", 
             "transport": "HTTP", 
@@ -83,7 +83,7 @@
             "group": "Streaming API"
         },
 		"Orders": {
-            "description": "Stream of orders",
+            "description": "Stream of orders.",
             "target": "STREAMINGCLIENTACCOUNT", 
             "channel": "ORDERS.All", 
             "transport": "HTTP", 
@@ -94,7 +94,7 @@
             "group": "Streaming API"
         },
         "Quotes": {
-            "description": "Stream of quotes",
+            "description": "Stream of quotes.",
             "target": "STREAMINGTRADINGACCOUNT", 
             "channel": "QUOTE.ALL", 
             "transport": "HTTP", 

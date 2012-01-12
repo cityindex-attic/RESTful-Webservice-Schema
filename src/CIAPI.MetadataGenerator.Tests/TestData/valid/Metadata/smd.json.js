@@ -101,7 +101,7 @@
             {
               "type": "string",
               "name": "marketId",
-              "description": "The marketId.",
+              "description": "The ID of the market.",
               "demoValue": "71442"
             },
             {
@@ -142,7 +142,7 @@
             {
               "type": "string",
               "name": "marketId",
-              "description": "The marketId.",
+              "description": "The market ID.",
               "demoValue": "71442"
             },
             {
@@ -154,7 +154,7 @@
           ]
         },
         "ListNewsHeadlinesWithSource": {
-          "description": "Get a list of current news headlines",
+          "description": "Get a list of current news headlines.",
           "target": "news",
           "uriTemplate": "/{source}/{category}?MaxResults={maxResults}",
           "contentType": "application/json",
@@ -185,7 +185,7 @@
             {
               "type": "integer",
               "name": "maxResults",
-              "description": "Specify the maximum number of headlines returned",
+              "description": "Specify the maximum number of headlines returned.",
               "demoValue": 10,
               "default": 25,
               "minimum": 1,
@@ -194,9 +194,9 @@
           ]
         },
         "GetNewsDetail": {
-          "description": "Get the detail of the specific news story matching the story Id in the parameter.",
+          "description": "Get the detail of the specific news story matching the story ID in the parameter.",
           "target": "news",
-          "uriTemplate": "/detail/{source}/{storyId}",
+          "uriTemplate": "/{source}/{storyId}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -217,7 +217,7 @@
             {
               "type": "string",
               "name": "storyId",
-              "description": "The news story Id.",
+              "description": "The news story ID.",
               "demoValue": "12654",
               "minLength": 1,
               "maxLength": 9
@@ -227,7 +227,7 @@
         "ListCfdMarkets": {
           "description": "Returns a list of CFD markets filtered by market name and/or market code. Leave the market name and code parameters empty to return all markets available to the User.",
           "target": "cfd/markets",
-          "uriTemplate": "?MarketName={searchByMarketName}&MarketCode={searchByMarketCode}&ClientAccountId={clientAccountId}&MaxResults={maxResults}",
+          "uriTemplate": "?MarketName={searchByMarketName}&MarketCode={searchByMarketCode}&ClientAccountId={clientAccountId}&MaxResults={maxResults}&UseMobileShortName={useMobileShortName}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -242,7 +242,7 @@
             {
               "type": "string",
               "name": "searchByMarketName",
-              "description": "The characters that the CFD market name starts with (Optional).",
+              "description": "The characters that the CFD market name starts with. (Optional).",
               "demoValue": "voda",
               "minLength": 1,
               "maxLength": 120
@@ -250,7 +250,7 @@
             {
               "type": "string",
               "name": "searchByMarketCode",
-              "description": "The characters that the market code starts with, normally this is the RIC code for the market (Optional).",
+              "description": "The characters that the market code starts with, normally this is the RIC code for the market. (Optional).",
               "minLength": 1,
               "maxLength": 50
             },
@@ -271,13 +271,19 @@
               "minimum": 1,
               "maximum": 200,
               "default": 20
+            },
+            {
+              "type": "boolean",
+              "name": "useMobileShortName",
+              "description": "True if the market name should be in short form. Helpful when displaying data on a small screen.",
+              "default": false
             }
           ]
         },
         "ListSpreadMarkets": {
           "description": "Returns a list of Spread Betting markets filtered by market name and/or market code. Leave the market name and code parameters empty to return all markets available to the User.",
           "target": "spread/markets",
-          "uriTemplate": "?MarketName={searchByMarketName}&MarketCode={searchByMarketCode}&ClientAccountId={clientAccountId}&MaxResults={maxResults}",
+          "uriTemplate": "?MarketName={searchByMarketName}&MarketCode={searchByMarketCode}&ClientAccountId={clientAccountId}&MaxResults={maxResults}&UseMobileShortName={useMobileShortName}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -292,7 +298,7 @@
             {
               "type": "string",
               "name": "searchByMarketName",
-              "description": "The characters that the Spread market name starts with (Optional).",
+              "description": "The characters that the Spread market name starts with. (Optional).",
               "demoValue": "voda",
               "minLength": 1,
               "maxLength": 120
@@ -300,7 +306,7 @@
             {
               "type": "string",
               "name": "searchByMarketCode",
-              "description": "The characters that the Spread market code starts with, normally this is the RIC code for the market (Optional).",
+              "description": "The characters that the Spread market code starts with, normally this is the RIC code for the market. (Optional).",
               "demoValue": "VOD.L",
               "minLength": 1,
               "maxLength": 50
@@ -322,6 +328,12 @@
               "maximum": 500,
               "optional": true,
               "default": 20
+            },
+            {
+              "type": "boolean",
+              "name": "useMobileShortName",
+              "description": "True if the market name should be in short form. Helpful when displaying data on a small screen.",
+              "default": false
             }
           ]
         },
@@ -343,7 +355,7 @@
             {
               "type": "string",
               "name": "marketId",
-              "description": "The marketId.",
+              "description": "The market ID.",
               "demoValue": "71442"
             }
           ]
@@ -351,7 +363,7 @@
         "ListMarketInformationSearch": {
           "description": "<p>Returns market information for the markets that meet the search criteria.</p> The search can be performed by market code and/or market name, and can include CFDs and Spread Bet markets.",
           "target": "market",
-          "uriTemplate": "/market/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}",
+          "uriTemplate": "/market/informationsearch?SearchByMarketCode={searchByMarketCode}&SearchByMarketName={searchByMarketName}&SpreadProductType={spreadProductType}&CfdProductType={cfdProductType}&BinaryProductType={binaryProductType}&Query={query}&MaxResults={maxResults}&UseMobileShortName={useMobileShortName}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -404,13 +416,19 @@
               "name": "maxResults",
               "description": "The maximum number of results to return.",
               "demoValue": 50
+            },
+            {
+              "type": "boolean",
+              "name": "useMobileShortName",
+              "description": "True if the market name should be in short form.  Helpful when displaying data on a small screen.",
+              "default": false
             }
           ]
         },
         "SearchWithTags": {
           "description": "Get market information and tags for the markets that meet the search criteria.",
           "target": "market",
-          "uriTemplate": "/market/searchwithtags?Query={query}&TagId={tagId}&MaxResults={maxResults}",
+          "uriTemplate": "/market/searchwithtags?Query={query}&TagId={tagId}&MaxResults={maxResults}&UseMobileShortName={useMobileShortName}",
           "contentType": "application/json",
           "responseContentType": "application/json",
           "transport": "GET",
@@ -431,19 +449,25 @@
             {
               "type": "integer",
               "name": "tagId",
-              "description": "The ID for the tag to be searched (optional).",
+              "description": "The ID for the tag to be searched. (Optional).",
               "demoValue": 0
             },
             {
               "type": "integer",
               "name": "maxResults",
-              "description": "The maximum number of results to return.  Default is 20.",
+              "description": "The maximum number of results to return. Default is 20.",
               "demoValue": 50
+            },
+            {
+              "type": "boolean",
+              "name": "useMobileShortName",
+              "description": "True if the market name should be in short form. Helpful when displaying data on a small screen.",
+              "default": false
             }
           ]
         },
         "TagLookup": {
-          "description": "<p>Gets all of the tags the the requesting user is allowed to see. Tags are returned in a primary / secondary hierarchy.</p>",
+          "description": "<p>Gets all of the tags that the requesting user is allowed to see. Tags are returned in a primary / secondary hierarchy.</p> There are no parameters in this call.",
           "target": "market",
           "uriTemplate": "/market/taglookup",
           "contentType": "application/json",
@@ -503,7 +527,7 @@
           ]
         },
         "Order": {
-          "description": "<p>Place an order on a particular market. <p>Do not set any order id fields when requesting a new order, the platform will generate them.</p>",
+          "description": "<p>Place an order on a particular market. <p>Do not set any order ID fields when requesting a new order, the platform will generate them.</p>",
           "target": "order",
           "uriTemplate": "/newstoplimitorder",
           "contentType": "application/json",
@@ -583,7 +607,7 @@
             {
               "type": "integer",
               "name": "tradingAccountId",
-              "description": "The trading account to get orders for."
+              "description": "The ID of the trading account to get orders for."
             }
           ]
         },
@@ -604,12 +628,12 @@
             {
               "type": "integer",
               "name": "tradingAccountId",
-              "description": "The trading account to get orders for."
+              "description": "The ID of the trading account to get orders for."
             }
           ]
         },
         "GetActiveStopLimitOrder": {
-          "description": "<p>Queries for an active stop limit order with a specified order id. It returns a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder",
+          "description": "<p>Queries for an active stop limit order with a specified order ID. It returns a null value if the order doesn't exist, or is not an active stop limit order.<p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder.",
           "target": "order",
           "uriTemplate": "/{orderId}/activestoplimitorder",
           "contentType": "application/json",
@@ -625,12 +649,12 @@
             {
               "type": "string",
               "name": "orderId",
-              "description": "The requested order id."
+              "description": "The requested order ID."
             }
           ]
         },
         "GetOpenPosition": {
-          "description": "<p>Queries for a trade / open position with a specified order id. It returns a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder",
+          "description": "<p>Queries for a trade / open position with a specified order ID. It returns a null value if the order doesn't exist, or is not a trade / open position.</p> <p>This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.</p> <p>For a more comprehensive order response, see the HTTP service GetOrder.",
           "target": "order",
           "uriTemplate": "/{orderId}/openposition",
           "contentType": "application/json",
@@ -646,7 +670,7 @@
             {
               "type": "string",
               "name": "orderId",
-              "description": "The requested order id."
+              "description": "The requested order ID."
             }
           ]
         },
@@ -667,7 +691,7 @@
             {
               "type": "integer",
               "name": "tradingAccountId",
-              "description": "The trading account to get orders for."
+              "description": "The ID of the trading account to get orders for."
             },
             {
               "type": "integer",
@@ -693,7 +717,7 @@
             {
               "type": "integer",
               "name": "tradingAccountId",
-              "description": "The trading account to get orders for."
+              "description": "The ID of the trading account to get orders for."
             },
             {
               "type": "integer",
@@ -703,7 +727,7 @@
           ]
         },
         "GetOrder": {
-          "description": "<p>Queries for an order by a specific order id.</p> <p>The current implementation only returns active orders (i.e. those with a status of <b>1 - Pending, 2 - Accepted, 3 - Open, 6 - Suspended, 8 - Yellow Card, 11 - Triggered</b>).</p>",
+          "description": "<p>Queries for an order by a specific order ID.</p> <p>The current implementation only returns active orders (i.e. those with a status of <b>1 - Pending, 2 - Accepted, 3 - Open, 6 - Suspended, 8 - Yellow Card, 11 - Triggered</b>).</p>",
           "target": "order",
           "uriTemplate": "/{orderId}",
           "contentType": "application/json",
@@ -719,12 +743,12 @@
             {
               "type": "string",
               "name": "orderId",
-              "description": "The requested order id."
+              "description": "The requested order ID."
             }
           ]
         },
         "Trade": {
-          "description": "<p>Place a trade on a particular market.</p> <p>Do not set any order id fields when requesting a new trade, the platform will generate them.</p>",
+          "description": "<p>Place a trade on a particular market.</p> <p>Do not set any order ID fields when requesting a new trade, the platform will generate them.</p>",
           "target": "order",
           "uriTemplate": "/newtradeorder",
           "contentType": "application/json",
@@ -767,28 +791,6 @@
             }
           ]
         },
-        "GetChartingEnabled": {
-          "description": "Checks whether the supplied User Account is allowed to see Charting Data.",
-          "target": "useraccount",
-          "uriTemplate": "/UserAccount/{id}/ChartingEnabled",
-          "contentType": "application/json",
-          "responseContentType": "application/json",
-          "transport": "GET",
-          "envelope": "URL",
-          "returns": {
-            "type": "boolean"
-          },
-          "group": "AccountInformation",
-          "cacheDuration": 0,
-          "throttleScope": "data",
-          "parameters": [
-            {
-              "type": "string",
-              "name": "id",
-              "description": "The User Account ID to check."
-            }
-          ]
-        },
         "GetClientAndTradingAccount": {
           "description": "Returns the User's ClientAccountId and a list of their TradingAccounts. There are no parameters for this call.",
           "target": "useraccount",
@@ -826,79 +828,6 @@
             }
           ]
         },
-        "GetMessage": {
-          "description": "",
-          "target": "message",
-          "uriTemplate": "/Message/{id}?language={language}&category={category}",
-          "contentType": "application/json",
-          "responseContentType": "application/json",
-          "transport": "GET",
-          "envelope": "URL",
-          "returns": {
-            "type": "string"
-          },
-          "group": "Messages",
-          "cacheDuration": 3600000,
-          "parameters": [
-            {
-              "type": "string",
-              "name": "id"
-            },
-            {
-              "type": "string",
-              "name": "language"
-            },
-            {
-              "type": "string",
-              "name": "category"
-            }
-          ]
-        },
-        "GetMessagePopup": {
-          "description": "",
-          "target": "message",
-          "uriTemplate": "/message/popup?language={language}&ClientAccountId={clientAccountId}",
-          "contentType": "application/json",
-          "responseContentType": "application/json",
-          "transport": "GET",
-          "envelope": "URL",
-          "returns": {
-            "$ref": "#.GetMessagePopupResponseDTO"
-          },
-          "group": "Messages",
-          "cacheDuration": 0,
-          "parameters": [
-            {
-              "type": "string",
-              "name": "language"
-            },
-            {
-              "type": "integer",
-              "name": "clientAccountId"
-            }
-          ]
-        },
-        "AcceptOrRejectMessagePopupResponse": {
-          "description": "",
-          "target": "message",
-          "uriTemplate": "/message/popupchoice?ClientAccountId={clientAccountId}&Accepted={accepted}",
-          "contentType": "application/json",
-          "responseContentType": "application/json",
-          "transport": "GET",
-          "envelope": "URL",
-          "group": "Messages",
-          "cacheDuration": 0,
-          "parameters": [
-            {
-              "type": "integer",
-              "name": "clientAccountId"
-            },
-            {
-              "type": "boolean",
-              "name": "accepted"
-            }
-          ]
-        },
         "GetSystemLookup": {
           "description": "Use the message lookup service to get localised textual names for the various status code & Ids returned by the API. For example, a query for OrderStatusReasons will contain text names for all the possible values of OrderStatusReason in the ApiOrderResponseDTO. You should only request the list once per session (for each entity you're interested in).",
           "target": "message",
@@ -916,12 +845,12 @@
             {
               "type": "string",
               "name": "lookupEntityName",
-              "description": "The entity to lookup (eg OrderStatusReason, InstructionStatusReason, OrderApplicability or Culture)"
+              "description": "The entity to lookup (eg OrderStatusReason, InstructionStatusReason, OrderApplicability or Culture)."
             },
             {
               "type": "integer",
               "name": "cultureId",
-              "description": "The cultureId used to override the translated text description. (optional)"
+              "description": "The cultureId used to override the translated text description. (Optional)"
             }
           ]
         },
@@ -942,22 +871,22 @@
             {
               "type": "integer",
               "name": "clientApplicationId",
-              "description": "Client application identifier. (optional)"
+              "description": "Client application identifier. (Optional)"
             },
             {
               "type": "integer",
               "name": "cultureId",
-              "description": "CultureId which corresponds to a culture code. (optional)"
+              "description": "CultureId which corresponds to a culture code. (Optional)"
             },
             {
               "type": "integer",
               "name": "accountOperatorId",
-              "description": "Account operator identifier. (optional)"
+              "description": "Account operator identifier. (Optional)"
             }
           ]
         },
         "GetWatchlists": {
-          "description": "Gets all watchlists for the user account.",
+          "description": "Gets all watchlists for the user account. There are no parameters for this call.",
           "target": "watchlists",
           "uriTemplate": "/",
           "contentType": "application/json",
@@ -1045,7 +974,7 @@
       "target": "",
       "services": {
         "NewsHeadlines": {
-          "description": "Stream of current news headlines.  Try NEWS.HEADLINES.UK for a mock stream",
+          "description": "Stream of current news headlines. Try NEWS.HEADLINES.UK for a mock stream.",
           "target": "CITYINDEXSTREAMING",
           "channel": "NEWS.HEADLINES.{category}",
           "transport": "HTTP",
@@ -1058,7 +987,7 @@
             {
               "type": "string",
               "name": "category",
-              "description": "A news category",
+              "description": "A news category.",
               "minLength": 1,
               "maxLength": 100,
               "demoValue": "UK"
@@ -1066,7 +995,7 @@
           ]
         },
         "Prices": {
-          "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs",
+          "description": "Stream of current prices. Try PRICES.PRICE.154297 (GBP/USD (per 0.0001) CFD) which prices Mon - Fri 24hrs.",
           "target": "CITYINDEXSTREAMING",
           "channel": "PRICES.PRICE.{marketIds}",
           "transport": "HTTP",
@@ -1090,7 +1019,7 @@
           ]
         },
         "DefaultPrices": {
-          "description": "Stream of default prices for the specified account operator.  This stream does not require authentication, so can be used on a public website.  NB:  This stream returns prices for a group of markets, so check the MarketId & Name field when displaying.",
+          "description": "Stream of default prices for the specified account operator. This stream does not require authentication, so can be used on a public website.  NB:  This stream returns prices for a group of markets, so check the MarketId & Name field when displaying.",
           "endpoint": "CITYINDEXSTREAMINGDEFAULTPRICES",
           "channel": "{AccountOperatorId}",
           "transport": "HTTP",
@@ -1103,13 +1032,13 @@
             {
               "type": "string",
               "name": "AccountOperatorId",
-              "description": "The account operator id whose default market prices are required.  Generally you want to hardcode this depending on the brand you are using.  See http://faq.labs.cityindex.com/questions/what-are-the-list-of-accountoperatorids",
+              "description": "The account operator ID whose default market prices are required. Generally you want to hardcode this depending on the brand you are using.  See http://faq.labs.cityindex.com/questions/what-are-the-list-of-accountoperatorids",
               "demoValue": "3347"
             }
           ]
         },
         "ClientAccountMargin": {
-          "description": "Stream of clients current margin",
+          "description": "Stream of clients current margin.",
           "target": "STREAMINGCLIENTACCOUNT",
           "channel": "CLIENTACCOUNTMARGIN.ALL",
           "transport": "HTTP",
@@ -1120,7 +1049,7 @@
           "group": "Streaming API"
         },
         "TradeMargin": {
-          "description": "Stream of trade margin",
+          "description": "Stream of trade margin.",
           "target": "STREAMINGCLIENTACCOUNT",
           "channel": "TRADEMARGIN.All",
           "transport": "HTTP",
@@ -1131,7 +1060,7 @@
           "group": "Streaming API"
         },
         "Orders": {
-          "description": "Stream of orders",
+          "description": "Stream of orders.",
           "target": "STREAMINGCLIENTACCOUNT",
           "channel": "ORDERS.All",
           "transport": "HTTP",
@@ -1142,7 +1071,7 @@
           "group": "Streaming API"
         },
         "Quotes": {
-          "description": "Stream of quotes",
+          "description": "Stream of quotes.",
           "target": "STREAMINGTRADINGACCOUNT",
           "channel": "QUOTE.ALL",
           "transport": "HTTP",

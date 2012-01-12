@@ -644,7 +644,7 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The currency ID of the margin requirement for this order."
+          "description": "The currency ID of the margin requirement for this order. See the \"Currency ID\" section of the CIAPI User Guide for a listing of the currency IDs."
         },
         "MarginRequirementConvertedCurrencyISOCode": {
           "type": "string",
@@ -686,7 +686,7 @@
           "type": "integer",
           "minValue": -2147483648,
           "maxValue": 2147483647,
-          "description": "The currency ID of the OTE for this order."
+          "description": "The currency ID of the OTE for this order. See the \"Currency ID\" section of the CIAPI User Guide for a listing of the currency IDs."
         },
         "OTEConvertedCurrencyISOCode": {
           "type": "string",
@@ -1311,6 +1311,10 @@
         "MarketSettingsType": {
           "type": "string",
           "description": "The type of the market setting, ie Spread, CFD."
+        },
+        "MobileShortName": {
+          "type": "string",
+          "description": "A short summary of the market name used when presenting the market name on mobile clients."
         }
       },
       "description": "Contains market information."
@@ -2180,6 +2184,18 @@
           "minLength": 6,
           "maxLength": 20,
           "description": "Password is case sensitive."
+        },
+        "AppKey": {
+          "type": "string",
+          "description": "A unique key use to identify the client application."
+        },
+        "AppVersion": {
+          "type": "string",
+          "description": "The version of he client application."
+        },
+        "AppComments": {
+          "type": "string",
+          "description": "Any comments the client applications what to associate with this session. Optional."
         }
       },
       "description": "Request to create a session (log on)."
@@ -2506,6 +2522,14 @@
           "minLength": 36,
           "maxLength": 100,
           "description": "Your session token (treat as a random string). <BR /> Session tokens are valid for a set period from the time of their creation. <BR /> The period is subject to change, and may vary depending on who you logon as."
+        },
+        "PasswordChangeRequired": {
+          "type": "boolean",
+          "description": "Flag used it indicate if a password change is needed."
+        },
+        "AllowedAccountOperator": {
+          "type": "boolean",
+          "description": "Flag used it indicate if the account operator to which this use is associated is allowed to access the application."
         }
       },
       "description": "Response to a CreateSessionRequest (Log On)."

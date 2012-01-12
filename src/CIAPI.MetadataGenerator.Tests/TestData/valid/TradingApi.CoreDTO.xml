@@ -717,7 +717,8 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.MarginRequirementConvertedCurrencyId">
             <summary>
-             The currency ID of the margin requirement for this order.
+             The currency ID of the margin requirement for this order. See the "Currency ID" section 
+             of the CIAPI User Guide for a listing of the currency IDs.
             </summary>
             <jschema />
         </member>
@@ -759,7 +760,8 @@
         </member>
         <member name="P:TradingApi.CoreDTO.Streaming.TradeMarginDTO.OTEConvertedCurrencyId">
             <summary>
-             The currency ID of the OTE for this order.
+             The currency ID of the OTE for this order. See the "Currency ID" section 
+             of the CIAPI User Guide for a listing of the currency IDs. 
             </summary>
             <jschema />
         </member>
@@ -1442,6 +1444,12 @@
         <member name="P:TradingApi.CoreDTO.ApiMarketInformationDTO.MarketSettingsType">
             <summary>
             The type of the market setting, ie Spread, CFD.
+            </summary>
+            <jschema />
+        </member>
+        <member name="P:TradingApi.CoreDTO.ApiMarketInformationDTO.MobileShortName">
+            <summary>
+            A short summary of the market name used when presenting the market name on mobile clients.
             </summary>
             <jschema />
         </member>

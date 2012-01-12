@@ -12,7 +12,7 @@
         </member>
         <member name="M:RESTWebServices.IWatchlistService.GetWatchlists">
             <summary>
-             Gets all watchlists for the user account.
+             Gets all watchlists for the user account. There are no parameters for this call. 
             </summary>
             <returns></returns>
              <smd 
@@ -100,7 +100,7 @@
         </member>
         <member name="M:RESTWebServices.WatchlistService.UpdateUserWatchlistsDispayOrder(RESTWebServicesDTO.Request.UpdateWatchlistDisplayOrderRequestDTO)">
             <summary>
-             Update user watchlists
+             Update user watchlists.
             </summary>
             <param name="updateWatchlistDisplayOrderRequestDTO"></param>
             <returns></returns>
@@ -109,15 +109,16 @@
         <member name="T:RESTWebServices.ICfdMarkets">
             <smd/>
         </member>
-        <member name="M:RESTWebServices.ICfdMarkets.ListCfdMarkets(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:RESTWebServices.ICfdMarkets.ListCfdMarkets(System.String,System.String,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Returns a list of CFD markets filtered by market name and/or market code. Leave the market name and code parameters empty to return all markets available to the User. 
             </summary>
-            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the CFD market name starts with (Optional).</param>
-            <param name="searchByMarketCode" minLength="1" maxLength="50">The characters that the market code starts with, normally this is the RIC code for the market (Optional).</param>
+            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the CFD market name starts with. (Optional).</param>
+            <param name="searchByMarketCode" minLength="1" maxLength="50">The characters that the market code starts with, normally this is the RIC code for the market. (Optional).</param>
             <param name="clientAccountId" minimum="1" maximum="2147483647" demoValue="123456" required="true">The logged on user&apos;s ClientAccountId. This only shows you the markets that the user can trade. (Required).</param>
             <param name="maxResults" minimum="1" maximum="200" demoValue="20" default="20">The maximum number of markets to return.</param>
-            <returns>A list of markets matching all of the search criteria</returns>
+            <param name="useMobileShortName" default="false">True if the market name should be in short form. Helpful when displaying data on a small screen.</param>
+            <returns>A list of markets matching all of the search criteria.</returns>
             <smd group="CFD Markets" 
                  throttleScope="data" 
                  cacheDuration="0" />
@@ -176,16 +177,17 @@
         <member name="T:RESTWebServices.ISpreadMarkets">
             <smd/>
         </member>
-        <member name="M:RESTWebServices.ISpreadMarkets.ListSpreadMarkets(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:RESTWebServices.ISpreadMarkets.ListSpreadMarkets(System.String,System.String,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Returns a list of Spread Betting markets filtered by market name and/or market code.
             Leave the market name and code parameters empty to return all markets available to the User.
             </summary>
-            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the Spread market name starts with (Optional).</param>
-            <param name="searchByMarketCode" minLength="1" maxLength="50" demoValue="VOD.L">The characters that the Spread market code starts with, normally this is the RIC code for the market (Optional).</param>
+            <param name="searchByMarketName" minLength="1" maxLength="120" demoValue="voda">The characters that the Spread market name starts with. (Optional).</param>
+            <param name="searchByMarketCode" minLength="1" maxLength="50" demoValue="VOD.L">The characters that the Spread market code starts with, normally this is the RIC code for the market. (Optional).</param>
             <param name="clientAccountId" minimum="1" maximum="84272157" demoValue="123456">The logged on user&apos;s ClientAccountId. (This only shows you markets that you can trade on.)</param>
             <param name="maxResults" minimum="1" maximum="500" demoValue="20" optional="true" default="20">The maximum number of markets to return.</param>
-            <returns>A list of markets matching all of the search criteria</returns>
+            <param name="useMobileShortName" default="false">True if the market name should be in short form. Helpful when displaying data on a small screen.</param>
+            <returns>A list of markets matching all of the search criteria.</returns>
             <smd group="Spread Markets" cacheDuration="0" throttleScope="data"/>
         </member>
         <member name="T:RESTWebServices.IApiMessagesService">
@@ -199,8 +201,7 @@
             <param name="language"></param>
             <param name="category"></param>
             <returns></returns>
-            <smd group="Messages" 
-                 cacheDuration="3600000" />
+            <smd exclude="true" cacheDuration="3600000" />
         </member>
         <member name="M:RESTWebServices.IApiMessagesService.GetMessagePopup(System.String,System.Int32)">
             <summary>
@@ -209,7 +210,7 @@
             <param name="language"></param>
             <param name="clientAccountId"></param>
             <returns></returns>
-            <smd group="Messages" cacheDuration="0" />
+            <smd exclude="true" />
         </member>
         <member name="M:RESTWebServices.IApiMessagesService.AcceptOrRejectMessagePopupResponse(System.Int32,System.Boolean)">
             <summary>
@@ -217,7 +218,7 @@
             </summary>
             <param name="clientAccountId"></param>
             <param name="accepted"></param>
-            <smd group="Messages" cacheDuration="0"/>
+            <smd exclude="true"/>
         </member>
         <member name="M:RESTWebServices.IApiMessagesService.GetSystemLookup(System.String,System.Int32)">
             <summary>
@@ -225,17 +226,17 @@
             For example, a query for OrderStatusReasons will contain text names for all the possible values of OrderStatusReason in the ApiOrderResponseDTO.
             You should only request the list once per session (for each entity you're interested in).
             </summary>
-            <param name="lookupEntityName">The entity to lookup (eg OrderStatusReason, InstructionStatusReason, OrderApplicability or Culture)</param>
-            <param name="cultureId">The cultureId used to override the translated text description. (optional)</param>
+            <param name="lookupEntityName">The entity to lookup (eg OrderStatusReason, InstructionStatusReason, OrderApplicability or Culture).</param>
+            <param name="cultureId">The cultureId used to override the translated text description. (Optional)</param>
             <smd group="Messages" cacheDuration="3600000"/>
         </member>
         <member name="M:RESTWebServices.IApiMessagesService.GetClientApplicationMessageTranslation(System.Int32,System.Int32,System.Int32)">
             <summary>
             Use the message translation service to get client specific translated textual strings.
             </summary>
-            <param name="clientApplicationId">Client application identifier. (optional)</param>
-            <param name="cultureId">CultureId which corresponds to a culture code. (optional)</param>
-            <param name="accountOperatorId">Account operator identifier. (optional)</param>
+            <param name="clientApplicationId">Client application identifier. (Optional)</param>
+            <param name="cultureId">CultureId which corresponds to a culture code. (Optional)</param>
+            <param name="accountOperatorId">Account operator identifier. (Optional)</param>
             <smd group="Messages" cacheDuration="3600000"/>
         </member>
         <member name="T:RESTWebServices.BugException">
@@ -258,7 +259,7 @@
             </summary>
             <param name="id">The User Account ID to check.</param>
             <returns></returns>
-            <smd group="AccountInformation" throttleScope="data" cacheDuration="0"/>
+            <smd exclude="true"/>
         </member>
         <member name="M:RESTWebServices.IAccountInformationService.GetClientAndTradingAccount">
             <summary>
@@ -380,7 +381,7 @@
              &lt;/ul&gt;
              
             </summary>
-            <param name="marketId" demoValue="71442">The marketId.</param>
+            <param name="marketId" demoValue="71442">The ID of the market.</param>
             <param name="interval" demoValue="MINUTE">The pricebar interval.</param>
             <param name="span" demoValue="1">The number of each interval per pricebar.</param>
             <param name="priceBars" demoValue="15">The total number of pricebars to return.</param>
@@ -392,7 +393,7 @@
              Returns price ticks in ascending order up to the current time.
              The length of time that elapses between each tick is usually different.
             </summary>
-            <param name="marketId" demoValue="71442">The marketId.</param>
+            <param name="marketId" demoValue="71442">The market ID.</param>
             <param name="priceTicks" demoValue="10">The total number of price ticks to return.</param>
              <smd group="Price History"  cacheDuration="0" throttleScope="data"/>
         </member>
@@ -402,7 +403,7 @@
         <member name="M:RESTWebServices.IOrderService.Order(RESTWebServicesDTO.Request.NewStopLimitOrderRequestDTO)">
             <summary>
             &lt;p&gt;Place an order on a particular market.  
-            &lt;p&gt;Do not set any order id fields when requesting a new order, the platform will generate them.&lt;/p&gt;
+            &lt;p&gt;Do not set any order ID fields when requesting a new order, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="order">The order request.</param>
             <smd group="Trades and Orders" throttleScope="trading" cacheDuration="0"/>
@@ -436,7 +437,7 @@
             &lt;p&gt;Queries for a specified trading account's trades / open positions.&lt;/p&gt;
             &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetOpenPosition when you get updates on the order stream to get the updated data in this format.&lt;/p&gt; 
             </summary>
-            <param name="tradingAccountId">The trading account to get orders for.</param>
+            <param name="tradingAccountId">The ID of the trading account to get orders for.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.ListActiveStopLimitOrders(System.Int32)">
@@ -444,25 +445,25 @@
             &lt;p&gt;Queries for a specified trading account's active stop / limit orders.&lt;/p&gt;
             &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call this for the initial data to display in the grid, and call the HTTP service GetActiveStopLimitOrder when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
             </summary>
-            <param name="tradingAccountId">The trading account to get orders for.</param>
+            <param name="tradingAccountId">The ID of the trading account to get orders for.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.GetActiveStopLimitOrder(System.String)">
             <summary>
-            &lt;p&gt;Queries for an active stop limit order with a specified order id. It returns a null value if the order doesn't exist, or is not an active stop limit order.&lt;p&gt;
+            &lt;p&gt;Queries for an active stop limit order with a specified order ID. It returns a null value if the order doesn't exist, or is not an active stop limit order.&lt;p&gt;
             &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListActiveStopLimitOrders for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
-            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder
+            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder.
             </summary>
-            <param name="orderId">The requested order id.</param>
+            <param name="orderId">The requested order ID.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.GetOpenPosition(System.String)">
             <summary>
-            &lt;p&gt;Queries for a trade / open position with a specified order id. It returns a null value if the order doesn't exist, or is not a trade / open position.&lt;/p&gt;
+            &lt;p&gt;Queries for a trade / open position with a specified order ID. It returns a null value if the order doesn't exist, or is not a trade / open position.&lt;/p&gt;
             &lt;p&gt;This uri is intended to support a grid in a UI. One usage pattern is to subscribe to streaming orders, call the HTTP service ListOpenPositions for the initial data to display in the grid, and call this uri when you get updates on the order stream to get the updated data in this format.&lt;/p&gt;
-            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder
+            &lt;p&gt;For a more comprehensive order response, see the HTTP service GetOrder.
             </summary>
-            <param name="orderId">The requested order id.</param>
+            <param name="orderId">The requested order ID.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.ListTradeHistory(System.Int32,System.Int32)">
@@ -470,7 +471,7 @@
             &lt;p&gt;Queries for a specified trading account's trade history. The result set will contain orders with a status of &lt;b&gt;(3 - Open, 9 - Closed)&lt;/b&gt;, and includes &lt;b&gt;orders that were a trade / stop / limit order&lt;/b&gt;.&lt;/p&gt;
             &lt;p&gt;There's currently no corresponding GetTradeHistory (as with ListOpenPositions).
             </summary>
-            <param name="tradingAccountId">The trading account to get orders for.</param>
+            <param name="tradingAccountId">The ID of the trading account to get orders for.</param>
             <param name="maxResults">The maximum number of results to return.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
@@ -479,16 +480,16 @@
             &lt;p&gt;Queries for a specified trading account's stop / limit order history. The result set includes &lt;b&gt;only orders that were originally stop / limit orders&lt;/b&gt; that currently have one of the following statuses &lt;b&gt;(3 - Open, 4 - Cancelled, 5 - Rejected, 9 - Closed, 10 - Red Card)&lt;/b&gt;. &lt;/p&gt;
             &lt;p&gt;There's currently no corresponding GetStopLimitOrderHistory (as with ListActiveStopLimitOrders).&lt;/p&gt;
             </summary>
-            <param name="tradingAccountId">The trading account to get orders for.</param>
+            <param name="tradingAccountId">The ID of the trading account to get orders for.</param>
             <param name="maxResults">The maximum number of results to return.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IOrderService.GetOrder(System.String)">
             <summary>
-            &lt;p&gt;Queries for an order by a specific order id.&lt;/p&gt;
+            &lt;p&gt;Queries for an order by a specific order ID.&lt;/p&gt;
             &lt;p&gt;The current implementation only returns active orders (i.e. those with a status of &lt;b&gt;1 - Pending, 2 - Accepted, 3 - Open, 6 - Suspended, 8 - Yellow Card, 11 - Triggered&lt;/b&gt;).&lt;/p&gt;
             </summary>
-            <param name="orderId">The requested order id.</param>
+            <param name="orderId">The requested order ID.</param>
             <smd group="Trades and Orders" cacheDuration="0"/>
         </member>
         <member name="T:RESTWebServices.ITradeService">
@@ -497,7 +498,7 @@
         <member name="M:RESTWebServices.ITradeService.Trade(RESTWebServicesDTO.Request.NewTradeOrderRequestDTO)">
             <summary>
             &lt;p&gt;Place a trade on a particular market.&lt;/p&gt;
-            &lt;p&gt;Do not set any order id fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
+            &lt;p&gt;Do not set any order ID fields when requesting a new trade, the platform will generate them.&lt;/p&gt;
             </summary>
             <param name="trade">The trade request.</param>
             <smd group="Trades and Orders" throttleScope="trading" cacheDuration="0"/>
@@ -561,10 +562,10 @@
         </member>
         <member name="M:RESTWebServices.INews.ListNewsHeadlinesWithSource(System.String,System.String,System.Int32)">
             <summary>
-             Get a list of current news headlines
+             Get a list of current news headlines.
             </summary>
             <param name="category" demoValue="UK" minLength="2" maxLength="3">Filter headlines by category. Valid categories depend on the source used:  for dj: uk|aus, for ci: SEMINARSCHINA, for mni: ALL.</param>
-            <param name="maxResults" demoValue="10" default="25" minimum="1" maximum="500">Specify the maximum number of headlines returned</param>
+            <param name="maxResults" demoValue="10" default="25" minimum="1" maximum="500">Specify the maximum number of headlines returned.</param>
             <param name="source" demoValue="dj">The news feed source provider. Valid options are: dj|mni|ci.</param>
              <smd group="News" cacheDuration="10000" throttleScope="data"/>
         </member>
@@ -573,11 +574,11 @@
         </member>
         <member name="M:RESTWebServices.INews.GetNewsDetail(System.String,System.String)">
             <summary>
-             Get the detail of the specific news story matching the story Id in the parameter. 
+             Get the detail of the specific news story matching the story ID in the parameter. 
             </summary>
-            <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story Id.</param>
+            <param name="storyId" demoValue="12654" minLength="1" maxLength="9">The news story ID.</param>
             <param name="source" demoValue="dj">The news feed source provider. Valid options are dj|mni|ci.</param>
-             <smd group="News" cacheDuration="10000" throttleScope="data"/>
+            <smd group="News" cacheDuration="10000" throttleScope="data" uriTemplate="/{source}/{storyId}" />
         </member>
         <member name="M:RESTWebServices.INews.ListNewsHeadlines(System.String,System.Int32)">
             <smd exclude="true" />
@@ -693,11 +694,11 @@
             <summary>
             &lt;p&gt;Get Market Information for the single specified market supplied in the parameter.&lt;/p&gt;
             </summary>
-            <param name="marketId" demoValue="71442">The marketId.</param>
+            <param name="marketId" demoValue="71442">The market ID.</param>
             <returns></returns>
             <smd group="Market" throttleScope="data" cacheDuration="1000"/>
         </member>
-        <member name="M:RESTWebServices.IMarketInformationService.ListMarketInformationSearch(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.Int32)">
+        <member name="M:RESTWebServices.IMarketInformationService.ListMarketInformationSearch(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.Int32,System.Boolean)">
             <summary>
             &lt;p&gt;Returns market information for the markets that meet the search criteria.&lt;/p&gt;
             The search can be performed by market code and/or market name, and can include CFDs and Spread Bet markets. 
@@ -709,22 +710,25 @@
             <param name="binaryProductType" demoValue="true">Sets the search to include binary markets.</param>
             <param name="query" demoValue="UK 100">The text to search for. Matches part of market name / code from the start.</param>
             <param name="maxResults" demoValue="50">The maximum number of results to return.</param>
+            <param name="useMobileShortName" default="false">True if the market name should be in short form.  Helpful when displaying data on a small screen.</param>
             <returns></returns>
             <smd group="Market" throttleScope="data" cacheDuration="0"/>
         </member>
-        <member name="M:RESTWebServices.IMarketInformationService.SearchWithTags(System.String,System.Int32,System.Int32)">
+        <member name="M:RESTWebServices.IMarketInformationService.SearchWithTags(System.String,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Get market information and tags for the markets that meet the search criteria.
             </summary>
             <param name="query" demoValue="UK 100">The text to search for. Matches part of market name / code from the start.</param>
-            <param name="maxResults" demoValue="50">The maximum number of results to return.  Default is 20.</param>
-            <param name="tagId" demoValue="0">The ID for the tag to be searched (optional).</param>
+            <param name="maxResults" demoValue="50">The maximum number of results to return. Default is 20.</param>
+            <param name="tagId" demoValue="0">The ID for the tag to be searched. (Optional).</param>
+            <param name="useMobileShortName" default="false">True if the market name should be in short form. Helpful when displaying data on a small screen.</param>
             <returns>A list of markets and a second list of tags.</returns>
             <smd group="Market" throttleScope="data" cacheDuration="0"/>
         </member>
         <member name="M:RESTWebServices.IMarketInformationService.TagLookup">
             <summary>
-            &lt;p&gt;Gets all of the tags the the requesting user is allowed to see.  Tags are returned in a primary / secondary hierarchy.&lt;/p&gt;
+            &lt;p&gt;Gets all of the tags that the requesting user is allowed to see. Tags are returned in a primary / secondary hierarchy.&lt;/p&gt;
+            There are no parameters in this call. 
             </summary>
             <returns>A list of tags in a primary / secondary hierarchy.</returns>
             <smd group="Market" throttleScope="data" cacheDuration="0"/>

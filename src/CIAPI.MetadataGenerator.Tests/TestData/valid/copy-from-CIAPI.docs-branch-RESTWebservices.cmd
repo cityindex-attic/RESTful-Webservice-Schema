@@ -1,5 +1,5 @@
 attrib /S -R *.*
-xcopy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\Metadata 											C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\Metadata
+REM xcopy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\Metadata 											C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\Metadata
 copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll							C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll											
 copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll.CodeAnalysisLog.xml        C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll.CodeAnalysisLog.xml
 copy /Y C:\Dev\UTP\DevelopmentBranches\CIAPI.docs\Source\Servers\RESTWebServices\RESTWebServices\bin\RESTWebServices.dll.lastcodeanalysissucceeded  C:\Dev\RESTful-Webservice-Schema\src\CIAPI.MetadataGenerator.Tests\TestData\valid\RESTWebServices.dll.lastcodeanalysissucceeded
