@@ -8,6 +8,7 @@
     <DropReportsDirectory>$(DropDirectory)\reports</DropReportsDirectory>
 
     <NuGetEXE>$(ProgramFiles86)\nuget\nuget.exe</NuGetEXE>
+	<NuGet_apiKey Condition="'$(NuGet_apiKey)'==''">You must call with /p:NuGet_apiKey={yourkey} to publish to nuget</NuGet_apiKey>
   </PropertyGroup>
 
   <Target Name="Package" DependsOnTargets="CreateDropDirectories;CopyMSBuildOutputToDropDirectory;CopyLicenseToAllDirectories;CopyReportsToDropFolder">
@@ -17,7 +18,7 @@
   </Target>
 
   <Target Name="PublishToNugetOrg" DependsOnTargets="Package">
-     <Exec Command='"$(NuGetEXE)" push $(DropDirectory)\RESTful-Webservice-Schema.$(Major).$(Minor).$(Build).$(Revision).nupkg' ContinueOnError='false' WorkingDirectory='$(DropDirectory)'/>
+     <Exec Command='"$(NuGetEXE)" push $(DropDirectory)\RESTful-Webservice-Schema.$(Major).$(Minor).$(Build).$(Revision).nupkg $(NuGet_apiKey)' ContinueOnError='false' WorkingDirectory='$(DropDirectory)'/>
   </Target>
   
   <Target Name="CreateDropDirectories">
